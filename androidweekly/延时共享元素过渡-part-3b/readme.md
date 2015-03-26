@@ -201,13 +201,13 @@ As always, thanks for reading! Feel free to leave a comment if you have any ques
 
 4 A good way to test the behavior of your shared element return/reenter transitions is by going into the Developer Options and enabling the "Don't keep activities" setting. This will help test the worst case scenario in which the calling activity will need to recreate its layout, requery any necessary data, etc. before the return transition begins. 
 
-<span id="1"/> **1**: 当然，许多应用通过调用[`FragmentManager#executePendingTransactions()`](https://developer.android.com/reference/android/app/FragmentManager.html#executePendingTransactions())来避开这个问题，这样会强制立即执行FragmentTransactions而不是异步。
+<span id="1"/>**1**</span>: 当然，许多应用通过调用[`FragmentManager#executePendingTransactions()`](https://developer.android.com/reference/android/app/FragmentManager.html#executePendingTransactions())来避开这个问题，这样会强制立即执行FragmentTransactions而不是异步。
 
-<span id="2"/> **2**: 注意!`postponeEnterTransition()`和`startPostponedEnterTransition()`只对Activity过渡起作用，对Fragment无效。详细信息可以在这里找到[StackOverflow](http://stackoverflow.com/questions/26977303/how-to-postpone-a-fragments-enter-transition-in-android-lollipop)&[Google+](https://plus.google.com/+AlexLockwood/posts/3DxHT42rmmY)
+<span id="2"/>**2**</span>: 注意!`postponeEnterTransition()`和`startPostponedEnterTransition()`只对Activity过渡起作用，对Fragment无效。详细信息可以在这里找到[StackOverflow](http://stackoverflow.com/questions/26977303/how-to-postpone-a-fragments-enter-transition-in-android-lollipop)&[Google+](https://plus.google.com/+AlexLockwood/posts/3DxHT42rmmY)
  
-<span id="3"/> **3**: 小贴士:你可以先调用[`View#isLayoutRequested()`](http://developer.android.com/reference/android/view/View.html#isLayoutRequested())来确认是否需要调用[`OnPreDrawListener`][OnPreDrawListener]，有必要的话[`View#isLaidOut()`](http://developer.android.com/reference/android/view/View.html#isLaidOut())在一些情况下也能派上用场
+<span id="3">**3**</span>: 小贴士:你可以先调用[`View#isLayoutRequested()`](http://developer.android.com/reference/android/view/View.html#isLayoutRequested())来确认是否需要调用[`OnPreDrawListener`][OnPreDrawListener]，有必要的话[`View#isLaidOut()`](http://developer.android.com/reference/android/view/View.html#isLaidOut())在一些情况下也能派上用场
 
-<span id="4"/> **4**: 在开发者选项中启用不保留Activity选项可以方便调试共享元素的返回/重新进入过渡行为，这可以帮助测试返回的过渡效果开始之前最糟糕的情况(Activity需要重新构造布局加载数据...)
+<span id="4"/>**4**</span>: 在开发者选项中启用不保留Activity选项可以方便调试共享元素的返回/重新进入过渡行为，这可以帮助测试返回的过渡效果开始之前最糟糕的情况(Activity需要重新构造布局加载数据...)
 
 
 [source-url]:http://www.androiddesignpatterns.com/2015/03/activity-postponed-shared-element-transitions-part3b.html
