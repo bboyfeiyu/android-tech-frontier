@@ -74,7 +74,7 @@ The more complex the layout, the longer it will take to determine the shared ele
 
 - **共享元素存在于Activity托管的Fragment中**( a Fragment hosted by the called activity)。
 
-  [FragmentTransactions 在commit后不会被立即执行][FragmentTransactions];它们被安排到主线程等待执行。因此，如果共享元素存在的Fragment的视图层和FragmentTransaction没有被及时执行，系统有可能在共享元素被正确测量大小和布局到屏幕前启动共享元素过渡。[1](#1)
+  [FragmentTransactions 在commit后不会被立即执行][FragmentTransactions];它们被安排到主线程等待执行。因此，如果共享元素存在的Fragment的视图层和FragmentTransaction没有被及时执行，系统有可能在共享元素被正确测量大小和布局到屏幕前启动共享元素过渡。<a id="b1" href="#1">1</a>
 
 ---
 
@@ -97,9 +97,9 @@ At this point you might be thinking, "If only there was a way to temporarily del
 
 To temporarily prevent the shared element transition from starting, call postponeEnterTransition() in your called activity's onCreate() method. Later, when you know for certain that all of your shared elements have been properly positioned and sized, call startPostponedEnterTransition() to resume the transition. A common pattern you'll find useful is to start the postponed transition in an OnPreDrawListener, which will be called after the shared element has been measured and laid out:3
 
-所以只要有一种方式可以暂时延迟**过渡**，直到共享元素被妥善测量布局完毕就好了。幸好Activity Transitions API[2](#2)为我们提供了解决方案。
+所以只要有一种方式可以暂时延迟**过渡**，直到共享元素被妥善测量布局完毕就好了。幸好Activity Transitions API<a id="b2" href="#2">2</a>为我们提供了解决方案。
 
-在 Activity 的`onCreate()`中调用[`postponeEnterTransition()`][postponeEnterTransition]方法来暂时阻止启动共享元素过渡。之后，你需要在共享元素准备好后调用[`startPostponedEnterTransition`][startPostponedEnterTransition]来恢复过渡效果。常见的模式是在一个[`OnPreDrawListener`][onPreDrawListener]中启动延时过渡，它会在共享元素测量和布局完毕后被调用[3](#3)。
+在 Activity 的`onCreate()`中调用[`postponeEnterTransition()`][postponeEnterTransition]方法来暂时阻止启动共享元素过渡。之后，你需要在共享元素准备好后调用[`startPostponedEnterTransition`][startPostponedEnterTransition]来恢复过渡效果。常见的模式是在一个[`OnPreDrawListener`][onPreDrawListener]中启动延时过渡，它会在共享元素测量和布局完毕后被调用<a id="b3" href="#3">3</a>。
 
 
 
@@ -147,9 +147,9 @@ private void scheduleStartPostponedTransition(final View sharedElement) {
 }
 ```
 
-Despite their names, these two methods can also be used to postpone shared element return transitions as well. Simply postpone the return transition within the calling Activity's onActivityReenter() method instead:[4](#4)
+Despite their names, these two methods can also be used to postpone shared element return transitions as well. Simply postpone the return transition within the calling Activity's onActivityReenter() method instead:
 0.0？
-忽略方法名，第二种方法也可以被用来暂缓共享元素返回过渡，在调用Activity的[`onActivityReenter()`][onActivityReenter] 方法中延缓返回过渡
+忽略方法名，第二种方法也可以被用来暂缓共享元素返回过渡，在调用Activity的[`onActivityReenter()`][onActivityReenter] 方法中延缓返回过渡<a id="b4" href="#4">4</a>
 
 ```java
 /**
@@ -201,13 +201,14 @@ As always, thanks for reading! Feel free to leave a comment if you have any ques
 
 4 A good way to test the behavior of your shared element return/reenter transitions is by going into the Developer Options and enabling the "Don't keep activities" setting. This will help test the worst case scenario in which the calling activity will need to recreate its layout, requery any necessary data, etc. before the return transition begins. 
 
-<span id="1"/>**1**</span>: 当然，许多应用通过调用[`FragmentManager#executePendingTransactions()`](https://developer.android.com/reference/android/app/FragmentManager.html#executePendingTransactions())来避开这个问题，这样会强制立即执行FragmentTransactions而不是异步。
+<a id="1" href="#b1">**1**</a>: 当然，许多应用通过调用[`FragmentManager#executePendingTransactions()`](https://developer.android.com/reference/android/app/FragmentManager.html#executePendingTransactions())来避开这个问题，这样会强制立即执行FragmentTransactions而不是异步。
 
-<span id="2"/>**2**</span>: 注意!`postponeEnterTransition()`和`startPostponedEnterTransition()`只对Activity过渡起作用，对Fragment无效。详细信息可以在这里找到[StackOverflow](http://stackoverflow.com/questions/26977303/how-to-postpone-a-fragments-enter-transition-in-android-lollipop)&[Google+](https://plus.google.com/+AlexLockwood/posts/3DxHT42rmmY)
+<a id="2" href="#b2">**2**</a>: 注意!`postponeEnterTransition()`和`startPostponedEnterTransition()`只对Activity过渡起作用，对Fragment无效。详细信息可以在这里找到[StackOverflow](http://stackoverflow.com/questions/26977303/how-to-postpone-a-fragments-enter-transition-in-android-lollipop)&[Google+](https://plus.google.com/+AlexLockwood/posts/3DxHT42rmmY)
  
-<span id="3">**3**</span>: 小贴士:你可以先调用[`View#isLayoutRequested()`](http://developer.android.com/reference/android/view/View.html#isLayoutRequested())来确认是否需要调用[`OnPreDrawListener`][OnPreDrawListener]，有必要的话[`View#isLaidOut()`](http://developer.android.com/reference/android/view/View.html#isLaidOut())在一些情况下也能派上用场
+<a id="3" href="#b3">**3**</a>: 小贴士:你可以先调用[`View#isLayoutRequested()`](http://developer.android.com/reference/android/view/View.html#isLayoutRequested())来确认是否需要调用[`OnPreDrawListener`][OnPreDrawListener]，有必要的话[`View#isLaidOut()`](http://developer.android.com/reference/android/view/View.html#isLaidOut())在一些情况下也能派上用场
 
-<span id="4"/>**4**</span>: 在开发者选项中启用不保留Activity选项可以方便调试共享元素的返回/重新进入过渡行为，这可以帮助测试返回的过渡效果开始之前最糟糕的情况(Activity需要重新构造布局加载数据...)
+
+<a id="4" href="#b4">**4**</a>: 在开发者选项中启用不保留Activity选项可以方便调试共享元素的返回/重新进入过渡行为，这可以帮助测试返回的过渡效果开始之前最糟糕的情况(Activity需要重新构造布局加载数据...)
 
 
 [source-url]:http://www.androiddesignpatterns.com/2015/03/activity-postponed-shared-element-transitions-part3b.html
