@@ -56,6 +56,18 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 
 <b id="articles" />
 ## 已完成列表
+## 2015.4.3 ( 第三期 )
+| 文章名称 |   译者  |  出处  |
+|---------|--------|-------|
+| [深入了解Bundle和Map](androidweekly/深入了解Bundle和Map)  | [yinna317](https://github.com/yinna317)       |   [medium.com](https://medium.com/the-wtf-files/the-mysterious-case-of-the-bundle-and-the-map-7b15279a794e)    |
+| [Square 开源库Flow和Mortar的介绍](androidweekly/Square 开源库Flow和Mortar的介绍)  | [sundroid](https://github.com/sundroid)( [chaossss](https://github.com/chaossss) 协同翻译) |  [bignerdranch.com](http://www.bignerdranch.com/blog/an-investigation-into-flow-and-mortar/)  |
+| [使用RxJava.Observable取代AsyncTask和AsyncTaskLoader](others/使用RxJava.Observable取代AsyncTask和AsyncTaskLoader)  | [ZhaoKaiQiang](https://github.com/ZhaoKaiQiang)       |   [stablekernel.com](http://stablekernel.com/blog/replace-asynctask-asynctaskloader-rx-observable-rxjava-android-patterns/)  |
+| [上传拍下的照片、视频到服务器](others/上传拍下的照片、视频到服务器)  | [chaossss](https://github.com/chaossss)       |   [http://www.androidhive.info/](http://www.androidhive.info/2014/12/android-uploading-camera-image-video-to-server-with-progress-bar/)    |
+| [简化Android的UI开发](others/简化Android的UI开发)  | [chaossss](https://github.com/chaossss)       |   [zserge.com](http://zserge.com/blog/android-mvx.html)    |
+| [安卓字体渲染器](others/安卓字体渲染器)  | [7heaven](http://github.com/7heaven)       |   [medium.com](https://medium.com/@romainguy/androids-font-renderer-c368bbde87d9)    |
+
+
+
 ### 2015.3.27 ( 第二期)
 | 文章名称 |   译者  |  出处  |
 |---------|--------|-------|
@@ -65,6 +77,8 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 |[ListView或者RecycleView滚动时隐藏Toolbar(1)](androidweekly/ListView或者RecycleView滚动时隐藏Toolbar-part-1)  | [chaossss](https://github.com/chaossss)       |    [http://mzgreen.github.io] [scroll-part-1] |  
 |[ListView或者RecycleView滚动时隐藏Toolbar(2)](androidweekly/ListView或者RecycleView滚动时隐藏Toolbar-part-2)  | [chaossss](https://github.com/chaossss)       |    [http://mzgreen.github.io] [scroll-part-2]    |
 |[让你的Android应用能使用多种主题-Part-2](androidweekly/让你的Android应用能使用多种主题-Part-2)  | [chaossss](https://github.com/chaossss)       |    [AndroidWeekly Issue#144](http://androidweekly.net/issues/issue-144)    |
+| [清晰的软件架构 ( Bob大叔 )](others/清晰的软件架构)  | [zimoguo](https://github.com/zimoguo)       | [The Clean Architecture](http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html)    |
+
 
 
 [scroll-part-1]: http://mzgreen.github.io/2015/02/15/How-to-hideshow-Toolbar-when-list-is-scroling%28part1%29/
