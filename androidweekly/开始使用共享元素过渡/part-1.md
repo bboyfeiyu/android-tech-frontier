@@ -51,11 +51,11 @@ When a scene changes, a Transition has two main responsibilities:
 Capture the state of each view in both the start and end scenes, and
 Create an Animator based on the differences that will animate the views from one scene to the other.
 
-#先说下什么是过渡.
+#先说下什么是 Transition(过渡).
 Lollipop 中的 Activity 和 Fragment 过渡 是 Android 系统中一个比较新的特性。
 初次引入是在 KitKat 中，Transition 框架提供了一个方便的 API 来构建应用中不同 UI 状态切换时的动画。
-这个框架主要围绕两个关键概念:场景和过渡。
-场景描述应用中 UI 的状态，[Transition][transition] 确定两个场景转换之间的过渡动画。
+这个框架主要围绕两个关键概念:sence(场景)和transition(过渡)。
+场景描述应用中 UI 的状态，[transition][transition] 确定两个场景转换之间的过渡动画。
 
 当场景转换，过渡需要捕获每一个 View 的起始和结束时的状态，并根据这些数据来创建从一个场景
 到另一个场景间的过渡动画。
@@ -112,26 +112,25 @@ and the transition records each view's visibility.
 3. On the next display frame, the framework calls the transition's
 captureEndValues() method for each view in the scene and the transition
 records each view's (recently updated) visibility.
-
-然后我们一步一步地分析下这段代码，首先假设屏幕上的所有的 View 都是 **VISIBLE** 的:
-
-1. 首先，点击按钮后调用了 [beginDelayedTransition()][beginDelayedTransition]，
-传入场景的 root 和 [Fade][fade] 过渡效果(淡入/淡出)，框架立即对场景中所有 View 调用 Transition 的
-[captureStartValues()][captureStartValues]方法，并记录每个 View 的可见性。
-2. 当调用返回，开发者将场景中所有 View 设置为**INVISIBLE**。
-3. 在下一个画面，框架对场景中所有 View(近期更新的) 调用 Transition 的[captureEndValues()][captureEndValues]
-方法，记录可见性。
-
----
-
 4. The framework calls the transition's createAnimator() method. The transition
 analyzes the start and end values of each view and notices a difference: the
 views are VISIBLE in the start scene but INVISIBLE in the end scene. The Fade
 transition uses this information to create and return an AnimatorSet that will
 fade each view's alpha property to 0f.
-5.The framework runs the returned Animator, causing all views to gradually fade
+
+5. The framework runs the returned Animator, causing all views to gradually fade
 out of the screen.
 
+---
+
+然后我们一步一步地分析下这段代码，首先假设屏幕上的所有的 View 都是 **VISIBLE** 的:
+
+1. 首先，点击按钮后调用了 [beginDelayedTransition()][beginDelayedTransition]，
+传入场景的 root 和 [Fade][fade] 过渡效果(淡入/淡出)，框架立即对场景中所有 View 调用 transition 的
+[captureStartValues()][captureStartValues]方法，transition 记录每个 View 的可见性。
+2. 当调用返回，开发者将场景中所有 View 设置为**INVISIBLE**。
+3. 在下一个画面，框架对场景中所有 View(近期更新的) 调用 transition 的[captureEndValues()][captureEndValues]
+方法，transition 记录可见性。
 4. 框架调用过渡的 [createAnimator()][createAnimator] 方法。过渡分析每一个 View
 的起始和结束时状态，注意到 View 的可见性发生了变化。之后 **Fade** 对象利用这些信息来构建返回一个
 **AnimatorSet** 将每个 View 的 **alpha** 值渐变到 **0f**。
@@ -187,6 +186,7 @@ Let's begin by discussing the terminology that will be used in this series of po
 
 
 ---
+
 The Activity transition APIs are built around the idea of exit, enter, return, and reenter transitions. In the context of activities A and B defined above, we can describe each as follows:
 
 >Activity A's exit transition determines how views in A are animated when A starts B.
@@ -261,23 +261,82 @@ Creating a basic Activity transition is relatively easy using the new Lollipop A
 - Enable the new transition APIs by requesting the Window.FEATURE_ACTIVITY_TRANSITIONS window feature in your called and calling Activities, either programatically or in your theme's XML.3 Material-themed applications have this flag enabled by default.
 - Set exit and enter content transitions for your calling and called activities respectively. Material-themed applications have their exit and enter content transitions set to null and Fade respectively by default. If the reenter or return transitions are not explicitly set, the activity's exit and enter content transitions respectively will be used in their place instead.
 - Set exit and enter shared element transitions for your calling and called activities respectively. Material-themed applications have their shared element exit and enter transitions set to @android:transition/move by default. If the reenter or return transitions are not explicitly set, the activity's exit and enter shared element transitions respectively will be used in their place instead.
+- To start an Activity transition with content transitions and shared elements, call the startActivity(Context, Bundle) method and pass the following Bundle as the second argument:
+
+	```java
+	ActivityOptions.makeSceneTransitionAnimation(activity, pairs).toBundle();
+	```    
+where pairs is an array of Pair<View, String> objects listing the shared element views and names that you'd like to share between activities.4 Don't forget to give your shared elements unique transition names, either programatically or in XML. Otherwise, the transition will not work properly!
+
+- To programatically trigger a return transition, call finishAfterTransition() instead of finish().
+
+- By default, material-themed applications have their enter/return content transitions started a tiny bit before their exit/reenter content transitions complete, creating a small overlap that makes the overall effect more seamless and dramatic. If you wish to explicitly disable this behavior, you can do so by calling the setWindowAllowEnterTransitionOverlap() and setWindowAllowReturnTransitionOverlap() methods or by setting the corresponding attributes in your theme's XML.
+
 
 - 在你的A(调用Activity)和B(被调用Activity)的`.java`文件或者`xml`布局中请求启用[`Window.FEATURE_ACTIVITY_TRANSITIONS`][FEATURE_ACTIVITY_TRANSITIONS] 窗口特性，使用Material主题的应用默认已开启。
 - 为A和B单独设置 [**exit**][exit] 和 [**enter**][enter] content(内容)过渡。Material主题的 [**exit**][exit] 和 [**enter**][enter] content(内容)过渡默认分别是`null`和`Fade`。如果没有明确定义 [**reenter**][reenter] 或 [**return**][return] content(内容)过渡将会使用activity的 [**exit**][exit] 和 [**enter**][enter] 过渡来代替。
 - 为 A 和 B 设置 [**exit**][exit] 和 [**enter**][enter] 共享元素(Shared Element)过渡。Material主题中共享元素(Shared Element)默认设置[`@android:transition/move`][move]作为 [**exit**][exit] 和 [**enter**][enter] 过渡。如果没有明确的定义 [**reenter**][reenter] 和 [**return**][return] 过渡将会使用activity的 [**exit**][exit] 和 [**enter**][enter] 作为替代。
+- 启动一个包含 content 过渡和共享元素的Activity时要调用`startActivity(Context, Bundle) `方法，并传递
 
+	```java
+	ActivityOptions.makeSceneTransitionAnimation(activity, pairs).toBundle();
+	```    
+作为第二个参数，**pairs** 是一个 **Pair\<View, String>** 数组，记录Activity间 共享元素的View 和 相对应的特征字符串。别忘了
+在[程序][setTransitionName]中或[xml][xml]文件里给共享元素设置不重复的名称，否则过渡不会正常运行。
+- 通过程序启动一个返回过渡，调用 **finishAfterTransition()** 代替 **finish()**。
+- Material主题应用默认会在他们的**退出/重入**过渡完成前一点点启动**进入/返回** content 过渡，这样会在两个动画间产生一些重叠，让过渡更戏剧性。如果你想关闭这个特性可以调用 [ setWindowAllowEnterTransitionOverlap()][setAllowEnterTransitionOverlap] 和
+[setWindowAllowReturnTransitionOverlap()][setAllowReturnTransitionOverlap] 方法或者在xml文件里给定适当的属性
+
+---
+
+##Introducing the Fragment Transition API
+
+If you are working with Fragment transitions, the API is similar with a few small differences:
+
+- Content exit, enter, reenter, and return transitions should be set by calling the corresponding methods in the Fragment class or as attributes in your Fragment's XML tag.
+- Shared element enter and return transitions should be set by calling the corresponding methods in the Fragment class or as attributes in your Fragment's XML.
+- Whereas Activity transitions are triggered by explicit calls to startActivity() and finishAfterTransition(), Fragment transitions are triggered automatically when a fragment is added, removed, attached, detached, shown, or hidden by a FragmentTransaction.
+- Shared elements should be specified as part of the FragmentTransaction by calling the addSharedElement(View, String) method before the transaction is committed.
+
+
+##Fragment 的 Transition API
+如果你使用 Fragment 的 transition API，大部分 API 相似，但是会有一些小的不同:
+
+- content(内容) 的[退出][exit]，[进入][enter]，[重入][reenter]和[返回][return]过渡应该在fragment的`.java`文件中调用对应的方法或者在 xml 属性声明里设置。
+- 共享元素 的[进入][enter]和 [返回][return] 过渡应该在fragment的`.java`文件中调用对应的方法或者在 xml 属性声明里设置。
+- 鉴于Activity的过渡是通过调用 **startActivity()** 和 **finishAfterTransition()** 直接启动的,Fragment 的过渡是在 fragment
+被add, remove, attach, detach, show,或 hidden 后由 FragmentTransaction 自动启动。
+- 共享元素应该在transaction(事务)提交前调用[`addSharedElement(View, String)`][addSharedElement]声明为 **FragmentTransaction** 的一部分。
+
+---
+
+Conclusion
+
+In this post, we have only given a brief introduction to the new Activitiy and Fragment transition APIs. However, as we will see in the next few posts having a solid understanding of the basics will significantly speed up the development process in the long-run, especially when it comes to writing custom Transitions. In the posts that follow, we will cover content transitions and shared element transitions in even more depth and will obtain an even greater understanding of how Activity and Fragment transitions work under-the-hood.
+
+As always, thanks for reading! Feel free to leave a comment if you have any questions, and don't forget to +1 and/or share this blog post if you found it helpful!
+
+##结语
+这篇文章里我们只是简单的介绍了 Activitiy 和 Fragment transition API，但是在接下来的文章你会发现扎实的基础给你带来的好处，
+尤其是在讲到**自定义过渡**时。后面我们会非常深入的讲解 content 过渡和共享元素过渡，让你更加了解 Activity 和 Fragment 背后的工作。
+
+希望你喜欢我的文章，感谢观看～
+
+---
+
+
+
+ If you want to try the example out yourself, the XML layout code can be found here. ↩
+
+2 It might look like the views in A are fading in/out of the screen at first, but what you are really seeing is activity B fading in/out of the screen on top of activity A. The views in activity A are not actually animating during this time. You can adjust the duration of the background fade by calling setTransitionBackgroundFadeDuration() on the called activity's Window. ↩
+
+3 For an explanation describing the differences between the FEATURE_ACTIVITY_TRANSITIONS and FEATURE_CONTENT_TRANSITIONS window feature flags, see this StackOverflow post. ↩
+
+4 To start an Activity transition with content transitions but no shared elements, you can create the Bundle by calling ActivityOptions.makeSceneTransitionAnimation(activity).toBundle(). To disable content transitions and shared element transitions entirely, don't create a Bundle object at all—just pass null instead. ↩
 
 
 ---
-To start an Activity transition with content transitions and shared elements, call the startActivity(Context, Bundle) method and pass the following Bundle as the second argument:
 
-`ActivityOptions.makeSceneTransitionAnimation(activity, pairs).toBundle();`
-
-where pairs is an array of Pair<View, String> objects listing the shared element views and names that you'd like to share between activities.4 Don't forget to give your shared elements unique transition names, either programatically or in XML. Otherwise, the transition will not work properly!
-
-To programatically trigger a return transition, call finishAfterTransition() instead of finish().
-
-By default, material-themed applications have their enter/return content transitions started a tiny bit before their exit/reenter content transitions complete, creating a small overlap that makes the overall effect more seamless and dramatic. If you wish to explicitly disable this behavior, you can do so by calling the setWindowAllowEnterTransitionOverlap() and setWindowAllowReturnTransitionOverlap() methods or by setting the corresponding attributes in your theme's XML.
 
 ---
 
@@ -290,6 +349,8 @@ By default, material-themed applications have their enter/return content transit
 
 [beginDelayedTransition]:https://developer.android.com/reference/android/transition/TransitionManager.html#beginDelayedTransition(android.view.ViewGroup,%20android.transition.Transition)
 [captureStartValues]:https://developer.android.com/reference/android/transition/Transition.html#captureStartValues(android.transition.TransitionValues)
+[captureEndValues]:https://developer.android.com/reference/android/transition/Transition.html#captureEndValues(android.transition.TransitionValues)
+
 [createAnimator]:https://developer.android.com/reference/android/transition/Transition.html#createAnimator(android.view.ViewGroup,%20android.transition.TransitionValues,%20android.transition.TransitionValues)
 [video1.1]:http://www.androiddesignpatterns.com/assets/videos/posts/2014/12/04/trivial-opt.mp4
 [video1.2]:http://www.androiddesignpatterns.com/assets/videos/posts/2014/12/04/news-opt.mp4
@@ -306,3 +367,8 @@ By default, material-themed applications have their enter/return content transit
 [enter]:https://developer.android.com/reference/android/view/Window.html#setEnterTransition(android.transition.Transition)
 [reenter]:https://developer.android.com/reference/android/view/Window.html#setSharedElementReenterTransition(android.transition.Transition)
 [return]:https://developer.android.com/reference/android/view/Window.html#setReturnTransition(android.transition.Transition)
+[addSharedElement]:https://developer.android.com/reference/android/app/FragmentTransaction.html#addSharedElement(android.view.View,%20java.lang.String)
+[setTransitionName]:https://developer.android.com/reference/android/view/View.html#setTransitionName(java.lang.String)
+[xml]:https://developer.android.com/reference/android/view/View.html#attr_android:transitionName
+[setAllowEnterTransitionOverlap]:http://developer.android.com/reference/android/view/Window.html#setAllowEnterTransitionOverlap(boolean)
+[setAllowReturnTransitionOverlap]:http://developer.android.com/reference/android/view/Window.html#setAllowReturnTransitionOverlap(boolean)
