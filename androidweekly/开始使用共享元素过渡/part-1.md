@@ -60,7 +60,8 @@ Lollipop 中的 Activity 和 Fragment 过渡 是 Android 系统中一个比较�
 当场景转换，过渡需要捕获每一个 View 的起始和结束时的状态，并根据这些数据来创建从一个场景
 到另一个场景间的过渡动画。
 
-先上一段代码
+先上一段代码<a id="1" href="#b1">(1)</a>
+
 
 ---
 
@@ -233,7 +234,8 @@ Video 1.2 gives a nice illustration of content transitions and shared element tr
 - The return content transition for activity B is a TransitionSet that plays two child transitions in parallel: a Slide(Gravity.TOP) transition targeting the views in the top half of the activity and a Slide(Gravity.BOTTOM) transition targeting the views in the bottom half of the activity. The result is that the activity appears to "break in half" when the user clicks the back button and returns to activity A.
 - The enter and return shared element transitions both use a ChangeImageTransform, causing the ImageView to be animated seamlessly between the two activities.
 
-- **A**(调用Activity) 的**退出**和**重入**content(内容)过渡都是 **null**。因为用户退出和重入时Activity A中的非共享视图没有动画效果。
+- **A**(调用Activity) 的**退出**和**重入**content(内容)过渡都是 **null**。因为用户退出和重入时Activity A中的非共享视图没有动画效果。<a id="2" href="#b2">(2)</a>
+
 
 - **B**(被调用Activity) 的**进入**content(内容)过渡使用了一个自定义的 Slide 过渡将list item从底部移至屏幕中。
 
@@ -273,7 +275,8 @@ where pairs is an array of Pair<View, String> objects listing the shared element
 - By default, material-themed applications have their enter/return content transitions started a tiny bit before their exit/reenter content transitions complete, creating a small overlap that makes the overall effect more seamless and dramatic. If you wish to explicitly disable this behavior, you can do so by calling the setWindowAllowEnterTransitionOverlap() and setWindowAllowReturnTransitionOverlap() methods or by setting the corresponding attributes in your theme's XML.
 
 
-- 在你的A(调用Activity)和B(被调用Activity)的`.java`文件或者`xml`布局中请求启用[`Window.FEATURE_ACTIVITY_TRANSITIONS`][FEATURE_ACTIVITY_TRANSITIONS] 窗口特性，使用Material主题的应用默认已开启。
+- 在你的A(调用Activity)和B(被调用Activity)的`.java`文件或者`xml`<a id="3" href="#b3">(3)</a>
+布局中请求启用[`Window.FEATURE_ACTIVITY_TRANSITIONS`][FEATURE_ACTIVITY_TRANSITIONS] 窗口特性，使用Material主题的应用默认已开启。
 - 为A和B单独设置 [**exit**][exit] 和 [**enter**][enter] content(内容)过渡。Material主题的 [**exit**][exit] 和 [**enter**][enter] content(内容)过渡默认分别是`null`和`Fade`。如果没有明确定义 [**reenter**][reenter] 或 [**return**][return] content(内容)过渡将会使用activity的 [**exit**][exit] 和 [**enter**][enter] 过渡来代替。
 - 为 A 和 B 设置 [**exit**][exit] 和 [**enter**][enter] 共享元素(Shared Element)过渡。Material主题中共享元素(Shared Element)默认设置[`@android:transition/move`][move]作为 [**exit**][exit] 和 [**enter**][enter] 过渡。如果没有明确的定义 [**reenter**][reenter] 和 [**return**][return] 过渡将会使用activity的 [**exit**][exit] 和 [**enter**][enter] 作为替代。
 - 启动一个包含 content 过渡和共享元素的Activity时要调用`startActivity(Context, Bundle) `方法，并传递
@@ -281,7 +284,7 @@ where pairs is an array of Pair<View, String> objects listing the shared element
 	```java
 	ActivityOptions.makeSceneTransitionAnimation(activity, pairs).toBundle();
 	```    
-作为第二个参数，**pairs** 是一个 **Pair\<View, String>** 数组，记录Activity间 共享元素的View 和 相对应的特征字符串。别忘了
+作为第二个参数，**pairs** 是一个 **Pair\<View, String>** 数组，记录Activity间<a id="4" href="#b4">(4)</a> 共享元素的View 和 相对应的特征字符串。别忘了
 在[程序][setTransitionName]中或[xml][xml]文件里给共享元素设置不重复的名称，否则过渡不会正常运行。
 - 通过程序启动一个返回过渡，调用 **finishAfterTransition()** 代替 **finish()**。
 - Material主题应用默认会在他们的**退出/重入**过渡完成前一点点启动**进入/返回** content 过渡，这样会在两个动画间产生一些重叠，让过渡更戏剧性。如果你想关闭这个特性可以调用 [ setWindowAllowEnterTransitionOverlap()][setAllowEnterTransitionOverlap] 和
@@ -326,13 +329,28 @@ As always, thanks for reading! Feel free to leave a comment if you have any ques
 
 
 
- If you want to try the example out yourself, the XML layout code can be found here. ↩
+1. If you want to try the example out yourself, the XML layout code can be found here. <a id="b1" href="#1">↩</a>
 
-2 It might look like the views in A are fading in/out of the screen at first, but what you are really seeing is activity B fading in/out of the screen on top of activity A. The views in activity A are not actually animating during this time. You can adjust the duration of the background fade by calling setTransitionBackgroundFadeDuration() on the called activity's Window. ↩
+2. It might look like the views in A are fading in/out of the screen at first, but what you are really seeing is activity B fading in/out of the screen on top of activity A. The views in activity A are not actually animating during this time. You can adjust the duration of the background fade by calling setTransitionBackgroundFadeDuration() on the called activity's Window. <a id="b2" href="#2">↩</a>
 
-3 For an explanation describing the differences between the FEATURE_ACTIVITY_TRANSITIONS and FEATURE_CONTENT_TRANSITIONS window feature flags, see this StackOverflow post. ↩
+3. For an explanation describing the differences between the FEATURE_ACTIVITY_TRANSITIONS and FEATURE_CONTENT_TRANSITIONS window feature flags, see this StackOverflow post. <a id="b3" href="#3">↩</a>
 
-4 To start an Activity transition with content transitions but no shared elements, you can create the Bundle by calling ActivityOptions.makeSceneTransitionAnimation(activity).toBundle(). To disable content transitions and shared element transitions entirely, don't create a Bundle object at all—just pass null instead. ↩
+4. To start an Activity transition with content transitions but no shared elements, you can create the Bundle by calling ActivityOptions.makeSceneTransitionAnimation(activity).toBundle(). To disable content transitions and shared element transitions entirely, don't create a Bundle object at all—just pass null instead. <a id="b4" href="#4">↩</a>
+
+---
+
+1. 如果你想尝试这个例子，这里有[xml代码][xmlcode] <a id="b1" href="#1">↩</a>
+
+2. 第一眼看上去可能感觉是Activity A fade in/out 屏幕, 事实上是Activity B 在 Activity A 的上面渐变. A 中的 View 事实上是没有动画的. 你可以在被调用 Activity 的 Window 中使用[setTransitionBackgroundFadeDuration()][setTransitionBackgroundFadeDuration]方法调节背景渐变持续时间。 <a id="b2" href="#2">↩</a>
+
+3. 了解更多关于 **FEATURE_ACTIVITY_TRANSITIONS** 和 **FEATURE_CONTENT_TRANSITIONS** 窗口特性的不同可以看[这里StackOverflow Post][window-feature]<a id="b3" href="#3">↩</a>
+
+4. 启动一个包含content 过渡而不是共享元素过渡的Activity,可以这样创建**Bundle**    
+
+	```java
+ActivityOptions.makeSceneTransitionAnimation(activity).toBundle()
+	``` 
+如果想完全禁用content 过渡和共享元素过渡可以将 Bundle 设为 **null**. <a id="b4" href="#4">↩</a>
 
 
 ---
@@ -372,3 +390,6 @@ As always, thanks for reading! Feel free to leave a comment if you have any ques
 [xml]:https://developer.android.com/reference/android/view/View.html#attr_android:transitionName
 [setAllowEnterTransitionOverlap]:http://developer.android.com/reference/android/view/Window.html#setAllowEnterTransitionOverlap(boolean)
 [setAllowReturnTransitionOverlap]:http://developer.android.com/reference/android/view/Window.html#setAllowReturnTransitionOverlap(boolean)
+[xmlcode]:https://gist.github.com/alexjlockwood/a96781b876138c37e88e
+[window-feature]:http://stackoverflow.com/questions/28975840/feature-activity-transitions-vs-feature-content-transitions
+[setTransitionBackgroundFadeDuration]:http://developer.android.com/reference/android/view/Window.html#setTransitionBackgroundFadeDuration(long)
