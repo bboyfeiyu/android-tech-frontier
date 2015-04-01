@@ -1,5 +1,5 @@
 
-`延时共享元素过渡 (part 3b)`
+`共享元素过渡延时 (part 3b)`
 ---
 
 >
@@ -15,7 +15,7 @@
 
 
 
-#延时共享元素过渡 (part 3b)
+#共享元素过渡延时 (part 3b)
 This post continues our in-depth analysis of shared element transitions by discussing an important feature of the Lollipop Transition API: postponed shared element transitions. It is the fourth of a series of posts I will be writing on the topic:
 
 这篇文章继续我们关于共享元素过渡的深度分析，通过讨论Lollipop Transition API
