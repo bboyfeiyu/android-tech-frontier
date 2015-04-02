@@ -6,7 +6,7 @@
 * 原文链接 : [Getting Started with Activity & Fragment Transitions (part 1)][source-url]
 * 译者 : [tiiime](https://github.com/tiiime)
 * 校对者: [这里校对者的github用户名](github链接)  
-* 状态 :  未完成
+* 状态 :  寻找校对中
 
 
 #Getting Started with Activity & Fragment Transitions (part 1)
