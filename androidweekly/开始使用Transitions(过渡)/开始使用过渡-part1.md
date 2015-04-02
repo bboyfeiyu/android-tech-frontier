@@ -216,10 +216,10 @@ Lastly, the framework provides APIs for two types of Activity transitions—cont
 
 >A shared element transition determines how an activity's shared elements (also called hero views) are animated between two activities.
 
-最后，Transition 框架为Activity 的content(内容)过渡和共享元素(Shared Element)过渡提供了统一的自定义动画API:
+最后，Transition 框架提供了 **content(内容)**和**共享元素(Shared Element)** 两种类型的Activity过渡，每个都可以让我们以独特的方式自定义 Activity 切换间的动画
 
->content(内容)过渡确定了 非共享元素如何 进入/退出 Activity 场景
->共享元素(Shared Element)过渡确定了 两个Activity 共享的 View (也被叫做主角视图)的动画效果。
+>**content(内容)过渡** 确定了非共享元素如何 进入/退出 Activity 场景   
+>**共享元素(Shared Element)过渡** 确定了两个Activity 共享 View (也被叫做主角视图)的动画效果。
 
 ---
 

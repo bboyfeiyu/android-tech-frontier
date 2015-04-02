@@ -19,7 +19,7 @@
 This post continues our in-depth analysis of shared element transitions by discussing an important feature of the Lollipop Transition API: postponed shared element transitions. It is the fourth of a series of posts I will be writing on the topic:
 
 这篇文章继续我们关于共享元素过渡的深度分析，通过讨论Lollipop Transition API
-的一个重要的特性：延时共享元素过渡。这是我关于这个话题写的一系列文章中的第四篇。
+的一个重要的特性：延时共享元素过渡。这是我关于这个话题的第四篇文章。
 
 ---
 
@@ -53,7 +53,7 @@ A common source of problems when dealing with shared element transitions stems f
 
 ##理解问题
 
-通常问题的根源是系统在 Activity 生命周期非常早的时候启动共享元素过渡。回想我们的第一篇文章，Transitions 必须捕获目标 View 的起始和结束状态来构建合适的功能动画。因此，如果系统在共享元素被给定最终大小位置和适合调用 Activity 范围内的大小前启动了共享元素过渡，这个 transition 将不能正确捕获到共享元素的结束状态值,生成动画也会失败(一个过渡失败的例子[Video 3.3][video]).
+通常问题的根源是框架在 Activity 生命周期非常早的时候启动共享元素过渡。回想我们的第一篇文章，Transitions 必须捕获目标 View 的起始和结束状态来构建合适的动画。因此，如果框架在共享元素被给定最终大小位置和适合调用 Activity 范围内的大小前启动了共享元素过渡，这个 transition 将不能正确捕获到共享元素的结束状态值,生成动画也会失败(一个过渡失败的例子[Video 3.3][video]).
 
 ---
 
@@ -65,7 +65,7 @@ Whether or not the shared elements' end values will be calculated before the tra
 The more complex the layout, the longer it will take to determine the shared elements' position and size on the screen. Similarly, if the shared elements' final appearance within the activity depends on asynchronously loaded data, there is a chance that the framework might automatically start the shared element transition before that data is delivered back to the main thread. Listed below are some of the common cases in which you might encounter these issues:
 
 
-过渡开始前，能否计算出正确的共享元素的结束值主要依靠两个因素:(1) 调用共享元素 Activity 布局的复杂度和深度 (2)调用共享元素Activity载入数据消耗的时间。布局越复杂，在屏幕上确定共享元素的大小位置耗时越长。同样，如果调用共享元素的 Activity 依赖一个异步的数据载入，系统仍有可能会在数据载入完成前自动开始共享元素过渡。下面列出的是你可能遇到的常见问题:
+过渡开始前，能否计算出正确的共享元素的结束值主要依靠两个因素:(1) 调用共享元素 Activity 布局的复杂度和深度 (2)调用共享元素Activity载入数据消耗的时间。布局越复杂，在屏幕上确定共享元素的大小位置耗时越长。同样，如果调用共享元素的 Activity 依赖一个异步的数据载入，框架仍有可能会在数据载入完成前自动开始共享元素过渡。下面列出的是你可能遇到的常见问题:
 
 ---
 
@@ -74,20 +74,20 @@ The more complex the layout, the longer it will take to determine the shared ele
 
 - **共享元素存在于Activity托管的Fragment中**( a Fragment hosted by the called activity)。
 
-  [FragmentTransactions 在commit后不会被立即执行][FragmentTransactions];它们被安排到主线程等待执行。因此，如果共享元素存在的Fragment的视图层和FragmentTransaction没有被及时执行，系统有可能在共享元素被正确测量大小和布局到屏幕前启动共享元素过渡。<a id="b1" href="#1">1</a>
+  [FragmentTransactions 在commit后不会被立即执行][FragmentTransactions];它们被安排到主线程等待执行。因此，如果共享元素存在的Fragment的视图层和FragmentTransaction没有被及时执行，框架有可能在共享元素被正确测量大小和布局到屏幕前启动共享元素过渡。<a id="b1" href="#1">1</a>
 
 ---
 
 - **The shared element is a high-resolution image**. Setting a high resolution image that exceeds the ImageView's initial bounds might end up triggering an additional layout pass on the view hierarchy, therefore increasing the chances that the transition will begin before the shared element is ready. The asynchronous nature of popular bitmap loading/scaling libraries, such as Volley and Picasso, will not reliably fix this problem: the framework has no prior knowledge that images are being downloaded, scaled, and/or fetched from disk on a background thread and will start the shared element transition whether or not images are still being processed.
 
 
-- **共享元素是一个高分辨率的图片**。给 **ImageView** 设置一个超过其初始化边界的高分辨率图片，最终可能会导致在这个视图层里[额外的布局传递][add-layout-pass]，由此增加在共享元素准备好前就启动过渡的几率。流行的异步图片处理库比如 [`Volley`][volley] 和 [`Picasso`][picasso] ，也不能可靠的解决这个问题:系统不能预先了解图片是要被下载，缩放还是在后台线程中从磁盘读取，只是不管图片是否处理完毕就启动共享元素过渡。
+- **共享元素是一个高分辨率的图片**。给 **ImageView** 设置一个超过其初始化边界的高分辨率图片，最终可能会导致在这个视图层里[额外的布局传递][add-layout-pass]，由此增加在共享元素准备好前就启动过渡的几率。流行的异步图片处理库比如 [`Volley`][volley] 和 [`Picasso`][picasso] ，也不能可靠的解决这个问题:框架不能预先了解图片是要被下载，缩放还是在后台线程中从磁盘读取，只是不管图片是否处理完毕就启动共享元素过渡。
 
 ---
 
 - **The shared element depends on asynchronously loaded data**. If the shared elements require data loaded by an AsyncTask, an AsyncQueryHandler, a Loader, or something similar before their final appearance within the called activity can be determined, the framework might start the transition before that data is delivered back to the main thread.
 
-- **共享元素依赖于异步的数据加载**如果共享元素所需的数据是通过**AsyncTask**，**AsyncQueryHandler**,**Loader**或者其他类似的东西加载，在它们最终返回数据前Activity就能被确定，系统仍有可能在数据返回主线程前启动过渡
+- **共享元素依赖于异步的数据加载**如果共享元素所需的数据是通过**AsyncTask**，**AsyncQueryHandler**,**Loader**或者其他类似的东西加载，在它们最终返回数据前Activity就能被确定，框架仍有可能在数据返回主线程前启动过渡
 
 ---
 
@@ -148,8 +148,9 @@ private void scheduleStartPostponedTransition(final View sharedElement) {
 ```
 
 Despite their names, these two methods can also be used to postpone shared element return transitions as well. Simply postpone the return transition within the calling Activity's onActivityReenter() method instead:
-0.0？
-忽略方法名，第二种方法也可以被用来暂缓共享元素返回过渡，在调用Activity的[`onActivityReenter()`][onActivityReenter] 方法中延缓返回过渡<a id="b4" href="#4">4</a>
+
+
+忽略方法名，这里还有第二种方法可以暂缓共享元素返回过渡，在调用Activity的[`onActivityReenter()`][onActivityReenter] 方法中延缓返回过渡<a id="b4" href="#4">4</a>
 
 ```java
 /**
@@ -182,14 +183,15 @@ Despite making your shared element transitions smoother and more reliable, it's 
 As always, thanks for reading! Feel free to leave a comment if you have any questions, and don't forget to +1 and/or share this blog post if you found it helpful!
 
 
-尽管这样可以让共享元素过渡更加流畅准确，但是你也要知道在应用中引入延时共享元素过渡还有一些副作用：
+尽管添加延时可以让共享元素过渡更加流畅准确，但是你也要知道在应用中引入延时共享元素过渡还有一些副作用：
 
 - **调用`postponeEnterTransition`后不要忘记调用`startPostponedEnterTransition`**。忘记调用`startPostponedEnterTransition`会让你的应用处于死锁状态，用户无法进入下个Activity。
 	
 
-- **不要将共享元素过渡延迟设置到1s以上**。延迟时间过长会在应用中产生不必要的卡顿，降低用户体验。
+- **不要将共享元素过渡延迟设置到1s以上**。延迟时间过长会在应用中产生不必要的卡顿，影响用户体验。
 
-感谢阅读！
+
+感谢阅读！希望这篇文章对你有所帮助。
 
 ---
 
