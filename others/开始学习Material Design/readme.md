@@ -12,7 +12,7 @@
 
 You might have heard of android Material Design which was introduced in Android Lollipop version. In Material Design lot of new things were introduced like Material Theme, new widgets, custom shadows, vector drawables and custom animations. If you haven’t working on Material Design yet, this article will give you a good start.`
 
-你可能已经听说过Android Lollipop中引入的Material Design.Material Design引入了很多新的东西，如Material Theme, new widgets, custom shadows, vector drawables and custom animations(要翻译？).如果你还没用过Material Design，那么本文很适合你。
+你可能已经听说过Android Lollipop中引入的Material Design.Material Design引入了很多新的东西，如Material 主题, 新的控件, 自定义阴影, 矢量绘制 and 自定义动画.如果你还没用过Material Design，那么本文很适合你。
 
 In this tutorial we are going to learn the basic steps of Material Design development i.e writing the custom theme and implementing the navigation drawer using the RecyclerView.
 
@@ -30,10 +30,10 @@ Go through the below links which give you much knowledge over Material Design.
  
 <a href="http://download.androidhive.info/download?code=WPSkdrdZprHT0KLCZS3ClafgXBikGqM4r7FnNYdsdUTmlAkK6%2F2mkT0heOlNOq4U82rzqbod%2F14yU2uk5TWY4Zp%2FAYx6oiD7SKI%2FEgtUapzQUqkqcWEXX1bmw%3D%3DvqARiMEKqkqsXGbVf3vVUoffTqQcD2qfqZo" target="_blank">DOWNLOAD CODE</a>(那个黑块怎么搞？)
 
-###VIDEO DEMO  
+###视频  
 <a href="http://www.youtube.com/embed/jDXX_wDvarM">video</a>(怎么引用youtube?markdown似乎不行啊) 
 
-###Material Design Color Customization
+###Material Design 颜色自定义
 Material Design Color Customization
 
 Material Design provides set of properties to customize the Material Design Color theme. But we use five primary attributes to customize overall theme.
@@ -56,12 +56,12 @@ navigationBarColor – This color defines the background color of footer navigat
 navigationBarColor - 这个颜色定义了navigation bar页脚的背景色.  
 <img src="http://cdn2.androidhive.info/wp-content/uploads/2015/04/android-material-design-color-schema.png?524b4b" alt="android-material-design-color-schema" width="720px" height="auto" class="alignnone size-full wp-image-38236">
 
-You can go through this material design color patterns and choose the one that suits your app.
+You can go through this material design color patterns and choose the one that suits your app.  
 你能选择适合你APP风格的颜色
 
 Downloading Android Studio
 ###下载as
-Before going further, download the Android Studio and do the necessary setup as I am going to use Android Studio for all my tutorial from now on. If you are trying the Android Studio for the first time, go the overview doc to get complete overview of android studio.
+Before going further, download the Android Studio and do the necessary setup as I am going to use Android Studio for all my tutorial from now on. If you are trying the Android Studio for the first time, go the overview doc to get complete overview of android studio.  
 再往下走之前，先现在AS，并配置好本文之前提到的东西，如果你是首次使用AS，先去看看文档.
 
 Creating Material Design Theme
@@ -73,6 +73,7 @@ Creating Material Design Theme
 1. 打开res->values->strings.xml 添加以下字符值
 
 strings.xml  
+```xml
 <resources>  
 
     <string name="app_name">Material Design</string>
@@ -96,12 +97,13 @@ strings.xml
     <string name="title_friends">Friends</string>
     <string name="title_home">Home</string>
 </resources>  
-
+```
 3. Open res ⇒ values ⇒ colors.xml and add the below color values. If you don’t find colors.xml, create a new resource file with the name.
 1.打开res->values->colors 添加以下颜色,如果你没有找到colors.xml文件，那么新建一个.
 
 
-colors.xml  
+colors.xml   
+```xml   
 <?xml version="1.0" encoding="utf-8"?>
 <resources>  
 
@@ -113,11 +115,12 @@ colors.xml
     <color name="colorAccent">#FF80AB</color>
     
 </resources>  
-
+```
 4. Open res ⇒ values ⇒ dimens.xml and add below dimensions.  
  开打dimens.xml文件，加入以下代码
  
- dimens.xml
+ dimens.xml  
+ ```xml
 <resources>  
 
     <!-- Default screen margins, per the Android Design guidelines. -->
@@ -125,12 +128,14 @@ colors.xml
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="nav_drawer_width">260dp</dimen> 
     
-</resources>
+</resources>  
+```
 
 5. Open styles.xml under res ⇒ values and add below styles. The styles defined in this styles.xml are common to all the android versions. Here I am naming my theme as MyMaterialTheme.
 1. 开打styles.xml文件加入以下代码，在这里定义的style对于所有的androidbanben都是通用的。
 
-styles.xml
+styles.xml  
+```xml
 <resources>
  
     <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
@@ -145,14 +150,16 @@ styles.xml
         <item name="colorAccent">@color/colorAccent</item>
     </style>
      
-</resources>
+</resources>  
+```
 
 1. Now under res, create a folder named values-v21. Inside values-v21, create another styles.xml with the below styles. These styles are specific to Android Lollipop only.
 
 在res目录下，创建一个values-v21目录,并styles.xml
 文件夹,这些style仅仅用于Android Lollipop
 
-styles.xml
+styles.xml  
+```xml
 <resources>
  
     <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
@@ -169,6 +176,7 @@ styles.xml
 2. 现在我们已经准备好Material Design style了， 为了使用这主题, 在AndroidManifest.xml文件中修改application theme属性如下：
 
 AndroidManifest.xml  
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="androidhive.info.materialdesign" >
@@ -189,14 +197,15 @@ AndroidManifest.xml
         </activity>
     </application>
  
-</manifest>
+</manifest>  
+```
 
 Now if you run the app, you can see the notification bar color changed to the color that we have mentioned in our styles.
 
 现在如果你运行app，你能看到notification的颜色已经变成我们在style中设置的颜色.
 <div class="image"> <img src="http://cdn4.androidhive.info/wp-content/uploads/2015/04/android-material-design-notification-bar.png?524b4b" alt="android-material-design-notification-bar" width="720px" height="auto" class="alignnone size-full wp-image-38182"></div>
 
-###Adding the Toolbar (Action Bar)
+###添加 the Toolbar (Action Bar)
 添加toolbar(action bar)
 Adding the toolbar is very easy. All you have to do is, create a separate layout for the toolbar and include it in other layout wherever you want the toolbar to be displayed.  
 添加toolbar很简单,你要做的只是为toolbar另外创建一个layout,然后你想在哪里显示它，就在那个页面布局中include它
@@ -209,7 +218,8 @@ Open the layout file of your main activity (activity_main.xml) and add the toolb
 
 打开你的main activiy的布局,然后包含toolbar  
 
-activity_main.xml
+activity_main.xml  
+```xml
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -229,6 +239,7 @@ activity_main.xml
  
  
 </RelativeLayout>  
+```
 
 Run the app and see if the toolbar displayed on the screen or not.  
 运行app，确认toolbar是否已经显示了。
@@ -250,7 +261,8 @@ Now let’s try to add a toolbar title and enable the action items.
 Once the icon is imported, open menu_main.xml located under res ⇒ menu and add the search menu item as mentioned below.  
 一旦图片导入了，打开menu_main.xml 提那件seach menu item  
 
-menu_main.xml
+menu_main.xml  
+```xml
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -268,19 +280,21 @@ menu_main.xml
         android:title="@string/action_settings"
         android:orderInCategory="100"
         app:showAsAction="never" />
-</menu>  
+</menu>   
+```
 
 Now open your MainActivity.java and do the below changes.  
 打开MainActivity.java做以下修改.
-> Extend the activity from ActionBarActivity  
+Extend the activity from ActionBarActivity  
 MainActivity应从ACtionBarAcitiv继承
 
-> Enable the toolbar by calling setSupportActionBar() by passing the toolbar object  
-> 调用setSupportActionBar()来启用toolbar
+Enable the toolbar by calling setSupportActionBar() by passing the toolbar object  
+调用setSupportActionBar()来启用toolbar
 
-> Override onCreateOptionsMenu() and onOptionsItemSelected() methods to enable toolbar action items.  
-> 复写onCreateOptionsMenu() 和 onOptionsItemSelected()来启动toolbar菜单子目录的行为。  
-
+Override onCreateOptionsMenu() and onOptionsItemSelected() methods to enable toolbar action items.  
+复写onCreateOptionsMenu() 和 onOptionsItemSelected()来启动toolbar菜单子目录的行为。  
+MainActivity.java  
+```java
 
  
     private Toolbar mToolbar;
@@ -319,6 +333,7 @@ MainActivity应从ACtionBarAcitiv继承
         return super.onOptionsItemSelected(item);
     }
   
+```
   
 After doing the above changes, if you run the app, you should see the search icon and action overflow icon.  
 添加以上代码后，运行APP，你应该能够看到如下图所示的效果  
@@ -334,14 +349,20 @@ Adding navigation drawer is same as that we do before lollipop, but instead if u
 在build.gradle中添加以下依赖库  
 
 build.gradle  
+'''gradle
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.android.support:recyclerview-v7:21.0.+'
-}
+}  
+```
 
 添加NavDrawerItem.java文件作为menuItem  
-
+NavDrawerItem.java  
+```java
+public class NavDrawerItem {
+    private boolean showNotify;
+    private String title;
  
  
     public NavDrawerItem() {
@@ -367,22 +388,82 @@ dependencies {
  
     public void setTitle(String title) {
         this.title = title;
-    }  
-    
+    }
+}  
+```  
+
 Under res ⇒ layout, create an xml layout named nav_drawer_row.xml and add the below code. The layout renders each row in navigation drawer menu. If you want to customize the navigation drawer menu item, you have to do the changes in this file. For now it has only one TextView.  
 
 添加nav_drawer_row.xml布局文件  
-<table border="0" cellpadding="0" cellspacing="0"><caption>nav_drawer_row.xml</caption><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="xml plain">&lt;?</code><code class="xml keyword">xml</code> <code class="xml color1">version</code><code class="xml plain">=</code><code class="xml string">"1.0"</code> <code class="xml color1">encoding</code><code class="xml plain">=</code><code class="xml string">"utf-8"</code><code class="xml plain">?&gt;</code></div><div class="line number2 index1 alt1"><code class="xml plain">&lt;</code><code class="xml keyword">RelativeLayout</code> <code class="xml color1">xmlns:android</code><code class="xml plain">=</code><code class="xml string">"<a href="http://schemas.android.com/apk/res/android">http://schemas.android.com/apk/res/android</a>"</code></div><div class="line number3 index2 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_width</code><code class="xml plain">=</code><code class="xml string">"match_parent"</code></div><div class="line number4 index3 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_height</code><code class="xml plain">=</code><code class="xml string">"wrap_content"</code></div><div class="line number5 index4 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:clickable</code><code class="xml plain">=</code><code class="xml string">"true"</code><code class="xml plain">&gt;</code></div><div class="line number6 index5 alt1">&nbsp;</div><div class="line number7 index6 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">TextView</code></div><div class="line number8 index7 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:id</code><code class="xml plain">=</code><code class="xml string">"@+id/title"</code></div><div class="line number9 index8 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_width</code><code class="xml plain">=</code><code class="xml string">"fill_parent"</code></div><div class="line number10 index9 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_height</code><code class="xml plain">=</code><code class="xml string">"wrap_content"</code></div><div class="line number11 index10 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:paddingLeft</code><code class="xml plain">=</code><code class="xml string">"30dp"</code></div><div class="line number12 index11 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:paddingTop</code><code class="xml plain">=</code><code class="xml string">"10dp"</code></div><div class="line number13 index12 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:paddingBottom</code><code class="xml plain">=</code><code class="xml string">"10dp"</code></div><div class="line number14 index13 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:textSize</code><code class="xml plain">=</code><code class="xml string">"15dp"</code></div><div class="line number15 index14 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:textStyle</code><code class="xml plain">=</code><code class="xml string">"bold"</code> <code class="xml plain">/&gt;</code></div><div class="line number16 index15 alt1">&nbsp;</div><div class="line number17 index16 alt2"><code class="xml plain">&lt;/</code><code class="xml keyword">RelativeLayout</code><code class="xml plain">&gt;</code></div></div></td></tr></tbody></table>  
+'''xml
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true">
+ 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textSize="15dp"
+        android:textStyle="bold" />
+ 
+</RelativeLayout>  
+```
 
 Download this profile icon and paste it in your drawable folder. This step is optional, but this icon used in the navigation drawer header part.  
 下载这个页面的<a href="http://api.androidhive.info/images/ic_profile.png">图片</a>,这图片用在导航栏的头部  
 
-13. Create another xml layout named fragment_navigation_drawer.xml and add the below code. This layout renders the complete navigation drawer view. This layout contains a header section to display the user information and a RecyclerView to display the list view.  
+19 Create another xml layout named fragment_navigation_drawer.xml and add the below code. This layout renders the complete navigation drawer view. This layout contains a header section to display the user information and a RecyclerView to display the list view.  
 创建另一个布局文件fragment_navigation_drawer.xml,如下代码:  
-<table border="0" cellpadding="0" cellspacing="0"><caption>fragment_navigation_drawer.xml</caption><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">RelativeLayout</code> <code class="xml color1">xmlns:android</code><code class="xml plain">=</code><code class="xml string">"<a href="http://schemas.android.com/apk/res/android">http://schemas.android.com/apk/res/android</a>"</code></div><div class="line number2 index1 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_width</code><code class="xml plain">=</code><code class="xml string">"match_parent"</code></div><div class="line number3 index2 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_height</code><code class="xml plain">=</code><code class="xml string">"match_parent"</code></div><div class="line number4 index3 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:background</code><code class="xml plain">=</code><code class="xml string">"@android:color/white"</code><code class="xml plain">&gt;</code></div><div class="line number5 index4 alt2">&nbsp;</div><div class="line number6 index5 alt1">&nbsp;</div><div class="line number7 index6 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">RelativeLayout</code></div><div class="line number8 index7 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:id</code><code class="xml plain">=</code><code class="xml string">"@+id/nav_header_container"</code></div><div class="line number9 index8 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_width</code><code class="xml plain">=</code><code class="xml string">"match_parent"</code></div><div class="line number10 index9 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_height</code><code class="xml plain">=</code><code class="xml string">"140dp"</code></div><div class="line number11 index10 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_alignParentTop</code><code class="xml plain">=</code><code class="xml string">"true"</code></div><div class="line number12 index11 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:background</code><code class="xml plain">=</code><code class="xml string">"@color/colorPrimary"</code><code class="xml plain">&gt;</code></div><div class="line number13 index12 alt2">&nbsp;</div><div class="line number14 index13 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">ImageView</code></div><div class="line number15 index14 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_width</code><code class="xml plain">=</code><code class="xml string">"70dp"</code></div><div class="line number16 index15 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_height</code><code class="xml plain">=</code><code class="xml string">"70dp"</code></div><div class="line number17 index16 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:src</code><code class="xml plain">=</code><code class="xml string">"@drawable/ic_profile"</code></div><div class="line number18 index17 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:scaleType</code><code class="xml plain">=</code><code class="xml string">"fitCenter"</code></div><div class="line number19 index18 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_centerInParent</code><code class="xml plain">=</code><code class="xml string">"true"</code> <code class="xml plain">/&gt;</code></div><div class="line number20 index19 alt1">&nbsp;</div><div class="line number21 index20 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;/</code><code class="xml keyword">RelativeLayout</code><code class="xml plain">&gt;</code></div><div class="line number22 index21 alt1">&nbsp;</div><div class="line number23 index22 alt2">&nbsp;</div><div class="line number24 index23 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">android.support.v7.widget.RecyclerView</code></div><div class="line number25 index24 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:id</code><code class="xml plain">=</code><code class="xml string">"@+id/drawerList"</code></div><div class="line number26 index25 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_width</code><code class="xml plain">=</code><code class="xml string">"match_parent"</code></div><div class="line number27 index26 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_height</code><code class="xml plain">=</code><code class="xml string">"wrap_content"</code></div><div class="line number28 index27 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_below</code><code class="xml plain">=</code><code class="xml string">"@id/nav_header_container"</code></div><div class="line number29 index28 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_marginTop</code><code class="xml plain">=</code><code class="xml string">"15dp"</code> <code class="xml plain">/&gt;</code></div><div class="line number30 index29 alt1">&nbsp;</div><div class="line number31 index30 alt2">&nbsp;</div><div class="line number32 index31 alt1"><code class="xml plain">&lt;/</code><code class="xml keyword">RelativeLayout</code><code class="xml plain">&gt;</code></div></div></td></tr></tbody></table>  
+fragment_navigation_drawer.xml  
+```xml  
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+ 
+ 
+    <RelativeLayout
+        android:id="@+id/nav_header_container"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary">
+ 
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_profile"
+            android:scaleType="fitCenter"
+            android:layout_centerInParent="true" />
+ 
+    </RelativeLayout>
+ 
+ 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/drawerList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nav_header_container"
+        android:layout_marginTop="15dp" />
+ 
+ 
+</RelativeLayout>
+```
 
 As the RecyclerView is customized, we need an adapter class to render the custom xml layout. So under adapter package, create a class named NavigationDrawerAdapter.java and paste the below code. This adapter class inflates nav_drawer_row.xml and renders the RecycleView drawer menu.  
+
 由于RecyclerView是自定义的，我们需要创建一个Adapter来渲染自定的布局, 因此创建NavigationDrawerAdapter.java文件  
+```java 
+public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDrawerAdapter.MyViewHolder> {
+    List<NavDrawerItem> data = Collections.emptyList();
+    private LayoutInflater inflater;
+    private Context context;
  
     public NavigationDrawerAdapter(Context context, List<NavDrawerItem> data) {
         this.context = context;
@@ -421,157 +502,16 @@ As the RecyclerView is customized, we need an adapter class to render the custom
             title = (TextView) itemView.findViewById(R.id.title);
         }
     }
-  
-  
+
+```
+ 
 Under adapter package, create a fragment named FragmentDrawer.java. In Android Studio, to create a new fragment, Right click on adapter ⇒ New ⇒ Fragment ⇒ Fragment (Blank) and give your fragment class name.  
 
 创建FragmentDrawer.java  
- 
-    private RecyclerView recyclerView;
-    private ActionBarDrawerToggle mDrawerToggle;
-    private DrawerLayout mDrawerLayout;
-    private NavigationDrawerAdapter adapter;
-    private View containerView;
-    private static String[] titles = null;
-    private FragmentDrawerListener drawerListener;
- 
-    public FragmentDrawer() {
- 
-    }
- 
-    public void setDrawerListener(FragmentDrawerListener listener) {
-        this.drawerListener = listener;
-    }
- 
-    public static List<NavDrawerItem> getData() {
-        List<NavDrawerItem> data = new ArrayList<>();
- 
- 
-        // preparing navigation drawer items
-        for (int i = 0; i < titles.length; i++) {
-            NavDrawerItem navItem = new NavDrawerItem();
-            navItem.setTitle(titles[i]);
-            data.add(navItem);
-        }
-        return data;
-    }
- 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
- 
-        // drawer labels
-        titles = getActivity().getResources().getStringArray(R.array.nav_drawer_labels);
-    }
- 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflating view layout
-        View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
-        recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
- 
-        adapter = new NavigationDrawerAdapter(getActivity(), getData());
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                drawerListener.onDrawerItemSelected(view, position);
-                mDrawerLayout.closeDrawer(containerView);
-            }
- 
-            @Override
-            public void onLongClick(View view, int position) {
- 
-            }
-        }));
- 
-        return layout;
-    }
- 
- 
-    public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar) {
-        containerView = getActivity().findViewById(fragmentId);
-        mDrawerLayout = drawerLayout;
-        mDrawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                getActivity().invalidateOptionsMenu();
-            }
- 
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-                getActivity().invalidateOptionsMenu();
-            }
- 
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                super.onDrawerSlide(drawerView, slideOffset);
-                toolbar.setAlpha(1 - slideOffset / 2);
-            }
-        };
- 
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-        mDrawerLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                mDrawerToggle.syncState();
-            }
-        });
- 
-    }
- 
-    public static interface ClickListener {
-        public void onClick(View view, int position);
- 
-        public void onLongClick(View view, int position);
-    }
- 
-    static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
- 
-        private GestureDetector gestureDetector;
-        private ClickListener clickListener;
- 
-        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ClickListener clickListener) {
-            this.clickListener = clickListener;
-            gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
-                @Override
-                public boolean onSingleTapUp(MotionEvent e) {
-                    return true;
-                }
- 
-                @Override
-                public void onLongPress(MotionEvent e) {
-                    View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
-                    if (child != null && clickListener != null) {
-                        clickListener.onLongClick(child, recyclerView.getChildPosition(child));
-                    }
-                }
-            });
-        }
- 
-        @Override
-        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
- 
-            View child = rv.findChildViewUnder(e.getX(), e.getY());
-            if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
-                clickListener.onClick(child, rv.getChildPosition(child));
-            }
-            return false;
-        }
- 
-        @Override
-        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-        }
-    }
- 
-    public interface FragmentDrawerListener {
-        public void onDrawerItemSelected(View view, int position);
-    }
-   
+```java  
+
+``` 
+
 Finally open main activity layout (activity_main.xml) and modify the layout as below. In this layout we are adding android.support.v4.widget.DrawerLayout to display the navigation drawer menu.
 
 Also you have to give the correct path of your FragmentDrawer in <fragment> element.  
