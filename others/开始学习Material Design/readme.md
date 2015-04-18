@@ -116,8 +116,8 @@ colors.xml
     
 </resources>  
 ```  
-4. Open res ⇒ values ⇒ dimens.xml and add below dimensions.  
- 开打dimens.xml文件，加入以下代码
+4.Open res ⇒ values ⇒ dimens.xml and add below dimensions.  
+4.开打dimens.xml文件，加入以下代码
  
   
 ```xml  
@@ -882,11 +882,11 @@ public class HomeFragment extends Fragment {
 }
 ```    
     
-26.Create two more fragment classes named FriendsFragment.java, MessagesFragment.java and respected layout files named fragment_friends.xml and fragment_messages.xml and add the code from above two steps.
+26.Create two more fragment classes named FriendsFragment.java, MessagesFragment.java and respected layout files named fragment_friends.xml and fragment_messages.xml and add the code from above two steps.  
 26.创建另外两个FRAGMENT，跟上面一样  
 
-27.Now open MainActivity.java and do the below changes. In the below code  
-打开MainActivity，做如下修改.代码如下：
+27.Now open MainActivity.java and do the below changes. In the below code   
+27.打开MainActivity，做如下修改.代码如下：
 displayView() method displays the fragment view respected the navigation menu item selection. This method should be called in onDrawerItemSelected() to render the respected view when a navigation menu item is selected.  
 displayView方法用来显示menu item选中的页面.这个方法被onDrawerItemSelected()调用.  
 ```java  
