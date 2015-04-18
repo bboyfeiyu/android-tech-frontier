@@ -99,7 +99,7 @@ strings.xml
     <string name="title_home">Home</string>
 </resources>  
 ```  
-3.Open res ⇒ values ⇒ colors.xml and add the below color values. If you don’t find colors.xml, create a new resource file with the name.
+3.Open res ⇒ values ⇒ colors.xml and add the below color values. If you don’t find colors.xml, create a new resource file with the name.  
 3.打开res->values->colors 添加以下颜色,如果你没有找到colors.xml文件，那么新建一个.
    
 ```xml 
@@ -132,7 +132,7 @@ dimens.xml
 </resources>  
 ```
 
-5.Open styles.xml under res ⇒ values and add below styles. The styles defined in this styles.xml are common to all the android versions. Here I am naming my theme as MyMaterialTheme.
+5.Open styles.xml under res ⇒ values and add below styles. The styles defined in this styles.xml are common to all the android versions. Here I am naming my theme as MyMaterialTheme.  
 5.开打styles.xml文件加入以下代码，在这里定义的style对于所有的androidbanben都是通用的。  
   
 ```xml  
@@ -265,7 +265,7 @@ Now let’s try to add a toolbar title and enable the action items.
 现在让我尝试添加toolbard额标题，并启用它的行为。  
 
 10.Download this search icon and import it into Android Studio as a Image Asset.  
-下载相关图片资源，然后导入到AS当中作为Image Asset.
+10.下载相关图片资源，然后导入到AS当中作为Image Asset.
 
 11.To import the Image Asset in Android Studio, right click on res ⇒ New ⇒ Image Asset. It will show you a popup window to import the resource. Browse the search icon that you have downloaded in the above step, select Action Bar and Tab Icons for Asset Type and give the resource name as ic_search_action and proceed.
 
@@ -274,7 +274,7 @@ Now let’s try to add a toolbar title and enable the action items.
 <div class="image"> <img src="http://cdn3.androidhive.info/wp-content/uploads/2015/04/android-studio-importing-image-asset.png?524b4b" alt="android-studio-importing-image-asset" width="720px" height="auto" class="alignnone size-full wp-image-38190"></div>  
 
 12.Once the icon is imported, open menu_main.xml located under res ⇒ menu and add the search menu item as mentioned below.  
-一旦图片导入了，打开menu_main.xml 添加seach menu item,代码如下：   
+12.一旦图片导入了，打开menu_main.xml 添加seach menu item,代码如下：   
 
 
 ```xml	
@@ -379,7 +379,7 @@ dependencies {
 ```  
 
 16.Under model package, create a class named NavDrawerItem.java with the below code. This model class is POJO class that defines each row in navigation drawer menu.  
-在model包下添加NavDrawerItem.java文件作为menuItem,代码如下：   
+16.在model包下添加NavDrawerItem.java文件作为menuItem,代码如下：   
   
 ```java  
 NavDrawerItem.java
@@ -810,7 +810,7 @@ Although navigation drawer is functioning, you can see the selection of drawer l
 As we have three menu items in navigation drawer (Home, Friends & Messages), we need to create three separate fragment classes for each menu item.    
 由于我们有三子菜单(Home,Friends&Mesages), 因此我们需要创建三个独立的Fragment  
 24.Under res layout, create an xml layout named fragment_home.xml and add below code.  
-创建fragment_home布局文件,代码如下：  
+24.创建fragment_home布局文件,代码如下：  
 ```xml  
 fragment_home.xml
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
