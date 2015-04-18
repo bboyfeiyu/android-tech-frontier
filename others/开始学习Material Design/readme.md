@@ -18,9 +18,9 @@ In this tutorial we are going to learn the basic steps of Material Design develo
 
 Go through the below links which give you much knowledge over Material Design.
 
-> Material Design Specifications
+Material Design Specifications
 
-> Creating Apps with Material Design
+Creating Apps with Material Design
 
 我们将在本文中学习Material Design开发的基本步骤:编写自定义主题和用RecyclerView实现navigation drawer.
 
@@ -33,7 +33,12 @@ Go through the below links which give you much knowledge over Material Design.
 ###视频  
 <a href="http://www.youtube.com/embed/jDXX_wDvarM">video</a>(怎么引用youtube?markdown似乎不行啊) 
 
-###Material Design 颜色自定义
+Downloading Android Studio
+###1.下载AndroidStudio
+Before going further, download the Android Studio and do the necessary setup as I am going to use Android Studio for all my tutorial from now on. If you are trying the Android Studio for the first time, go the overview doc to get complete overview of android studio.  
+再往下走之前，先下载Android Studio，并配置好本文之前提到的东西，如果你是首次使用Android Studio，先去看看文档.
+
+###2.Material Design 颜色自定义
 Material Design Color Customization
 
 Material Design provides set of properties to customize the Material Design Color theme. But we use five primary attributes to customize overall theme.
@@ -59,21 +64,17 @@ navigationBarColor - 这个颜色定义了navigation bar页脚的背景色.
 You can go through this material design color patterns and choose the one that suits your app.  
 你能选择适合你APP风格的颜色
 
-Downloading Android Studio
-###下载as
-Before going further, download the Android Studio and do the necessary setup as I am going to use Android Studio for all my tutorial from now on. If you are trying the Android Studio for the first time, go the overview doc to get complete overview of android studio.  
-再往下走之前，先现在AS，并配置好本文之前提到的东西，如果你是首次使用AS，先去看看文档.
-
 Creating Material Design Theme
-###创建Material Design 主题
-1. In Android Studio, go to File ⇒ New Project and fill all the details required to create a new project. When it prompts to select a default activity, select Blank Activity and proceed.
-1. 在as中，创建新项目,选择BlankActivity.
+###3.创建Material Design 主题
+1.In Android Studio, go to File ⇒ New Project and fill all the details required to create a new project. When it prompts to select a default activity, select Blank Activity and proceed.  
+1.在as中，创建新项目,选择BlankActivity.
 
-2. Open res ⇒ values ⇒ strings.xml and add below string values.
-1. 打开res->values->strings.xml 添加以下字符值
+2.Open res ⇒ values ⇒ strings.xml and add below string values.  
+2.打开res->values->strings.xml 添加以下字符值
 
-strings.xml  
-```xml
+  
+```xml  
+strings.xml
 <resources>  
 
     <string name="app_name">Material Design</string>
@@ -97,13 +98,12 @@ strings.xml
     <string name="title_friends">Friends</string>
     <string name="title_home">Home</string>
 </resources>  
-```
-3. Open res ⇒ values ⇒ colors.xml and add the below color values. If you don’t find colors.xml, create a new resource file with the name.
-1.打开res->values->colors 添加以下颜色,如果你没有找到colors.xml文件，那么新建一个.
-
-
-colors.xml   
-```xml   
+```  
+3.Open res ⇒ values ⇒ colors.xml and add the below color values. If you don’t find colors.xml, create a new resource file with the name.
+3.打开res->values->colors 添加以下颜色,如果你没有找到colors.xml文件，那么新建一个.
+   
+```xml 
+colors.xml  
 <?xml version="1.0" encoding="utf-8"?>
 <resources>  
 
@@ -115,12 +115,13 @@ colors.xml
     <color name="colorAccent">#FF80AB</color>
     
 </resources>  
-```
+```  
 4. Open res ⇒ values ⇒ dimens.xml and add below dimensions.  
  开打dimens.xml文件，加入以下代码
  
- dimens.xml  
- ```xml
+  
+```xml  
+dimens.xml
 <resources>  
 
     <!-- Default screen margins, per the Android Design guidelines. -->
@@ -131,11 +132,11 @@ colors.xml
 </resources>  
 ```
 
-5. Open styles.xml under res ⇒ values and add below styles. The styles defined in this styles.xml are common to all the android versions. Here I am naming my theme as MyMaterialTheme.
-1. 开打styles.xml文件加入以下代码，在这里定义的style对于所有的androidbanben都是通用的。
-
-styles.xml  
-```xml
+5.Open styles.xml under res ⇒ values and add below styles. The styles defined in this styles.xml are common to all the android versions. Here I am naming my theme as MyMaterialTheme.
+5.开打styles.xml文件加入以下代码，在这里定义的style对于所有的androidbanben都是通用的。  
+  
+```xml  
+styles.xml
 <resources>
  
     <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
@@ -153,9 +154,9 @@ styles.xml
 </resources>  
 ```
 
-1. Now under res, create a folder named values-v21. Inside values-v21, create another styles.xml with the below styles. These styles are specific to Android Lollipop only.
+6.Now under res, create a folder named values-v21. Inside values-v21, create another styles.xml with the below styles. These styles are specific to Android Lollipop only.
 
-在res目录下，创建一个values-v21目录,并styles.xml
+6.在res目录下，创建一个values-v21目录,并styles.xml
 文件夹,这些style仅仅用于Android Lollipop
 
 styles.xml  
@@ -170,13 +171,13 @@ styles.xml
         <item name="android:windowSharedElementExitTransition">@android:transition/move</item>
     </style>
  
-</resources>
+</resources>  
 
-1. Now we have the basic Material Design styles ready. In order to apply the theme, open AndroidManifest.xml and modify the android:theme attribute of <application> tag.
-2. 现在我们已经准备好Material Design style了， 为了使用这主题, 在AndroidManifest.xml文件中修改application theme属性如下：
-
-AndroidManifest.xml  
-```xml
+7.Now we have the basic Material Design styles ready. In order to apply the theme, open AndroidManifest.xml and modify the android:theme attribute of <application> tag.  
+7.现在我们已经准备好Material Design style了， 为了使用这主题, 在AndroidManifest.xml文件中修改application theme属性如下：
+  
+```xml  
+AndroidManifest.xml
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="androidhive.info.materialdesign" >
@@ -205,21 +206,35 @@ Now if you run the app, you can see the notification bar color changed to the co
 现在如果你运行app，你能看到notification的颜色已经变成我们在style中设置的颜色.
 <div class="image"> <img src="http://cdn4.androidhive.info/wp-content/uploads/2015/04/android-material-design-notification-bar.png?524b4b" alt="android-material-design-notification-bar" width="720px" height="auto" class="alignnone size-full wp-image-38182"></div>
 
-###添加 the Toolbar (Action Bar)
+###3.1 添加工具栏 (Action Bar)
 添加toolbar(action bar)
 Adding the toolbar is very easy. All you have to do is, create a separate layout for the toolbar and include it in other layout wherever you want the toolbar to be displayed.  
 添加toolbar很简单,你要做的只是为toolbar另外创建一个layout,然后你想在哪里显示它，就在那个页面布局中include它
 
-Create an xml file named toolbar.xml under res ⇒ layout and add android.support.v7.widget.Toolbar element. This create the toolbar with specific height and theming.  
-在layout目录下创建toolbar.xml, 在里面添加android.support.v7.widget.Toolbar，并设置宽高.  
+8.Create an xml file named toolbar.xml under res ⇒ layout and add android.support.v7.widget.Toolbar element. This create the toolbar with specific height and theming.  
+8.在layout目录下创建toolbar.xml, 在里面添加android.support.v7.widget.Toolbar，并设置宽高.代码如下：  
+```xml	
+toolbar.xml
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="?attr/actionBarSize"
+    android:background="?attr/colorPrimary"
+    local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    local:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+```
 
 
-Open the layout file of your main activity (activity_main.xml) and add the toolbar using <include/> tag.
+9.Open the layout file of your main activity (activity_main.xml) and add the toolbar using <include/> tag.
 
-打开你的main activiy的布局,然后包含toolbar  
+9.打开你的main activiy的布局,添加如下代码: 
 
-activity_main.xml  
-```xml
+  
+```xml	
+activity_main.xml
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -249,20 +264,21 @@ Run the app and see if the toolbar displayed on the screen or not.
 Now let’s try to add a toolbar title and enable the action items.
 现在让我尝试添加toolbard额标题，并启用它的行为。  
 
-11. Download this search icon and import it into Android Studio as a Image Asset.  
+10.Download this search icon and import it into Android Studio as a Image Asset.  
 下载相关图片资源，然后导入到AS当中作为Image Asset.
 
-12. To import the Image Asset in Android Studio, right click on res ⇒ New ⇒ Image Asset. It will show you a popup window to import the resource. Browse the search icon that you have downloaded in the above step, select Action Bar and Tab Icons for Asset Type and give the resource name as ic_search_action and proceed.
+11.To import the Image Asset in Android Studio, right click on res ⇒ New ⇒ Image Asset. It will show you a popup window to import the resource. Browse the search icon that you have downloaded in the above step, select Action Bar and Tab Icons for Asset Type and give the resource name as ic_search_action and proceed.
 
-导入Image asset步骤,右键res目录->new->Image Asset 之后显示弹窗，然后找到你已经下载好的图片,选择Action Bar 和 Tab Icons， 给资源命名为ic_search_action. 如下图 
+11.导入Image asset步骤,右键res目录->new->Image Asset 之后显示弹窗，然后找到你已经下载好的图片,选择Action Bar 和 Tab Icons， 给资源命名为ic_search_action. 如下图 
 
 <div class="image"> <img src="http://cdn3.androidhive.info/wp-content/uploads/2015/04/android-studio-importing-image-asset.png?524b4b" alt="android-studio-importing-image-asset" width="720px" height="auto" class="alignnone size-full wp-image-38190"></div>  
 
-Once the icon is imported, open menu_main.xml located under res ⇒ menu and add the search menu item as mentioned below.  
-一旦图片导入了，打开menu_main.xml 提那件seach menu item  
+12.Once the icon is imported, open menu_main.xml located under res ⇒ menu and add the search menu item as mentioned below.  
+一旦图片导入了，打开menu_main.xml 添加seach menu item,代码如下：   
 
+
+```xml	
 menu_main.xml  
-```xml
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -283,19 +299,19 @@ menu_main.xml
 </menu>   
 ```
 
-Now open your MainActivity.java and do the below changes.  
-打开MainActivity.java做以下修改.
+13.Now open your MainActivity.java and do the below changes.  
+13.打开MainActivity.java做以下修改.
 Extend the activity from ActionBarActivity  
-MainActivity应从ACtionBarAcitiv继承
+MainActivity从ACtionBarAcitiv继承
 
 Enable the toolbar by calling setSupportActionBar() by passing the toolbar object  
 调用setSupportActionBar()来启用toolbar
 
 Override onCreateOptionsMenu() and onOptionsItemSelected() methods to enable toolbar action items.  
 复写onCreateOptionsMenu() 和 onOptionsItemSelected()来启动toolbar菜单子目录的行为。  
-MainActivity.java  
-```java
-
+  
+```java  
+MainActivity.java
  
     private Toolbar mToolbar;
  
@@ -340,26 +356,33 @@ After doing the above changes, if you run the app, you should see the search ico
 
 <div class="image"> <img src="http://cdn1.androidhive.info/wp-content/uploads/2015/04/android-material-design-toolbar-action-items.png?524b4b" alt="android-material-design-toolbar-action-items" width="720px" height="auto" class="alignnone size-full wp-image-38195"></div>  
 
-Adding Navigation Drawer
-添加Navigation Drawer  
+###3.2Adding Navigation Drawer
+###3.2添加Navigation Drawer  
 
 Adding navigation drawer is same as that we do before lollipop, but instead if using ListView for menu items, we use RecyclerView in material design. So let’s see how to implement the navigation drawer with RecyclerView.  
 添加Natigation Drawer的方式跟lollipop以前一样,但我们使用RecyclerView来实现Menu Items.  
 
-在build.gradle中添加以下依赖库  
+14.In your project’s java folder, create three packages named activity, adapter, model and move your MainActivity.java to activity package. This will keep your project organized.  
+14.在java文件下创建三个包，分别命名为activity,adapter,model,把MainActivity移到activity包种，这样整个项目看起来就更有组织性。 
 
-build.gradle  
-'''gradle
+15.Open build.gradle located under your app module and add below dependencies. After adding the dependencies, goto Build ⇒ Rebuild Project to download required libraries.  
+15.在build.gradle中添加以下依赖库  
+
+  
+```gradle  
+build.gradle
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.android.support:recyclerview-v7:21.0.+'
 }  
-```
+```  
 
-添加NavDrawerItem.java文件作为menuItem  
-NavDrawerItem.java  
-```java
+16.Under model package, create a class named NavDrawerItem.java with the below code. This model class is POJO class that defines each row in navigation drawer menu.  
+在model包下添加NavDrawerItem.java文件作为menuItem,代码如下：   
+  
+```java  
+NavDrawerItem.java
 public class NavDrawerItem {
     private boolean showNotify;
     private String title;
@@ -392,10 +415,11 @@ public class NavDrawerItem {
 }  
 ```  
 
-Under res ⇒ layout, create an xml layout named nav_drawer_row.xml and add the below code. The layout renders each row in navigation drawer menu. If you want to customize the navigation drawer menu item, you have to do the changes in this file. For now it has only one TextView.  
+17.Under res ⇒ layout, create an xml layout named nav_drawer_row.xml and add the below code. The layout renders each row in navigation drawer menu. If you want to customize the navigation drawer menu item, you have to do the changes in this file. For now it has only one TextView.  
 
-添加nav_drawer_row.xml布局文件  
-'''xml
+17.添加nav_drawer_row.xml布局文件,代码如下：  
+
+```xml  
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -415,13 +439,14 @@ Under res ⇒ layout, create an xml layout named nav_drawer_row.xml and add the 
 </RelativeLayout>  
 ```
 
-Download this profile icon and paste it in your drawable folder. This step is optional, but this icon used in the navigation drawer header part.  
-下载这个页面的<a href="http://api.androidhive.info/images/ic_profile.png">图片</a>,这图片用在导航栏的头部  
+18.Download this profile icon and paste it in your drawable folder. This step is optional, but this icon used in the navigation drawer header part.  
+18.下载这个页面的<a href="http://api.androidhive.info/images/ic_profile.png">图片</a>,这图片用在导航栏的头部  
 
 19 Create another xml layout named fragment_navigation_drawer.xml and add the below code. This layout renders the complete navigation drawer view. This layout contains a header section to display the user information and a RecyclerView to display the list view.  
-创建另一个布局文件fragment_navigation_drawer.xml,如下代码:  
-fragment_navigation_drawer.xml  
+19.创建另一个布局文件fragment_navigation_drawer.xml,如下代码:  
+  
 ```xml  
+fragment_navigation_drawer.xml
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -456,9 +481,9 @@ fragment_navigation_drawer.xml
 </RelativeLayout>
 ```
 
-As the RecyclerView is customized, we need an adapter class to render the custom xml layout. So under adapter package, create a class named NavigationDrawerAdapter.java and paste the below code. This adapter class inflates nav_drawer_row.xml and renders the RecycleView drawer menu.  
+20.As the RecyclerView is customized, we need an adapter class to render the custom xml layout. So under adapter package, create a class named NavigationDrawerAdapter.java and paste the below code. This adapter class inflates nav_drawer_row.xml and renders the RecycleView drawer menu.  
 
-由于RecyclerView是自定义的，我们需要创建一个Adapter来渲染自定的布局, 因此创建NavigationDrawerAdapter.java文件  
+20.由于RecyclerView是自定义的，我们需要创建一个Adapter来渲染自定的布局, 因此创建NavigationDrawerAdapter.java文件  
 ```java 
 public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDrawerAdapter.MyViewHolder> {
     List<NavDrawerItem> data = Collections.emptyList();
@@ -503,21 +528,168 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
         }
     }
 
+```21.nder adapter package, create a fragment named FragmentDrawer.java. In Android Studio, to create a new fragment, Right click on adapter ⇒ New ⇒ Fragment ⇒ Fragment (Blank) and give your fragment class name.  
+
+21.在adapter包下创建FragmentDrawer.java，代码如下： 
+```java  
+FragmentDrawer.java  
+public class FragmentDrawer extends Fragment {
+ 
+    private static String TAG = FragmentDrawer.class.getSimpleName();
+ 
+    private RecyclerView recyclerView;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private DrawerLayout mDrawerLayout;
+    private NavigationDrawerAdapter adapter;
+    private View containerView;
+    private static String[] titles = null;
+    private FragmentDrawerListener drawerListener;
+ 
+    public FragmentDrawer() {
+ 
+    }
+ 
+    public void setDrawerListener(FragmentDrawerListener listener) {
+        this.drawerListener = listener;
+    }
+ 
+    public static List<NavDrawerItem> getData() {
+        List<NavDrawerItem> data = new ArrayList<>();
+ 
+ 
+        // preparing navigation drawer items
+        for (int i = 0; i < titles.length; i++) {
+            NavDrawerItem navItem = new NavDrawerItem();
+            navItem.setTitle(titles[i]);
+            data.add(navItem);
+        }
+        return data;
+    }
+ 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+ 
+        // drawer labels
+        titles = getActivity().getResources().getStringArray(R.array.nav_drawer_labels);
+    }
+ 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflating view layout
+        View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
+ 
+        adapter = new NavigationDrawerAdapter(getActivity(), getData());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                drawerListener.onDrawerItemSelected(view, position);
+                mDrawerLayout.closeDrawer(containerView);
+            }
+ 
+            @Override
+            public void onLongClick(View view, int position) {
+ 
+            }
+        }));
+ 
+        return layout;
+    }
+ 
+ 
+    public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar) {
+        containerView = getActivity().findViewById(fragmentId);
+        mDrawerLayout = drawerLayout;
+        mDrawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getActivity().invalidateOptionsMenu();
+            }
+ 
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                getActivity().invalidateOptionsMenu();
+            }
+ 
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                super.onDrawerSlide(drawerView, slideOffset);
+                toolbar.setAlpha(1 - slideOffset / 2);
+            }
+        };
+ 
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mDrawerToggle.syncState();
+            }
+        });
+ 
+    }
+ 
+    public static interface ClickListener {
+        public void onClick(View view, int position);
+ 
+        public void onLongClick(View view, int position);
+    }
+ 
+    static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
+ 
+        private GestureDetector gestureDetector;
+        private ClickListener clickListener;
+ 
+        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ClickListener clickListener) {
+            this.clickListener = clickListener;
+            gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+ 
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
+                    if (child != null && clickListener != null) {
+                        clickListener.onLongClick(child, recyclerView.getChildPosition(child));
+                    }
+                }
+            });
+        }
+ 
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+ 
+            View child = rv.findChildViewUnder(e.getX(), e.getY());
+            if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
+                clickListener.onClick(child, rv.getChildPosition(child));
+            }
+            return false;
+        }
+ 
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+        }
+    }
+ 
+    public interface FragmentDrawerListener {
+        public void onDrawerItemSelected(View view, int position);
+    }
+}
 ```
  
-Under adapter package, create a fragment named FragmentDrawer.java. In Android Studio, to create a new fragment, Right click on adapter ⇒ New ⇒ Fragment ⇒ Fragment (Blank) and give your fragment class name.  
 
-创建FragmentDrawer.java  
-```java  
-
-``` 
-
-Finally open main activity layout (activity_main.xml) and modify the layout as below. In this layout we are adding android.support.v4.widget.DrawerLayout to display the navigation drawer menu.
+22.Finally open main activity layout (activity_main.xml) and modify the layout as below. In this layout we are adding android.support.v4.widget.DrawerLayout to display the navigation drawer menu.
 
 Also you have to give the correct path of your FragmentDrawer in <fragment> element.  
-最后在activity_main.xml中添加DrawerLayout，如下代码  
-根布局是DrawerLayout
- 
+22.最后在activity_main.xml中添加DrawerLayout，如下代码:  
+```xml  
  <android.support.v4.widget.DrawerLayout
  android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
@@ -559,16 +731,23 @@ Also you have to give the correct path of your FragmentDrawer in <fragment> elem
         tools:layout="@layout/fragment_navigation_drawer" />
         
     <android.support.v4.widget.DrawerLayout>  
-   Now we have all the layout files and java classes ready in place. Let’s do the necessary changes in MainActivity to make the navigation drawer functioning.  
-   现在我们已经完成了所有的的布局和jav文件,接下来我们要实现navigation draw而得功能.  
+```
+Now we have all the layout files and java classes ready in place. Let’s do the necessary changes in MainActivity to make the navigation drawer functioning.  
+现在我们已经完成了所有的的布局和jav文件,接下来我们要实现navigation draw而得功能.  
    
-   Open your MainActivity.java and do the below changes.
+23.Open your MainActivity.java and do the below changes.  
+23.打开MainActivity,作如下修改:
 
-> Implement the activity from FragmentDrawer.FragmentDrawerListener and add the onDrawerItemSelected() override method.
+Implement the activity from FragmentDrawer.FragmentDrawerListener and add the onDrawerItemSelected() override method.  
+MainActivity实现FragmentDrawer.FragmentDrawerListener接口，复写onDrawerItemSelected()
 
-> Create an instance of FragmentDrawer and set the drawer selected listeners.  
-MainActivity实现ragmentDrawer.FragmentDrawerListener 如下代码：  
-private Toolbar mToolbar;
+Create an instance of FragmentDrawer and set the drawer selected listeners.  
+创建FragmentDrawer实例，并设置其选择监听事件,如下代码:  
+
+```java  
+public class MainActivity extends ActionBarActivity implements FragmentDrawer.FragmentDrawerListener {
+ 
+    private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
  
     @Override
@@ -613,7 +792,10 @@ private Toolbar mToolbar;
     @Override
     public void onDrawerItemSelected(View view, int position) {
  
-    }  
+    }
+}
+
+```
     
     
 Now if you run the app, you can see the navigation drawer with a header and few list items in it.  
@@ -621,17 +803,52 @@ Now if you run the app, you can see the navigation drawer with a header and few 
 <div class="image"> <img src="http://cdn1.androidhive.info/wp-content/uploads/2015/04/androd-material-design-navigation-drawer.png?524b4b" alt="androd-material-design-navigation-drawer" width="720px" height="auto" class="alignnone size-full wp-image-38198"></div>  
 
 Implementing Navigation Drawer Item Selection
-###实现Navigation Drawer的选择  
+###3.3实现Navigation Drawer的选择  
 Although navigation drawer is functioning, you can see the selection of drawer list items not working. This is because we are yet to implement the click listener on RecyclerView items.
 虽然navigation drawer已经能够工作了，但是MENU的子选项无法工作，这是因为我们还没有处理RecyclerView item是的点击监听。   
 
 As we have three menu items in navigation drawer (Home, Friends & Messages), we need to create three separate fragment classes for each menu item.    
 由于我们有三子菜单(Home,Friends&Mesages), 因此我们需要创建三个独立的Fragment  
-首先创建Homed的布局  
-
-<div id="highlighter_127860" class="syntaxhighlighter nogutter  xml"><table border="0" cellpadding="0" cellspacing="0"><caption>fragment_home.xml</caption><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">RelativeLayout</code> <code class="xml color1">xmlns:android</code><code class="xml plain">=</code><code class="xml string">"<a href="http://schemas.android.com/apk/res/android">http://schemas.android.com/apk/res/android</a>"</code></div><div class="line number2 index1 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">xmlns:tools</code><code class="xml plain">=</code><code class="xml string">"<a href="http://schemas.android.com/tools">http://schemas.android.com/tools</a>"</code></div><div class="line number3 index2 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_width</code><code class="xml plain">=</code><code class="xml string">"match_parent"</code></div><div class="line number4 index3 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_height</code><code class="xml plain">=</code><code class="xml string">"match_parent"</code></div><div class="line number5 index4 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:orientation</code><code class="xml plain">=</code><code class="xml string">"vertical"</code></div><div class="line number6 index5 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">tools:context</code><code class="xml plain">=</code><code class="xml string">"androidhive.info.materialdesign.activity.HomeFragment"</code><code class="xml plain">&gt;</code></div><div class="line number7 index6 alt2">&nbsp;</div><div class="line number8 index7 alt1">&nbsp;</div><div class="line number9 index8 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">TextView</code></div><div class="line number10 index9 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:id</code><code class="xml plain">=</code><code class="xml string">"@+id/label"</code></div><div class="line number11 index10 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_alignParentTop</code><code class="xml plain">=</code><code class="xml string">"true"</code></div><div class="line number12 index11 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_marginTop</code><code class="xml plain">=</code><code class="xml string">"100dp"</code></div><div class="line number13 index12 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_width</code><code class="xml plain">=</code><code class="xml string">"fill_parent"</code></div><div class="line number14 index13 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_height</code><code class="xml plain">=</code><code class="xml string">"wrap_content"</code></div><div class="line number15 index14 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:gravity</code><code class="xml plain">=</code><code class="xml string">"center_horizontal"</code></div><div class="line number16 index15 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:textSize</code><code class="xml plain">=</code><code class="xml string">"45dp"</code></div><div class="line number17 index16 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:text</code><code class="xml plain">=</code><code class="xml string">"HOME"</code></div><div class="line number18 index17 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:textStyle</code><code class="xml plain">=</code><code class="xml string">"bold"</code><code class="xml plain">/&gt;</code></div><div class="line number19 index18 alt2">&nbsp;</div><div class="line number20 index19 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">TextView</code></div><div class="line number21 index20 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_below</code><code class="xml plain">=</code><code class="xml string">"@id/label"</code></div><div class="line number22 index21 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_centerInParent</code><code class="xml plain">=</code><code class="xml string">"true"</code></div><div class="line number23 index22 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_width</code><code class="xml plain">=</code><code class="xml string">"fill_parent"</code></div><div class="line number24 index23 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_height</code><code class="xml plain">=</code><code class="xml string">"wrap_content"</code></div><div class="line number25 index24 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:textSize</code><code class="xml plain">=</code><code class="xml string">"12dp"</code></div><div class="line number26 index25 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:layout_marginTop</code><code class="xml plain">=</code><code class="xml string">"10dp"</code></div><div class="line number27 index26 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:gravity</code><code class="xml plain">=</code><code class="xml string">"center_horizontal"</code></div><div class="line number28 index27 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml color1">android:text</code><code class="xml plain">=</code><code class="xml string">"Edit fragment_home.xml to change the appearance"</code> <code class="xml plain">/&gt;</code></div><div class="line number29 index28 alt2">&nbsp;</div><div class="line number30 index29 alt1"><code class="xml plain">&lt;/</code><code class="xml keyword">RelativeLayout</code><code class="xml plain">&gt;</code></div></div></td></tr></tbody></table></div>  
-
-创建HomeFragment.java文件 
+24.Under res layout, create an xml layout named fragment_home.xml and add below code.  
+创建fragment_home布局文件,代码如下：  
+```xml  
+fragment_home.xml
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="androidhive.info.materialdesign.activity.HomeFragment">
+ 
+ 
+    <TextView
+        android:id="@+id/label"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="100dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="45dp"
+        android:text="HOME"
+        android:textStyle="bold"/>
+ 
+    <TextView
+        android:layout_below="@id/label"
+        android:layout_centerInParent="true"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:text="Edit fragment_home.xml to change the appearance" />
+ 
+</RelativeLayout>
+```  
+25.Under activity package, create a fragment class named HomeFragment.java and add below code.  
+25.在activity包下，创建HomeFragment.java文件，代码如下: 
+  
+```java  
+public class HomeFragment extends Fragment {
  
     public HomeFragment() {
         // Required empty public constructor
@@ -662,16 +879,19 @@ As we have three menu items in navigation drawer (Home, Friends & Messages), we 
     public void onDetach() {
         super.onDetach();
     }
+}
+```    
     
-    
-Create two more fragment classes named FriendsFragment.java, MessagesFragment.java and respected layout files named fragment_friends.xml and fragment_messages.xml and add the code from above two steps.
-创建另外两个FRAGMENT，跟上面一样  
+26.Create two more fragment classes named FriendsFragment.java, MessagesFragment.java and respected layout files named fragment_friends.xml and fragment_messages.xml and add the code from above two steps.
+26.创建另外两个FRAGMENT，跟上面一样  
 
-Now open MainActivity.java and do the below changes. In the below code
+27.Now open MainActivity.java and do the below changes. In the below code  
+打开MainActivity，做如下修改.代码如下：
 displayView() method displays the fragment view respected the navigation menu item selection. This method should be called in onDrawerItemSelected() to render the respected view when a navigation menu item is selected.  
-
-对MainActivity.java做如下修改  
-
+displayView方法用来显示menu item选中的页面.这个方法被onDrawerItemSelected()调用.  
+```java  
+public class MainActivity extends ActionBarActivity implements FragmentDrawer.FragmentDrawerListener {
+ 
     private static String TAG = MainActivity.class.getSimpleName();
  
     private Toolbar mToolbar;
@@ -758,8 +978,9 @@ displayView() method displays the fragment view respected the navigation menu it
             // set the toolbar title
             getSupportActionBar().setTitle(title);
         }
-    }   
-    
+    }
+}
+```    
     
 Now if you run the app, you can see the selection of navigation drawer menu is working and respected view displayed below the toolbar.
 
