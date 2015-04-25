@@ -12,19 +12,19 @@ Implementing an Event Bus With RxJava - RxBus
  2. 使用RxJava实现Event Bus
  3. 关于这种实现的一些思考
 
-"RxBus"并不是打算成为一个库。使用RxJava实现一个Event Bus简单至极，它并不保证一个独立库的臃肿。
+"RxBus"并不是打算成为一个库。使用RxJava实现一个Event Bus简单至极，但并不保证它不会变得臃肿。
 
 ##Part1：Event Bus是什么
 
 我们先谈谈两个类似的概念：Observer模式和Pub-sub模式
 
 ###Observer模式
-这是一个开发模式，你的类或主要对象(称作Observable)通知给其他感兴趣的类或对象(称作Observers)一些相关信息(event)。
+这是一个开发模式，当一些事件产生时，你的Observable对象向Observers对象发送通知。
 
 ###Pub-sub模式
 Pub-sub模式的目标与Observer模式完全相同。你想让一些其他类知道某些事情的发生。
 
-在Observer模式和Pub-sub模式之间有一个重要的语义区别：在Pub-sub模式中的关注点是向外”广播"消息。这里Observable并不需要知道事件到了谁那里，只要出去即可。换句话说，Observable(又称Publisher)不需要知道谁是Observers(又称Subscribers)。
+在Observer模式和Pub-sub模式之间有一个重要的语义区别：在Pub-sub模式中的关注点是向外”广播"消息。这里Observable并不需要知道事件到了谁那里，只要发出去即可。换句话说，Observable(又称Publisher)不需要知道谁是Observers(又称Subscribers)。
 
 ###为什么匿名？
 它允许这个称作”解耦”的东西，这是计算机编程中的一个褒义词。你应该在你的设计中尽可能地保持解耦。
