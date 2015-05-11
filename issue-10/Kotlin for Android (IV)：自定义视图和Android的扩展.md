@@ -8,9 +8,7 @@ Kotlin for Android (IV)：自定义视图和Android的扩展
 * 校对者: [校对者](https://github.com/校对者)  
 * 状态 :  待校对
 
-``` Java
 
-```
 After reading what extension functions and default values can do for you, you might be wondering what´s next. As we talked in first article about Kotlin, this language makes Android development much simpler and there are still some more things I´d like to talk about.
 
 在了解[extension functions and default values](http://antonioleiva.com/kotlin-android-extension-functions/)可以为我们做什么后，你可能想知道接下来将会发生什么。
