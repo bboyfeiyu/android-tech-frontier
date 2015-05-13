@@ -2,26 +2,27 @@ Kotlin for Android (IV)：自定义视图和Android的扩展
 ---
 
 > * 原文链接 : [Kotlin for Android (IV): Custom Views and Android Extensions](http://antonioleiva.com/kotlin-android-custom-views/)
-* 原文作者 : [待定]()
+* 原文作者 : [Antonio Leiva](http://antonioleiva.com)
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [sundroid](https://github.com/sundroid) 
-* 校对者: [校对者](https://github.com/校对者)  
-* 状态 :  待校对
+* 校对者: [Mr.Simple](https://github.com/bboyfeiyu)  
+* 状态 :  已校对
 
-``` Java
 
-```
 After reading what extension functions and default values can do for you, you might be wondering what´s next. As we talked in first article about Kotlin, this language makes Android development much simpler and there are still some more things I´d like to talk about.
 
-在了解[extension functions and default values](http://antonioleiva.com/kotlin-android-extension-functions/)可以为我们做什么后，你可能想知道接下来将会发生什么。
-在[first article about Kotlin](http://antonioleiva.com/kotlin-for-android-introduction/)我们讨论过，Kotlin使得我们的开发变的更加简单，并且接下来我将更加深入的阐述这一观点。
+在了解[extension functions and default values](http://antonioleiva.com/kotlin-android-extension-functions/)
+可以为我们做什么后，你可能想知道接下来将会发生什么。
+在[first article about Kotlin](http://antonioleiva.com/kotlin-for-android-introduction/)
+我们讨论过，Kotlin使得我们的开发变的更加简单，并且接下来我将更加深入的阐述这一观点。
 
 Custom Views
 ---
 自定义View
 ---
 If you remember, when I talked about Kotlin limitations I mentioned that in previous Kotlin versions (up to M10) it was not possible to create custom views. The reason is because we only had the option of creating one constructor for each class. This is usually enough, because using optional parameters we can create as many variations of the constructor as we may need. Here it is an example:
-如果你还记得，当我介绍Kotlin时说过，Kotlin的以往版本（一直到M10），Kotlin是不支持去创建自定义view的。原因是我们在使用Kotlin时，对每一个类只有一个构造函数。这通常是足够的，因为使用可选择的参数时，我们通过Kotlin提供的构造函数创造了许多我们需要的变化。下面就是这样的一个例子：
+
+Kotlin的以往版本（一直到M10）是不支持去创建自定义view的。原因是我们在使用Kotlin时，每一个类只有一个构造函数。这通常是足够的，因为我们使用可选参数来使构造函数足以满足我们的需求。下面就是这样的一个例子：
 
 ``` Java
 class MyClass(param: Int, optParam1: String = "", optParam2: Int = 1) 
@@ -33,7 +34,8 @@ class MyClass(param: Int, optParam1: String = "", optParam2: Int = 1)
 ```
 
 With a unique constructor, we now have four ways to create this class:
-有一个独特的构造函数，我们现在有四种方法来创建这个类：
+
+通过这个构造函数:
 
 
 ``` Java
@@ -45,7 +47,8 @@ val myClass4 = MyClass(1, "hello", 4)
 
 As you see, we get a whole bunch of combinations just by using optional parameters. But this leads to a problem if we are trying to create an Android custom view by extending one of the regular views. Custom views need to override more than one constructor to work properly, and we didn´t have a way to do it. Luckily, since M11 we have a way to declare more constructors in way similar to what we do in Java. This is an example of an ImageView which preservers a squared ratio:
 
-正如你所见，我们得到许多符合我们需求的类，仅仅通过使用可选参数来组合就能够达到我们的目的。但是这导致了一个问题就是如果我们尝试通过继承系统的View来创建一个Android自定义View。自定义View需要重写不止一个父类的构造函数才能够正常运行，并且Kotlin没有提供这样的方法。幸运的是，从Kotlin M11版本发布后，我们提供了一个方法就是声明了更多的构造函数，就像我们在Java下一样。这是一个ImageView保存平方率的例子：
+
+正如你所见，我们通过可选参数达到了我们想要的多构造函数的目的。但是这导致了一个问题就是如果我们尝试通过继承系统的View来创建一个Android自定义View。自定义View需要重写不止一个父类的构造函数才能够正常运行，并且Kotlin没有提供这样的方法。幸运的是，从Kotlin M11版本发布后就支持声明多个构造函数，就像我们在Java下一样。这是一个ImageView保存平方率的例子：
 
 ``` Java
 class SquareImageView : ImageView {
