@@ -35,7 +35,11 @@ class MyClass(param: Int, optParam1: String = "", optParam2: Int = 1)
 
 With a unique constructor, we now have four ways to create this class:
 
+<<<<<<< HEAD
 通过这个构造函数:
+=======
+有一个独特的构造函数，我们现在有四种方法来创建这个类：
+>>>>>>> 7ce64fb929d808f1758ff85da5b3f6cebe399542
 
 
 ``` Java
@@ -155,7 +159,7 @@ override fun onCreate(savedInstanceState: Bundle?) { 
 Conclusion
 ---
 
-结论
+总结
 ---
 
 What it´s really promising about these two new features is that it´s clear that the Kotlin team is very interested in making Android developers lives easier. They also released a library called Anko, a DSL to create Android layouts from Kotlin files. I´m not using its main functionality yet, but you can use it to simplify your code when dealing with Android views, and I have some examples of this in the Kotlin project I pushed to Github. You can take a look to see this and many other things.
