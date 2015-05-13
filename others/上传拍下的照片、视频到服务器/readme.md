@@ -3,11 +3,10 @@
 
 >
 * 原文链接 : [Android Uploading Camera Image, Video to Server with Progress Bar](http://www.androidhive.info/2014/12/android-uploading-camera-image-video-to-server-with-progress-bar/)
+* 作者 :  [Ravi Tamada](http://www.androidhive.info/)
 * 译者 : [chaossss](https://github.com/chaossss) 
 * 校对者: [Mr.Simple](https://github.com/bboyfeiyu)  
 * 状态 :  校对完成
-
-
 
 
 我在上一篇教程中给大家讲解了怎么通过进度条下载文件，今天，我将在这篇文章中给大家讲解如果在弹出进度条的同时上传一个文件到服务器。通过阅读这篇文章，并学习其中的知识，你能做出一个类似 Instagram 的App，在你做出的 App 里，你能够像在 Instagram 里那样用摄像头拍照/视频，然后把它们上传到服务器。在服务器端，我使用 PHP 读取上传的文件，并把文件移动到一个特殊的位置。
@@ -28,6 +27,7 @@
 
 **strings.xml**
 
+```xml
      <?xml version="1.0" encoding="utf-8"?>
      <resources>
       
@@ -38,12 +38,13 @@
      	 <string name="btnUploadToServer">Upload to Server</string>
       
      </resources>
+```
  
 3、 向 res 文件夹添加 colors.xml，并把下面的内容添加进去：
 
 **colors.xml**
 
-
+```xml
 	<?xml version="1.0" encoding="utf-8"?>
 	<resources>
 	 
@@ -54,6 +55,7 @@
 		<color name="action_bar">#1f2649</color>
 	 
 	</resources>
+```
 
 4、 在 src 目录下创建一个叫做 Config 的类。这个类用于保存文件上传所送到的 URL 地址，还有在移动设备中存储图片/视频的目录名称。你可能需要在测试 App 时使用你自己的 URL 地址进行上传操作。
 
@@ -61,6 +63,7 @@
 
 **AndroidMultiPartEntity.java**
 
+```java
     package info.androidhive.camerafileupload;
      
     import java.io.FilterOutputStream;
@@ -129,6 +132,7 @@
 	    }
    	  }
 	}
+```
 
 现在我们需要通过在 App 中添加一个简单的页面来添加摄像头功能，在这里我们将使用两个 Button 来调用我们的摄像头为我们的 App 拍照/视频。
 
@@ -142,6 +146,7 @@
 
 **AndroidManifest.xml**
 
+```xml
     <?xml version="1.0" encoding="utf-8"?>
     <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	    package="info.androidhive.camerafileupload"
@@ -178,11 +183,13 @@
 	    </application>
 
     </manifest>
+```
 
 7、打开你 MainActivity 的布局文件（activity_main.xml)，并添加下面的代码，这样做能让你的布局拥有两个 Button。
 
 **activity_main.xml**
 
+```xml
 	<?xml version="1.0" encoding="utf-8"?>
 		<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	    xmlns:tools="http://schemas.android.com/tools"
@@ -234,6 +241,7 @@
 	    </LinearLayout>
 
 	</RelativeLayout>
+```
 
 8、在你的 MainActivity 中添加使用摄像头的相关代码，这些代码和这个系列的教程中使用的代码是一样的。简单来说，这个 Activity 主要会完成下面的工作：
 
@@ -245,6 +253,7 @@
 
 **MainActivity.java**
 
+```java
 	package info.androidhive.camerafileupload;
 	 
 	import java.io.File;
@@ -504,6 +513,7 @@
 	        return mediaFile;
 	    }
 	}
+```
 
 如果你现在运行你的 App，你会看到类似下面这样的输出结果。
 
@@ -517,6 +527,7 @@
 
 **activity_upload.xml**
 
+```xml
 	<?xml version="1.0" encoding="utf-8"?>
 	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:layout_width="fill_parent"
@@ -576,6 +587,7 @@
 	        android:layout_marginBottom="20dp"/>
 	 
 	</LinearLayout>
+```
 
 10、创建一个叫做 UploadActivity 的类，并把下面的代码复制进去。在这个类里，我们主要完成下面两项工作：
 
@@ -585,6 +597,7 @@
 
 **UploadActivity.java**
 
+```java
 	package info.androidhive.camerafileupload;
 	 
 	import info.androidhive.camerafileupload.AndroidMultiPartEntity.ProgressListener;
@@ -813,6 +826,7 @@
 	    }
 	 
 	} 
+```
 
 到这里，我们已经把 Android 项目构建好了，现在让我们来快速地创建一个 PHP工程以用于接收我们 App 发送过来的文件，就能看到这个项目的实际想过啦。但在那之前，我们可能需要为 WAMP Server做一点点简单的配置。
 
@@ -841,6 +855,7 @@
 
 **fileUpload.php**
 
+```php
 	<?php
 	 
 	// Path to move uploaded files
@@ -893,11 +908,13 @@
 	// Echo final json response to client
 	echo json_encode($response);
 	?>
+```
 
 Below is the sample JSON response if the file is uploaded successfully. You can use error value to verify the upload on android side.
 
 如果文件成功被上传，就会得到类似下面这个简单的 JSON 返回值范例。你可以使用错误代码来确认 Android 端的上传结果。
 
+```php
 	{
 	    "file_name": "DSC_0021.JPG",
 	    "email": "admin@androidhive.info",
@@ -906,6 +923,7 @@ Below is the sample JSON response if the file is uploaded successfully. You can 
 	    "error": false,
 	    "file_path": "http://192.168.0.104/AndroidFileUpload/uploads/DSC_0021.JPG"
 	}
+```
 
 ## 4.测试上传文件功能（本地） ##
 
