@@ -1,4 +1,4 @@
-缺失的Android材料化组件
+﻿缺失的Android Material组件
 ---
 
 > * 原文链接 : [Missing Android Material Components](http://www.dmytrodanylyk.com/pages/blog/missing-material-components.html)
@@ -17,7 +17,7 @@ Today I want to speak about Missing Android Material Components, which basically
 
 你好，我是Dmytro Danylyk，自从G1发布以来，我开发Android应用已经有4年的时间了。我还是Google Apps Developer Challenge 2012 的决赛选手。我一直试着在StackOverflow（8000个声望点了）上帮助他人。你可能通过我的技术文章或是开源库了解过我，如Process Button 和Circular Progress Button ，而且很有可能你正在使用它们。
 
-今天我想说的是：缺失的Android材料化组件，主要是指那些在Google Material Spec中提到的，但Android SDK和AppCompat v7库中又没有的Android材料化组件。另外还会分享一些gists和教程，以及制作这些组件诀窍。
+今天我想说的是：缺失的AndroidMaterial组件，主要是指那些在Google Material Spec中提到的，但Android SDK和AppCompat v7库中又没有的Android材料化组件。另外还会分享一些gists和教程，以及制作这些组件诀窍。
 
 But first, I would like to answer a question, which you will probably ask me.
 
@@ -25,7 +25,7 @@ But first, I would like to answer a question, which you will probably ask me.
 
 Why we should write material components ourselves and not use 3rd part libraries?
 
-为什么我们自己要写材料化组件，而不是使用第三方的库？
+为什么我们自己要写Material组件，而不是使用第三方的库？
 
 My answer is - you should always write something yourself, if you have time for this, because it’s safer. Add new feature or fix bug in your own code - always easier.
 
@@ -33,7 +33,7 @@ Here`s how things are done in my projects. I have a library module called ‘mat
 
 我的答案是：你应该自己写一些东西，如果你有时间的话，因为这样才稳妥。加入新的特性和修改bug才会变得更容易。
 
-下面是我在我的工程中做的一些事情。我有一个库叫做“material-components”，我放了些我自定义的材料化的组件在里面。这样在我的下一个工程里就可以复制粘贴其中的代码了。
+下面是我在我的工程中做的一些事情。我有一个库叫做“material-components”，我放了些我自定义的Material组件在里面。这样在我的下一个工程里就可以复制粘贴其中的代码了。
 
 Slide 1
 
@@ -45,7 +45,7 @@ That's exactly what we are going to do.
 
 Slide 1
 
-现在我们开始吧。如你所知，Google已经发布了AppCompat v7库了，里面有8个材料化组件。Google也已经发布了超过50页的关于材料设计的规范。可以说，Google想告诉我们：
+现在我们开始吧。如你所知，Google已经发布了AppCompat v7库了，里面有8个Material组件。Google也已经发布了超过50页的关于材料设计的规范。可以说，Google想告诉我们：
 
 - 这只是规范，具体的要自己来做。
 
@@ -57,7 +57,7 @@ To start cooking we need to prepare Ingredients which will be included almost in
 
 Slide 2
 
-开始之前，我们需要准备要素，将会应用在我们的材料化组件中。
+开始之前，我们需要准备要素，将会应用在我们的Material组件中。
 
 Slide 3
 
@@ -69,7 +69,7 @@ Here you can see sample code of AppCompat.TextAppearance - use them where possib
 
 Slide 3
 
-AppCompat v7库并不是仅仅包括一些材料化的组件，它也包括大量的预定义的材料化的色彩，字体大小和尺寸。我们的第一个要素就是-Typography，它在材料设计中已经被更改过了。
+AppCompat v7库并不是仅仅包括一些Material的组件，它也包括大量的预定义的Material的色彩，字体大小和尺寸。我们的第一个要素就是-Typography，它在材料设计中已经被更改过了。
 
 Slide 3/1
 
@@ -89,7 +89,7 @@ And for older versions - Fade Selector. To create Fade Selector you only need to
 
 Slide 4
 
-Selector-是另一个重要的材料设计中做出改变的东西。随着Android Lollipop的发布，我们有了Ripple Drawable，可以作为任何组件的选择器。但不幸的是，由于表现的问题，Ripple Drawable只能在Android Lollipop上使用。为了让选择器看起来更“材料化”，我建议使用Fade Selector。
+Selector-是另一个重要的材料设计中做出改变的东西。随着Android Lollipop的发布，我们有了Ripple Drawable，可以作为任何组件的选择器。但不幸的是，由于表现的问题，Ripple Drawable只能在Android Lollipop上使用。为了让选择器看起来更“Material”，我建议使用Fade Selector。
 
 Slide 4/1
 
@@ -343,7 +343,7 @@ Recipe is the following - extend Dialog class and set custom content view. As a 
 
 Slide 10
 
-材料化的对话框仅仅在sdk v21上可用，所以要想让他们看起来，我们需要创建自己的Material Dialog。
+Material的对话框仅仅在sdk v21上可用，所以要想让他们看起来，我们需要创建自己的Material Dialog。
 
 Slide 10/1
 
@@ -466,7 +466,7 @@ There are a lot of material tabs libraries, but all have some issues, like wrong
 
 Slide 17
 
-也有一些材料化的tabs库，但是都有些问题，像错误的指示器动画，ripple效果而不是reveal等等。我高度推荐自己做一个tabs指示器。
+也有一些Material的tabs库，但是都有些问题，像错误的指示器动画，ripple效果而不是reveal等等。我高度推荐自己做一个tabs指示器。
 
 Slide 18
 
