@@ -17,7 +17,7 @@ Today I want to speak about Missing Android Material Components, which basically
 
 你好，我是Dmytro Danylyk，自从G1发布以来，我开发Android应用已经有4年的时间了。我还是Google Apps Developer Challenge 2012 的决赛选手。我一直试着在StackOverflow（8000个声望点了）上帮助他人。你可能通过我的技术文章或是开源库了解过我，如Process Button 和Circular Progress Button ，而且很有可能你正在使用它们。
 
-今天我想说的是：缺失的AndroidMaterial组件，主要是指那些在Google Material Spec中提到的，但Android SDK和AppCompat v7库中又没有的Android材料化组件。另外还会分享一些gists和教程，以及制作这些组件诀窍。
+今天我想说的是：缺失的Android Material组件，主要是指那些在Google Material Spec中提到的，但Android SDK和AppCompat v7库中又没有的Android Material组件。另外还会分享一些gists和教程，以及制作这些组件诀窍。
 
 But first, I would like to answer a question, which you will probably ask me.
 
@@ -69,7 +69,7 @@ Here you can see sample code of AppCompat.TextAppearance - use them where possib
 
 Slide 3
 
-AppCompat v7库并不是仅仅包括一些Material的组件，它也包括大量的预定义的Material的色彩，字体大小和尺寸。我们的第一个要素就是-Typography，它在材料设计中已经被更改过了。
+AppCompat v7库并不是仅仅包括一些Material的组件，它也包括大量的预定义的Material 色彩，字体大小和尺寸。我们的第一个要素就是-Typography，它在材料设计中已经被更改过了。
 
 Slide 3/1
 
@@ -426,7 +426,7 @@ Material Design date and time pickers are complex widgets, which fortunately are
 
 Slide 13
 
-材料设计日期时间选择器是个比较复杂的组件，但幸运的是在Google的开源库中你可以直接使用的。
+Material Design日期时间选择器是个比较复杂的组件，但幸运的是在Google的开源库中你可以直接使用的。
 
 Slide 13/1
 
@@ -450,7 +450,7 @@ In Material Design Spec. progress now has several different states. Determinate 
 
 Slide 15
 
-在材料设计规范中，progress现在也有了好几种不同的状态。Determinate and Indeterminate views也可以作为第三方库来使用。
+在Material Design规范中，progress现在也有了好几种不同的状态。Determinate and Indeterminate views也可以作为第三方库来使用。
 
 Slide 16
 
@@ -480,7 +480,7 @@ Slide 18
 
 总结：
 	你若在Lollipop之前需要阴影效果，就使用CardView或者ShadowLayout。
-	几乎所有的第三方库都存在问题，并且只是部分模仿了材料设计规范。
+	几乎所有的第三方库都存在问题，并且只是部分模仿了Material Design规范。
 	一些组件很容易实现-制作你自己的Material-support库并使用它是很有值得的。
 
 
