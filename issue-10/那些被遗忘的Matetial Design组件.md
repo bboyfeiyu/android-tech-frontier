@@ -1,11 +1,11 @@
-﻿缺失的Android Material组件
+﻿那些被遗忘的Matetial Design组件
 ---
 
 > * 原文链接 : [Missing Android Material Components](http://www.dmytrodanylyk.com/pages/blog/missing-material-components.html)
 * 原文作者 : [Dmytro Danylyk](http://www.dmytrodanylyk.com/index.html#/about)
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [wly2014](https://github.com/wly2014) 
-* 校对者: [这里校对者的github用户名](github链接)  
+* 校对者: [yinna317](https://github.com/yinna317)  
 * 状态 :  未完成 / 校对中 / 完成 
 
 
