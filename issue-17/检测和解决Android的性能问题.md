@@ -7,6 +7,7 @@
 * 状态 :  未完成
 
 ##Introduction
+##介绍
 
 No matter how innovative and useful your Android app is, if it’s laggy, prone to freezing, or hogs memory, no one is going to want to use it.
 
