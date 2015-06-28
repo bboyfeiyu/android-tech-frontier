@@ -20,8 +20,9 @@
 4. 完成翻译后将状态修改为"校对中",提交pull request到本项目;
 5. 管理员校对完成之后便会发布。
 
-[git流程简介](git简单使用教程.md)        
-[markdown语法简单教程](markdown简单教程.md)
+* [git流程简介](git简单使用教程.md)        
+* [markdown语法简单教程](markdown简单教程.md)
+* [git操作流程](git操作流程.md)
 
 ## 注意事项
 1. 在翻译文章时，保留专有名词；
@@ -34,7 +35,7 @@
 
 **翻译群: 399424408, Android框架设计交流群 : 413864859.**
 
-<b id="category" />
+<b id="category" ></b>
 ## 文章分类
 |   来源    |   介绍     |
 |----------|-------------|
@@ -42,7 +43,7 @@
 | [Android Blog](android-blog) | Android官方技术博客[Android Dev Blog](http://android-developers.blogspot.com/) |
 | [Others](others) | 其他来源的优秀文章 |
 
-<b id="recommend" />
+<b id="recommend" ></b>
 ## 推荐文章
 如果您有好的文章推荐我们翻译，请在 在[bboyfeiyu/android-tech-frontier](https://github.com/bboyfeiyu/android-tech-frontier/issues) 下提一个issue，Issue 模板: 
 https://github.com/bboyfeiyu/android-tech-frontier/issues/1
@@ -80,8 +81,63 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 ## 免费优秀的电子书
 1. [软件架构模式 ](https://raw.githubusercontent.com/bboyfeiyu/android-tech-frontier/master/software-architecture-patterns/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%BC%8F.pdf)
 
-<b id="articles" />
+<b id="articles" ></b>
 ## 已完成列表
+# 2015.6.23 ( 第十五期 )
+| 文章名称 |   译者  | 
+|---------|--------|
+| [2015-Google-IO带来的新Android开发工具.md](issue-15/2015-Google-IO带来的新Android开发工具.md)  | [ Mario Zechner](http://robovm.com/author/mario/)      
+| [Android-C++引用计数介绍](issue-15/Android-C++引用计数介绍.md)  | [Bin Chen](https://plus.google.com/+PierrChen/posts) 
+| [Android-M的App-Links实现详解](issue-15/Android-M的App-Links实现详解.md)  | [jianghejie](https://github.com/jianghejie)      |
+| [facebook代码分析工具-infer](issue-15/facebook代码分析工具-infer.md)  | [Mr.Simple](https://github.com/bboyfeiyu)      |
+| [你可能漏掉的知识点-onResumeFragments](issue-15/你可能漏掉的知识点-onResumeFragments.md)  | [jianghejie](https://github.com/jianghejie)      |
+| [如何修复编译时的MultiDex崩溃.md](issue-15/你可能漏掉的知识点-onResumeFragments.md)  | [zijianwang90](https://github.com/zijianwang90)      |
+
+# 2015.6.12 ( 第十四期 )
+| 文章名称 |   译者  | 
+|---------|--------|
+| [Android-Design-Support-Library](issue-14/Android-Design-Support-Library.md)  | [MiJack](https://github.com/MiJack)      |
+| [新的测试注解](issue-14/新的测试注解.md)  | [Mr.Simple](https://github.com/bboyfeiyu) 
+| [Android之WebRTC介绍](issue-14/Android之WebRTC介绍.md)  | [DorisMinmin](https://github.com/DorisMinmin)      |
+| [Design-Support-Library(I)-Navigation-View](issue-14/Design-Support-Library(I)-Navigation-View.md)  | [tiiime](https://github.com/tiiime)      |
+| [MVVM 模式简介](issue-14/MVVM 模式简介.md)  | [chaossss](https://github.com/chaossss)      |
+    |
+
+# 2015.6.5 ( 第十三期 )
+| 文章名称 |   译者  | 
+|---------|--------|
+| [Square：从今天开始抛弃Fragment吧！](issue-13/Square：从今天开始抛弃Fragment吧！.md)  | [chaossss](https://github.com/chaossss)      |
+| [Android进行单元测试难在哪-终](issue-13/Android进行单元测试难在哪-终.md)  | [chaossss](https://github.com/chaossss)|
+| [优化android-studio编译效率的方法](issue-13/优化android-studio编译效率的方法.md)  | [FTExplore](https://github.com/FTExplore)      |
+| [创建 RecyclerView LayoutManager – Part 2](issue-13/创建-RecyclerView-LayoutManager-Part-2.md)  | [tiiime](https://github.com/tiiime)|
+| [创建-RecyclerView-LayoutManager-Part-3](issue-13/创建-RecyclerView-LayoutManager-Part-3.md)  | [tiiime](https://github.com/tiiime)     |
+| [创建-RecyclerView-LayoutManager-Redux](issue-13/创建-RecyclerView-LayoutManager-Redux.md)  | [Mr.Simple](https://github.com/bboyfeiyu)     |
+
+
+
+# 2015.5.31 ( 第十二期 )
+| 文章名称 |   译者  | 
+|---------|--------|
+| [自动化Android开发](issue-12/自动化Android开发.md)  | [tmc9031](https://github.com/tmc9031)      |
+| [Android进行单元测试难在哪-part4](issue-12/Android进行单元测试难在哪-part4.md)  | [chaossss](https://github.com/chaossss)|
+| [当复仇者联盟遇上Dragger2、RxJava和Retrofit的巧妙结合](issue-12/当复仇者联盟遇上Dragger2、RxJava和Retrofit的巧妙结合.md)  | [Rocko](https://github.com/Rocko)      |
+| [Ted Mosby - 软件架构](issue-12/MVP框架Mosby架构详解.md)  | [Mr.Simple](https://github.com/bboyfeiyu)|
+| [Android自动截屏工具](issue-12/Android自动截屏工具.md)  | [sundroid](https://github.com/sundroid)     |
+| [Android上MVP的介绍](issue-12/Android上MVP的介绍.md)  | [MiJack](https://github.com/MiJack)     |
+
+
+
+# 2015.5.24 ( 第十一期 )
+| 文章名称 |   译者  | 
+|---------|--------|
+| [Android-Espresso测试框架介绍](issue-11/Android-Espresso测试框架介绍.md)  | [zhengxiaopeng](https://github.com/zhengxiaopeng)      |
+| [Android 进行单元测试难在哪-part3](issue-11/Android进行单元测试难在哪-part3.md)  | [chaossss](https://github.com/chaossss)|
+| [Code Review最佳实践](issue-11/Code Review最佳实践.md)  | [ayyb1988](https://github.com/ayyb1988)      |
+| [听FaceBook工程师讲Custom-ViewGroups](issue-11/听FaceBook工程师讲Custom-ViewGroups.md)  | [objectlife](https://github.com/objectlife)|
+| [详解Dagger2](issue-11/详解Dagger2.md)  | [xianjiajun](https://github.com/xianjiajun)     |
+
+
+
 # 2015.5.17 ( 第十期 )
 | 文章名称 |   译者  | 
 |---------|--------|
@@ -90,7 +146,6 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 | [Kotlin-for-Android-(IV)：自定义视图和Android的扩展](issue-10/Kotlin-for-Android-(IV)：自定义视图和Android的扩展.md)  | [sundroid](https://github.com/sundroid)      |
 | [使用Facebook-SDK为安卓应用添加Like按钮](issue-10/使用Facebook-SDK为安卓应用添加Like按钮.md)  | [objectlife](https://github.com/objectlife)|
 | [将基于Dagger-1开发的项目迁移到Dagger-2中](issue-10/将基于Dagger-1开发的项目迁移到Dagger-2中.md)  | [chaossss](https://github.com/chaossss)     |
-| [Android-Espresso测试框架介绍.md](issue-10/Android-Espresso测试框架介绍.md)  | [zhengxiaopeng](https://github.com/zhengxiaopeng)     |
 
 
 
@@ -98,7 +153,7 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 | 文章名称 |   译者  | 
 |---------|--------|
 | [Android 10ms问题：关于Android音频路径延迟的解释](issue-9/Android 10ms问题：关于Android音频路径延迟的解释.md)  | [objectlife](https://github.com/objectlife)      |
-| [Android 进行单元测试难在哪-part1](issue-9/Android 进行单元测试难在哪-part1.md)  | [chaossss](https://github.com/chaossss)|
+| [Android进行单元测试难在哪-part1](issue-9/Android进行单元测试难在哪-part1.md)  | [chaossss](https://github.com/chaossss)|
 | [NotRxJava懒人专用指南](issue-9/NotRxJava懒人专用指南.md)  | [Rocko](https://github.com/Rocko)      |
 | [使用Android Studio进行单元测试](issue-9/使用Android-Studio进行单元测试.md)  | [ZhaoKaiQiang](https://github.com/ZhaoKaiQiang)|
 | [通过Jenkins并行完成UI的自动化测试](issue-9/通过Jenkins并行完成UI的自动化测试.md)  | [chaossss](https://github.com/chaossss)     |
