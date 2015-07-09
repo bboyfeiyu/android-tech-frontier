@@ -6,8 +6,7 @@ Loading data from multiple sources with RxJava
 * 原文链接 : [Loading data from multiple sources with RxJava](http://blog.danlew.net/2015/06/22/loading-data-from-multiple-sources-with-rxjava/)    
 * 作者 : [Dan Lew](http://blog.danlew.net/author/dan-lew/)    
 * 译者 : [sjyin](https://github.com/yinshijian-kkb)     
-* 校对者: [bboyfeiyu](https://github.com/bboyfeiyu)  
-* 状态 :   校对未完成
+* 校对者: [bboyfeiyu](https://github.com/bboyfeiyu)
 
 
 Suppose I have some Data that I query from the network. I could simply hit the network each time I need the data, but caching the data on disk and in memory would be much more efficient.
