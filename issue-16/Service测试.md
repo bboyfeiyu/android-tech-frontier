@@ -27,7 +27,7 @@ Android为Service对象提供了一套测试框架，框架可以独立的运行
 
 [ServiceTestCase](http://developer.android.com/tools/testing/service_testing.html)中的```setUp()```方法会在每次测试的时候调用。任何方法调用它，它都会创建一个当前系统的上下文的拷贝。你可以通过调用```getSystemContext()```查看这个上下文对象。如果，你重写该方法，你必须在重写的方法中首先调用```super.setUp()```。
 
-```setApplication()```和```setContext(Context) setContext()```允许你在开启Service之前为Service设置一个模拟的```Context```和```Application```（或者两者）。这些模拟的对象在[模拟对象集合](http://developer.android.com/tools/testing/service_testing.html#MockObjects]中。
+```setApplication()```和```setContext(Context) setContext()```允许你在开启Service之前为Service设置一个模拟的```Context```和```Application```（或者两者）。这些模拟的对象在[模拟对象集合](http://developer.android.com/tools/testing/service_testing.html#MockObjects)中。
 
 默认情况下，[ServiceTestCase](http://developer.android.com/tools/testing/service_testing.html)运行```testAndroidTestCaseSetupProperly()```方法，去声明在测试启动之前已经成功的创建```Context```。
 
@@ -39,7 +39,7 @@ Android为Service对象提供了一套测试框架，框架可以独立的运行
 在测试的时候，将一个模拟对象注入到Service中。
 首先，创建一个[MockApplication](http://developer.android.com/reference/android/test/mock/MockApplication.html)的子类。```MockApplication```是[Applicatoin](http://developer.android.com/reference/android/app/Application.html)的子类。然后，使用```setApplication()```将它注入到Service中。这个模拟对象允许你操作Service中的值，并且不受真实的系统影响。另外，当你运行测试的时候，你的Service中任何隐藏的应用依赖将会被当做异常处理。
 
-在测试中，你使用```setContext()```方法注入一个模拟```Context```到Service中。在[基础测试](http://developer.android.com/tools/testing/testing_android.html#MockObjectClasses]中，模拟的```Context```可以描述更多细节。
+在测试中，你使用```setContext()```方法注入一个模拟```Context```到Service中。在[基础测试](http://developer.android.com/tools/testing/testing_android.html#MockObjectClasses)中，模拟的```Context```可以描述更多细节。
 
 ##测试什么
 
