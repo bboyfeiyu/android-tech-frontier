@@ -79,9 +79,9 @@ Worked on SMS, WAP Push, MMS, OTA provisioning in previous life
 
 * Follow 
 
-	。@agargenta
-	。+Aleksandar Gargenta
-	。http://marakana.com/s/author/1/aleksandar_gargenta
+	。@agargenta 
+	。+Aleksandar Gargenta   
+	。http://marakana.com/s/author/1/aleksandar_gargenta 
 
 
 #What is Binder?
@@ -90,9 +90,9 @@ An IPC/component system for developing object- oriented OS services
 
 * 一个开发关系对象系统服务的进程间通信系统
 
-	Not yet another object-oriented kernel
-	。不是另外一个关系对象内核
-	Instead an object-oriented operating system environment that works on traditional kernels, like Linux!
+	Not yet another object-oriented kernel  
+	。不是另外一个关系对象内核   
+	Instead an object-oriented operating system environment that works on traditional kernels, like Linux!  
 	。代替运行在传统内核的系统环境上的关系对象，如：Linux
 
 Essential to Android!   
@@ -128,114 +128,114 @@ Focused on scalability, stability, flexibility, low-latency/overhead, easy progr
 Android apps and system services run in separate processes for security, stability, and memory management reasons, but they need to communicate and share data! 
 * 出于安全性、稳定性和内存管理的考虑，Android的应用和系统服务运行在分离的进程中，但是它们之间需要通信和共享数据
 
-	Security: each process is sandboxed and run under a distinct system identity
+	Security: each process is sandboxed and run under a distinct system identity    
 	。安全性：每一个进程就是一个沙盒，运行在一个独特的系统标识
 
-	Stability: if a process misbehaves (e.g. crashes), it does not affect any other processes
+	Stability: if a process misbehaves (e.g. crashes), it does not affect any other processes   
 	。稳定性：如果一个进程失常（例如：崩溃），它不影响其它的进程
 
 	Memory management: "unneeded" processes are removed to free resources (mainly memory) for new 
-	ones
+	ones    
 	。内存管理：“不需要”的进程会被移除，为新的释放资源（主要是内存）
 
-	In fact, a single Android app can have its components run in separate processes
+	In fact, a single Android app can have its components run in separate processes 
 	。事实上，一个单独的Android应用可以有运行在独立进程中的组件
 
 IPC to the rescue   
 * IPC拯救
 
-	But we need to avoid overhead of traditional IPC and avoid denial of service issues
+	But we need to avoid overhead of traditional IPC and avoid denial of service issues 
 	。如果我们需要避免传统IPC开销和拒绝服务的问题
 
 Android’s libc (a.k.a. bionic) does not support System V IPCs  
 * Android的libc(a.k.a bionic)库不支持System V IPCs
 
-	No SysV semaphores, shared memory segments, message queues, etc.
+	No SysV semaphores, shared memory segments, message queues, etc.    
 	。没有SysV信号量，共享内存、消息队列等等
 
-	System V IPC is prone to kernel resource leakage, when a process "forgets" to release shared IPC resources upon termination
+	System V IPC is prone to kernel resource leakage, when a process "forgets" to release shared IPC resources upon termination 
 	。当一个进程终止时，“忘记”释放IPC共享资源，System V IPC倾向于内存资源泄露
 
-	Buggy, malicious code, or a well-behaved app that is low-memory SIGKILL'ed 
+	Buggy, malicious code, or a well-behaved app that is low-memory SIGKILL'ed  
 	。害虫，恶意代码或者一个行为端正的应用在等内存的情况下都会无条件终止
 
 Binder to the rescue!   
 * Binder拯救
 
-	Its built-in reference-counting of "object" references plus death-notification mechanism make it suitable for "hostile" environments (where lowmemorykiller roams)
+	Its built-in reference-counting of "object" references plus death-notification mechanism make it suitable for "hostile" environments (where lowmemorykiller roams)  
 	。其内置的“对象”引用的引用计数器加上消亡提醒机制让它适用于“敌对的”环境（低内存强杀）
 
-	When a binder service is no longer referenced by any clients, its owner is automatically notified that it can dispose of it
+	When a binder service is no longer referenced by any clients, its owner is automatically notified that it can dispose of it 
 	。当一个Binder服务没有任何终端引用时，它的所有者可以自动提醒它去处理自己
 
 Many other features:    
 * 很多其它的特性：
 	
-	"Thread migration" - like programming model:
+	"Thread migration" - like programming model:    
 	。"线程迁移"-像编程模式：
 
 		Automatic management of thread-pools
-		Methods on remote objects can be invoked as if they were local - the thread appears to
-		。远程对象可以像本地的一样调用自动管理线程池方法
+		Methods on remote objects can be invoked as if they were local - the thread appears to  
+		* 远程对象可以像本地的一样调用自动管理线程池方法
 		￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼
-		"jump" to the other process
-		。“跳转”到其它的进程中
+		"jump" to the other process 
+		* “跳转”到其它的进程中
 
-		Synchronous and asynchronous (oneway) invocation model
-		。同步和异步（单向）的调用模式
+		Synchronous and asynchronous (oneway) invocation model  
+		* 同步和异步（单向）的调用模式
 
-Identifying senders to receivers (via UID/PID) - important for security reasons 
-* 分辨发送者和接受者（通过UID/PID）- 安全重要的原因
+    Identifying senders to receivers (via UID/PID) - important for security reasons 
+    。分辨发送者和接受者（通过UID/PID）- 安全重要的原因
 
-Unique object-mapping across process boundaries 
-* 独特的跨进程边界对象映射
+    Unique object-mapping across process boundaries 
+    。独特的跨进程边界对象映射
 
 	A reference to a remote object can be passed to yet another process and can be used as an identifying token
 	。远程对象的一个引用可以被传递到的进程中，并且可以被用作一个标志牌
 
-Ability to send file descriptors across process boundaries  
-* 各个进程之间发送文件描述符的能力
+    Ability to send file descriptors across process boundaries  
+    。各个进程之间发送文件描述符的能力
 
-Simple Android Interface Definition Language (AIDL) 
-* 简单的Android接口定义语言（AIDL）
+    Simple Android Interface Definition Language (AIDL) 
+    。简单的Android接口定义语言（AIDL）
 
-Built-in support for marshalling many common data-types 
-* 内置支持很多编组的常见数据类型
+    Built-in support for marshalling many common data-types 
+    。内置支持很多编组的常见数据类型
 
-Simplified transaction invocation model via auto-generated proxies and stubs (Java-only)    
-* 通过自动生成的代理和存根简化事务调用模型（只有Java）
+    Simplified transaction invocation model via auto-generated proxies and stubs (Java-only)    
+    。通过自动生成的代理和存根简化事务调用模型（只有Java）
 
-Recursion across processes - i.e. behaves the same as recursion semantics when calling methods on local objects 
-* 跨进程递归 - 例如：当调用本地对象上的方法时就跟递归的语义一样
+    Recursion across processes - i.e. behaves the same as recursion semantics when calling methods on local objects 
+    。跨进程递归 - 例如：当调用本地对象上的方法时就跟递归的语义一样
 
-Local execution mode (no IPC/data marshalling) if the client and the service happen to be in the same process   
-* 如果终端和服务器运行在同样的进程中，就会是本地执行模式（不是IPC数据信号编集）
+    Local execution mode (no IPC/data marshalling) if the client and the service happen to be in the same process   
+    。如果终端和服务器运行在同样的进程中，就会是本地执行模式（不是IPC数据信号编集）
 
 
 
 But:    
 * 但是：
 
-	No support for RPC (local-only)
+	No support for RPC (local-only) 
 	。不支持RPC（只有本地）
 
-	Client-service message-based communication - not well-suited for streaming 
+	Client-service message-based communication - not well-suited for streaming  
 	。客户端与服务之间的基于消息的通信 - 不适合流
 
-	Not defined by POSIX or any other standard
+	Not defined by POSIX or any other standard  
 	。没定义的POSIX或任何其他标准的
 
 Most apps and core system services depend on Binder 
 * 大多数应用程序和核心系统服务依赖于Binder
 
 	Most app component life-cycle call-backs (e.g. onResume(), onDestory(), etc.) are invoked by
-	ActivityManagerService via binder
+	ActivityManagerService via binder   
 	。大多数的应用程序组件生命周期的回调（例如：onResume(),onDestory()等等）会通过Binder被ActivityManagerService调用
 
-	Turn off binder, and the entire system grinds to a halt (no display, no audio, no input, no sensors,...)
+	Turn off binder, and the entire system grinds to a halt (no display, no audio, no input, no sensors,...)    
 	。关闭binder，然后整个系统慢慢停止（无显示，无音频，无输入，无传感器，...）
 
-	Unix domain sockets used in some cases (e.g. RILD)
+	Unix domain sockets used in some cases (e.g. RILD)  
 	。有些情况下使用UNIX中动态的socket（例如：RILD）
 
 
@@ -248,54 +248,52 @@ Android supports a simple form of IPC via intents and content providers
 Intent messaging is a framework for asynchronous communication among Android components 
 * 意图消息是Android组件之间异步通信的一个框架
 
-	Those components may run in the same or across different apps (i.e. processes)
-	* 这些组件可能运行在同样或不同的应用中（例如：多进程）
+	Those components may run in the same or across different apps (i.e. processes)  
+	。这些组件可能运行在同样或不同的应用中（例如：多进程）
 
-	Enables both point-to-point as well as publish- subscribe messaging domains
+	Enables both point-to-point as well as publish- subscribe messaging domains 
 	。支持点对点和发布-订阅消息传递域
 
-	The intent itself represents a message containing the description of the operation to be performed as well as data to be passed to the recipient(s)
+	The intent itself represents a message containing the description of the operation to be performed as well as data to be passed to the recipient(s) 
 	。意图本身代表一个包含描述要执行的操作以及数据传递给接受者的消息
 
-	Implicit intents enable loosely-coupled APIs
+	Implicit intents enable loosely-coupled APIs    
 	。隐式意图使api能够松散耦合
 
 ContentResolvers communicate synchronously with ContentProviders (typically running in separate apps) via a fixed (CRUD) API    
 * ContentResolvers通过稳定的（CRUB）API 与 ContentProviders （典型的运行在不同的应用中的）同步通信
 
 All android component can act as a senders, and most as receivers   
-。所以的Android组件都可以是发送者，但是大多数是接受者
+* 所以的Android组件都可以是发送者，但是大多数是接受者
 
 All communication happens on the Looper (a.k.a. main) thread (by default)   
-。发生在循环线程（又称，主线程）的所有通信
+* 发生在循环线程（又称，主线程）的所有通信
 
 But:    
 * 但是：
 
-	Not really OOP
+	Not really OOP  
 	。不是真实的OOP
 
-	Asynchronous-only model for intent-based communication 
+	Asynchronous-only model for intent-based communication  
 	。只有异步的基于intent的通信
 
-	Not well-suited for low-latency
+	Not well-suited for low-latency 
 	。不适合低延时
 
-	Since the APIs are loosely-defined, prone to run-time errors 
+	Since the APIs are loosely-defined, prone to run-time errors    
 	。因为，API是松散定义的，容易发生运行时错误
 
-	All underlying communication is based on Binder!
+	All underlying communication is based on Binder!    
 	。所有的底层通信都是基于Binder
 
-	In fact, Intents and ContentProvider are just a higher-level abstraction of Binder
+	In fact, Intents and ContentProvider are just a higher-level abstraction of Binder  
 	。事实上，Intent和ContentProvider只是Binder的高级抽象
 
-	Facilitated via system services: ActivityManagerService and PackageManagerService
+	Facilitated via system services: ActivityManagerService and PackageManagerService   
 	。通过系统服务促进发展：ActivityManagerService和PackageManagerService
 
 For example:    
-例如：
-
 *src/com/marakana/shopping/UpcLookupActivity.java* 
 
 ```java
@@ -650,18 +648,18 @@ In fact most communication happens via ioctl(binderFd, BINDER_WRITE_READ, &bwd),
 The write_buffer contains a series of commands for the driver to perform    
 * write_buffer包括一系列的操作驱动的命令
 
-    Book-keeping commands, e.g. inc/decrement binder object references, request/clear death notification, etc.
+    Book-keeping commands, e.g. inc/decrement binder object references, request/clear death notification, etc.  
     。Book-keeping命令，例如：增加、减少binder对象的引用，请求、清除死亡通知
 
-    A command requiring a response, like BC_TRANSACTION
+    A command requiring a response, like BC_TRANSACTION 
     。请求响应的命令，例如：BC_TRANSACTION
 
 Upon returning, the read_buffer will contain commands for the user-space to perform 
 * 返回后,read_buffer将包含与user-space执行的命令
 
-    Same book-keeping commands
+    Same book-keeping commands      
     。相同的book-keeping命令
-    A command requesting processing of the response (i.e. BC_REPLY) or a request to perform a nested (recursive) operation
+    A command requesting processing of the response (i.e. BC_REPLY) or a request to perform a nested (recursive) operation      
     。执行嵌套（递归）操作的响应或请求处理命令
 
 Clients communicate with services via transactions, which contain a binder token, code of the method to execute, raw data buffer, and sender PID/UID (added by the driver)  
@@ -819,21 +817,21 @@ Eclipse ADT automatically calls aidl for each .aidl file that it finds in our sr
 AIDL supports the following types:  
 * AIDL支持以下的类型：
 
-    。null
+    。null   
     。boolean, boolean[], byte, byte[], char[], int, int[], long, long[], float, float[],
-    double, double[]
-    。java.lang.CharSequence, java.lang.String (sent as UTF-16)
-￼￼￼￼￼
+    double, double[]    
+    。java.lang.CharSequence, java.lang.String (sent as UTF-16)  
+
     。java.io.FileDescriptor - transferred as a dup of the original file descriptor (points to the same underlying stream and position)
-    。java.io.Serializable - not efficient (too verbose)
+    。java.io.Serializable - not efficient (too verbose) 
     。java.util.Map<String, Object> - of supported types (always reconstructed as
-    java.util.HashMap)
-    。android.os.Bundle - a specialized Map-wrapper that only accepts AIDL-supported data types
-    。java.util.List - of supported types (always reconstructed as java.util.ArrayList)
-    。java.lang.Object[] - of supported types (including primitive wrappers)
-    。android.util.SparseArray, android.util.SparseBooleanArray
-    。android.os.IBinder, android.os.IInterface - transferred by (globally unique) reference (as a "strong binder", a.k.a. handle) that can be used to call-back into the sender
-    。android.os.Parcelable - allowing for custom types: 
+    java.util.HashMap)  
+    。android.os.Bundle - a specialized Map-wrapper that only accepts AIDL-supported data types  
+    。java.util.List - of supported types (always reconstructed as java.util.ArrayList)  
+    。java.lang.Object[] - of supported types (including primitive wrappers) 
+    。android.util.SparseArray, android.util.SparseBooleanArray  
+    。android.os.IBinder, android.os.IInterface - transferred by (globally unique) reference (as a "strong binder", a.k.a. handle) that can be used to call-back into the sender 
+    。android.os.Parcelable - allowing for custom types:     
 
 *src/com/example/app/Bar.java* 
 
@@ -913,10 +911,10 @@ AIDL-defined methods can take zero or more parameters, and must return a value o
 All non-primitive parameters require a directional tag indicating which way the data goes: one of: in,out, or inout 
 * 所有的非基本类型的参数需要一个指定方向的标签，in,out,inout，这其中的一个
 
-    Direction for primitives is always in (can be omitted)
+    Direction for primitives is always in (can be omitted)  
     。基本数据类型的指向一直是in(可以省略)
 
-    The direction tag tells binder when to marshal the data, so its use has direct consequences on performance
+    The direction tag tells binder when to marshal the data, so its use has direct consequences on performance  
     。当编组数据的时候指向标签会告诉Binder，因为它会对性能有直接影响
 
 All .aidl comments are copied over to the generated Java interface (except for comments before the import and package statements).  
@@ -934,10 +932,10 @@ Binder Object Reference Mapping Across Process Boundaries
 A binder object reference is one of the following 
 * Binder对象的引用是以下的一种：
 
-    An actual virtual memory address to a binder object in the same process
+    An actual virtual memory address to a binder object in the same process 
     。在同一个进程中，Binder对象的一个真实的虚拟地址
 
-    An abstract 32-bit handle to a binder object in another process
+    An abstract 32-bit handle to a binder object in another process 
     。在另外一个进程中的，Binder对象的一个抽象的32位handle
 
 On every transaction, the binder driver automatically maps local addresses to remot binder handles and remote binder handles to local addresses 
@@ -946,32 +944,32 @@ On every transaction, the binder driver automatically maps local addresses to re
 This mapping is done on:    
 这种映射的实现：
 
-    Targets of binder transactions
+    Targets of binder transactions  
     。Binder事务的目标
-    IBinder object references shared across process boundaries as a parameter or a return value (embedded in transaction data)
+    IBinder object references shared across process boundaries as a parameter or a return value (embedded in transaction data)  
     。IBinder对象的引用作为参数或返回值跨进程共享（嵌套在事务数据中）
 
 For this to work    
 * 为了能够工作
 
-    The driver maintains mappings of local addresses and remote handles between processes (as a binary-tree per process) so that it can perform this translation
+    The driver maintains mappings of local addresses and remote handles between processes (as a binary-tree per process) so that it can perform this translation    
     。binder驱动在进程之间维持本地地址和远程handle（每一个进程都作为一个二进制树），因此，binder可以传送
-    References embedded in transaction data are discovered based on offsets that the client provides when it submits its transaction and then rewritten in-place
+    References embedded in transaction data are discovered based on offsets that the client provides when it submits its transaction and then rewritten in-place    
     。嵌套在事务中的引用是基于客户端提供的偏移，。。。
 
 The binder driver does not know anything about binder objects that have never been shared with a remote process 
 * Binder驱动不知道不与远程进程共享的Binder对象
 
-    Once a new binder object reference is found in a transaction, it is remembered by binder 
+    Once a new binder object reference is found in a transaction, it is remembered by binder    
     。一旦一个新的Binder对象引用在事务中被发现，它就会记录在Binder驱动中
 
-    Any time that reference is shared with another process, its reference count is incremented 
+    Any time that reference is shared with another process, its reference count is incremented  
     。任何时候，Binder引用与其它的进程共享，Binder驱动的引用计数器就会增长
     
-    Reference count is decremented either explicitly or automatically, when the process dies
+    Reference count is decremented either explicitly or automatically, when the process dies    
     。当进程消亡的时候，Binder驱动的计数器就会明确的减少或自动的减少
 
-    When a reference is no longer needed, its owner is notified that it can be released, and binder removes its mapping
+    When a reference is no longer needed, its owner is notified that it can be released, and binder removes its mapping 
     。当一个引用不再需要的时候，它的所有者就会提醒它可以释放掉，并且Binder会删除自己的映射
 
 
@@ -981,25 +979,25 @@ Building a Binder-based Service and Client by Example
 To demonstrate a Binder-based service and client (based on Fibonacci), we’ll create three separate projects:    
 * 为了演示基于Binder的服务和客户端（基于Fibonacci），我们将会创建三个分离的工程：
 
-    1. FibonacciCommon library project - to define our AIDL interface as well as custom types for parameters and return values
+    1. FibonacciCommon library project - to define our AIDL interface as well as custom types for parameters and return values  
     1.FibonacciCommon库工程 - 定义AIDL接口，自定义类型作为参数和返回值
 
-    2. FibonacciService project - where we implement our AIDL interface and expose it to the clients
+    2. FibonacciService project - where we implement our AIDL interface and expose it to the clients    
     2.FibonacciService工程 - 我们实现AIDL接口，并把它暴露给客户端
 
-    3. FibonacciClient project - where we connect to our AIDL-defined service and use it 
-    3.FibonacciClient工程 - 用它连接我们的AIDL服务
+    3. FibonacciClient project - where we connect to our AIDL-defined service and use it    
+    3.FibonacciClient工程 - 用它连接我们的AIDL服务 
 
 The code is available   
-* 以下的代码是可用的
-￼￼￼
-    As a ZIP archive: https://github.com/marakana/FibonacciBinderDemo/zipball/master
+* 以下的代码是可用的 
+￼
+    As a ZIP archive: https://github.com/marakana/FibonacciBinderDemo/zipball/master    
     。一个ZIP归档：https://github.com/marakana/FibonacciBinderDemo/zipball/master
 
-    By Git: git clone https://github.com/marakana/FibonacciBinderDemo.git
+    By Git: git clone https://github.com/marakana/FibonacciBinderDemo.git   
     。通过Git:git clone https://github.com/marakana/FibonacciBinderDemo.git
 
-The UI will roughly look like this when done:   
+The UI will roughly look like this when done:       
 * UI显示大概如下：  
 xxx.png 
 
@@ -1010,19 +1008,19 @@ FibonacciCommon - Define AIDL Interface and Custom Types
 We start by creating a new Android (library) project, which will host the common API files (an AIDL interface as well as custom types for parameters and return values) shared by the service and its clients   
 * 我们开始创建一个新的Android（库）工程，这是服务端和客户端可以共享的API文件（作为参数和返回值的一个AIDL接口和自定义类型）
 
-    Project Name: FibonacciCommon
+    Project Name: FibonacciCommon   
     。工程名：FibonacciCommon
 
-    Build Target: Android 2.2 (API 8) or later
+    Build Target: Android 2.2 (API 8) or later  
     。构建目标：Android 2.2+（API 8+）
 
-    Package Name: com.marakana.android.fibonaccicommon 
+    Package Name: com.marakana.android.fibonaccicommon  
     。包名：com.marakana.android.fibonaccicommon
     
-    Min SDK Version: 8 or higher
+    Min SDK Version: 8 or higher    
     。最低SDK版本：8+
 
-    No need to specify Application name or an activity
+    No need to specify Application name or an activity  
     。不需要指定应用名或activity
 
 To turn this into a library project we need to access project properties → Android → Library and check Is Library   
@@ -1248,22 +1246,22 @@ FibonacciService - Implement AIDL Interface and Expose It To Our Clients
 We start by creating a new Android project, which will host the our AIDL Service implementation as well as provide a mechanism to access (i.e. bind to) our service implementation  
 * 我们开始创建一个新的Android工程，工程中有AIDL服务的实现和访问服务实现的机制（例如：绑定）
 
-    Project Name: FibonacciService
+    Project Name: FibonacciService  
     。工程名称：FibonacciService
 
-    Build Target: Android 2.2 (API 8) or later
+    Build Target: Android 2.2 (API 8) or later  
     。编译目标：Android 2.2+（API 8+）
 
-    Package Name: com.marakana.android.fibonacciservice 
+    Package Name: com.marakana.android.fibonacciservice     
     。包名：com.marakana.android.fibonacciservice 
 
-    Application name: Fibonacci Service
+    Application name: Fibonacci Service 
     。应用名称：Fibonacci Service
 
-    Min SDK Version: 8 or higher
+    Min SDK Version: 8 or higher    
     。最小SDK: 8+
 
-    No need to specify an Android activity
+    No need to specify an Android activity  
     。不需要指定一个Android Activity
 
 We need to link this project to the FibonacciCommon in order to be able to access the common APIs:
@@ -1271,7 +1269,7 @@ project properties → Android → Library → Add... → FibonacciCommon
 * 我们需要将工程跟FibonacciCommon链接，为了能够访问common APIS：   
 * 工程名称* → Android → Library → Add... → FibonacciCommon* 
 
-    As the result, FibonacciService/default.properties now has android.library.reference.1=../FibonacciCommon and FibonacciService/.classpath and FibonacciService/.project also link to FibonacciCommon
+    As the result, FibonacciService/default.properties now has android.library.reference.1=../FibonacciCommon and FibonacciService/.classpath and FibonacciService/.project also link to FibonacciCommon    
     。最后，* FibonacciService/default.properties* 有了* android.library.reference.1=../FibonacciCommon* ，并且* FibonacciService/.project* 也链接到了* FibonacciCommon* 
 
 Our service will make use of the com.marakana.android.fibonaccinative.FibLib, which provides the actual implementation of the Fibonacci algorithms  
@@ -1280,7 +1278,7 @@ Our service will make use of the com.marakana.android.fibonaccinative.FibLib, wh
 We copy (or move) this Java class (as well as the jni/ implementation) from the FibonacciNative project 
 * 我们将FibonacciNative工程中拷贝（或移出）Java类（和jni/implementation）
 
-    Don’t forget to run ndk-build under FibonacciService/ in order to generate the required native library
+    Don’t forget to run ndk-build under FibonacciService/ in order to generate the required native library  
     。不要忘记在* FibonacciService/* 下运行* ndk-build* 去生成需要的本地库
 
 We are now ready to implement our AIDL-defined interface by extending from the auto-generated com.marakana.android.fibonaccicommon.IFibonacciService.Stub (which in turn
@@ -1442,24 +1440,24 @@ FibonacciClient - Using AIDL-defined Binder-based Services
 We start by creating a new Android project, which will server as the client of the AIDL Service we previously implemented   
 * 我们开始创建一个新的Android工程，这个工程会作为我们之前实现的AIDL Service的客户端
 
-    Project Name: FibonacciClient
+    Project Name: FibonacciClient   
     。工程名：FibonacciClient
 
-    Build Target: Android 2.2 (API 8) or later
+    Build Target: Android 2.2 (API 8) or later  
     。构建的目标：Android 2.2+（API 8+）
 
-    Package Name: com.marakana.android.fibonacciclient
+    Package Name: com.marakana.android.fibonacciclient  
     。包名：com.marakana.android.fibonacciclient
 
-    Application name: Fibonacci Client
+    Application name: Fibonacci Client  
     。应用名：Fibonacci Client
     
-    Create activity: FibonacciActivity
+    Create activity: FibonacciActivity  
     。创建的Activity：FibonacciActivity
-        We’ll repurpose most of this activity’s code from FibonacciNative
-        。Activity中的大部分代码，我们将会复用* FibonacciNative* 的
+        We’ll repurpose most of this activity’s code from FibonacciNative   
+        *Activity中的大部分代码，我们将会复用* FibonacciNative* 的
 
-    Min SDK Version: 8 or higher
+    Min SDK Version: 8 or higher    
     。最小SDK版本：8+
 
 We need to link this project to the FibonacciCommon in order to be able to access the common APIs:  
@@ -1468,20 +1466,20 @@ We need to link this project to the FibonacciCommon in order to be able to acces
 project properties → Android → Library → Add... → FibonacciCommon   
 * project properties → Android → Library → Add... → FibonacciCommon* 
 
-    As the result, FibonacciClient/default.properties now has android.library.reference.1=../FibonacciCommon and FibonacciClient/.classpath and FibonacciClient/.project also link to FibonacciCommon
+    As the result, FibonacciClient/default.properties now has android.library.reference.1=../FibonacciCommon and FibonacciClient/.classpath and FibonacciClient/.project also link to FibonacciCommon   
     。结果，* FibonacciClient/default.properties* 中有* android.library.reference.1=../FibonacciCommon* 和* FibonacciClient/.classpath* ，并且* FibonacciClient/.project* 也链接到了* FibonacciCommon* 
 
-    As an alternative, we could’ve avoided creating FibonacciCommon in the first place
+    As an alternative, we could’ve avoided creating FibonacciCommon in the first place  
     。作为一种替代，我们可以避免创建* FibonacciCommon* 
 
-    FibonacciService and FibonacciClient could have each had a copy of: IFibonacciService.aidl, FibonacciRequest.aidl, FibonacciResponse.aidl, FibonacciResult.java, and FibonacciResponse.java++
+    FibonacciService and FibonacciClient could have each had a copy of: IFibonacciService.aidl, FibonacciRequest.aidl, FibonacciResponse.aidl, FibonacciResult.java, and FibonacciResponse.java++   
     。FibonacciService 和 FibonacciClient 都需要拷贝：IFibonacciService.aidl, FibonacciRequest.aidl, FibonacciResponse.aidl, FibonacciResult.java, and FibonacciResponse.java++
 
-    But we don’t like duplicating source code (even though the binaries do get duplicated at runtime)
+    But we don’t like duplicating source code (even though the binaries do get duplicated at runtime)   
     。但是，我们不喜欢重复的代码（即使，在运行时，二进制文件会重复）
 
 Our client will make use of the string resources and layout definition from FibonacciNative application 
-* 我们的客户端将会使用* FibonacciNative* 应用中的* string* 和* layout* 资源
+* 我们的客户端将会使用FibonacciNative应用中的string和layout资源
 
 * FibonacciClient/res/values/strings.xml* 
 
@@ -1759,9 +1757,9 @@ The code is available
 * 代码是可用的 
 
     As a ZIP archive: https://github.com/marakana/FibonacciAsyncBinderDemo/zipball/master
-    。作为一个ZIP存档：https://github.com/marakana/FibonacciAsyncBinderDemo/zipball/master
+    。作为一个ZIP存档：https://github.com/marakana/FibonacciAsyncBinderDemo/zipball/master  
 
-    By Git: git clone https://github.com/marakana/FibonacciAsyncBinderDemo.git
+    By Git: git clone https://github.com/marakana/FibonacciAsyncBinderDemo.git  
     。通过Git:git clone https://github.com/marakana/FibonacciAsyncBinderDemo.git
 
 FibonacciCommon - Defining a oneway AIDL Service
@@ -2038,35 +2036,35 @@ Sharing Memory via Binder
 Binder transactional data is copied among parties communicating - not ideal if we have a lot of data to send    
 * Binder事务处理的数据是部分通信中的拷贝 - 如果有很多数据传送是不明智的
 
-    In fact, binder imposes limits on how much data we can send via transactions
+    In fact, binder imposes limits on how much data we can send via transactions    
     。事实上，binder通过事务强制限制了我们能够发送多少数据
 
 If the data we want to share comes from a file, then we should just send the file descriptor instead    
 * 如果我们想共享文件中的数据，然后，我们只需要发送文件的描述符
 
-    This is how we ask the media player to play an audio/video file for us - we just send it the FD
+    This is how we ask the media player to play an audio/video file for us - we just send it the FD 
     。这是我们怎么要求媒体播放器去播放音频、视频文件的方式 - 我们只是发送它到软件驱动中
 
 If the data we want to send is located in memory, rather than trying to send all of it at once, we could send multiple but smaller chunks instead   
 * 如果我们想要发送的数据在本地的内存中，我们可以分多次发送，而不是试图一次发送所有的数据
 
-    Complicates our design
+    Complicates our design  
     。让我们的设计复杂化
 
 Alternatively, we could take advantage of Android’s ashmem (Anonymous Shared Memory) facilities 
 * 可选，我们可以利用Android's ashmem（Ashmem匿名共享内存）工具
 
-    Its Java wrapper android.os.MemoryFile is not meant for memory sharing from 3rd party apps
+    Its Java wrapper android.os.MemoryFile is not meant for memory sharing from 3rd party apps  
     。它的Java封装器* android.os.MemoryFile* 不是第三方app共享的内存
 
-    Drop to native (via JNI) and use ashmem directly?
+    Drop to native (via JNI) and use ashmem directly?   
     。丢到本地（通过JNI），然后是直接使用ashmem
 
 Native memory sharing implemented via frameworks/base/libs/binder/Parcel.cpp's: 
-* 本地共享内存通过* frameworks/base/libs/binder/Parcel.cpp's* 实现：
+* 本地共享内存通过frameworks/base/libs/binder/Parcel.cpp's实现：
 
-    。* void Parcel::writeBlob(size_t len, WritableBlob*  outBlob)* 
-    。* status_t Parcel::readBlob(size_t len, ReadableBlob*  outBlob)* 
+    。void Parcel::writeBlob(size_t len, WritableBlob outBlob)   
+    。status_t Parcel::readBlob(size_t len, ReadableBlob outBlob)    
 
 
 This is roughly implemented as follows: 
@@ -2128,25 +2126,25 @@ static int open_driver() {
 ...
 
 ```
-    Avoid blocking binder threads
+    Avoid blocking binder threads   
     。避免阻塞Binder线程
 
-    If we need to perform a long-running task, it’s better to spawn our own thread
+    If we need to perform a long-running task, it’s better to spawn our own thread  
     。如果我们需要执行一个长线任务，最好创建我们自己的线程
 
 Binder limits its transactional buffer to 1Mb per process across all concurrent transactions    
 * Binder限制运行在每个进程中的并发事务的缓存为1M
 
-    If arguments/return values are too large to fit into this buffer, TransactionTooLargeException is thrown
+    If arguments/return values are too large to fit into this buffer, TransactionTooLargeException is thrown    
     。如果参数或返回值的大小超过了缓存，就会抛出* TransactionTooLargeException* 
 
-    Because this buffer is shared across all transactions in a given process, many moderately sized transactions could also exhaust its limit
+    Because this buffer is shared across all transactions in a given process, many moderately sized transactions could also exhaust its limit   
     。因为，在指定的进程中的所有事务的缓存是共享的，很多中等大小的事务也会耗尽缓存
 
-    When this exception is thrown, we don’t know whether we failed to send the request, or failed to receive the response
+    When this exception is thrown, we don’t know whether we failed to send the request, or failed to receive the response   
     。当* TransactionTooLargeException* 异常抛出的时候，我们不知道是发送请求除了错，还是接收响应出了错
 
-    Keep transaction data small or use shared memory (ashmem)
+    Keep transaction data small or use shared memory (ashmem)   
     。让事务数据尽量小，或者使用共享内存（ashmem）
 
 
@@ -2247,11 +2245,11 @@ int do_add_service(struct binder_state * bs,
 Each binder transaction caries in it the UID and PID of the sender, which we can easily access: 
 * 每一个Binder事务发送者的UID和PID很容易访问：
 
-    。* * android.os.Binder.getCallingPid() * * 
-    。* * android.os.Binder.getCallingUid()* * 
+    。android.os.Binder.getCallingPid()  
+    。android.os.Binder.getCallingUid()  
 
 Once we have the knowledge of the calling UID, we can easily resolve it the calling app via PackageManager.getPackagesForUid(int uid)   
-* 一旦我们知道如何访问UID，我们就可以很容易的解决调用app的问题，通过 * * PackageManager.getPackagesForUid(int uid)* * 
+* 一旦我们知道如何访问UID，我们就可以很容易的解决调用app的问题，通过PackageManager.getPackagesForUid(int uid)
 
 Once we have the knowledge of the calling app, we can easily check whether it holds a permission we want to enforce via PackageManager.getPackageInfo(String packageName, int flags) (with the PackageManager.GET_PERMISSIONS flag) 
 * 一旦我们知道如何调用app，我们就可以很容易的检查Binder中是否有执行的权限，通过* * PackageManager.getPackageInfo(String packageName, int flags) (with the PackageManager.GET_PERMISSIONS flag)* * 
@@ -2259,10 +2257,10 @@ Once we have the knowledge of the calling app, we can easily check whether it ho
 But, much easier to do permission enforcement via:  
 * 但是，更简单的方式是：
 
-    Context.checkCallingOrSelfPermission(String permission), which returns PackageManager.PERMISSION_GRANTED if the calling process has been granted the permission or PackageManager.PERMISSION_DENIED otherwise
+    Context.checkCallingOrSelfPermission(String permission), which returns PackageManager.PERMISSION_GRANTED if the calling process has been granted the permission or PackageManager.PERMISSION_DENIED otherwise   
     。Context.checkCallingOrSelfPermission(String permission)，如果调用的进程授予了就返回PackageManager.PERMISSION_GRANTED，否则返回PackageManager.PERMISSION_DENIED
 
-    Context.enforceCallingPermission(String permission, String message) - to automatically throw SecurityException if the caller does not have the requested permission
+    Context.enforceCallingPermission(String permission, String message) - to automatically throw SecurityException if the caller does not have the requested permission 
     。Context.enforceCallingPermission(String permission, String message) - 如果调用者没有请求的权限就会自动的抛出SecurityException异常
 
 This is how many of the application framework services enforce their permissions    
@@ -2408,12 +2406,12 @@ Binder Reporting
 Binder driver reports various stats on active/failed transactions via /proc/binder/ 
 * 在active/failed事务中，Binder驱动通过* /proc/binder/* 报告多种状态
 
-    。/proc/binder/failed_transaction_log 
-    。/proc/binder/state 
-    。/proc/binder/stats 
-    。/proc/binder/transaction_log 
+    。/proc/binder/failed_transaction_log    
+    。/proc/binder/state     
+    。/proc/binder/stats     
+    。/proc/binder/transaction_log   
     。/proc/binder/transactions 
-    。/proc/binder/proc/<pid>
+    。/proc/binder/proc/<pid>    
 
 Replace /proc/binder with /sys/kernel/debug/binder on devices with debugfs enabled. 
 >注意：在设备中将* /sys/kernel/debug/binder* 替换成* /proc/binder* 的时候，设置* debugfs* 为* enable* 
