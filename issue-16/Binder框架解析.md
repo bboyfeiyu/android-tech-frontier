@@ -2207,7 +2207,7 @@ static struct {
     { AID_RADIO, "radio.sms" },
     { AID_RADIO, "radio.phonesubinfo" },
     { AID_RADIO, "radio.simphonebook" },
-    /*  TODO: remove after phone services are updated: * / 
+    /*  TODO: remove after phone services are updated: */ 
     { AID_RADIO, "phone" },
     { AID_RADIO, "sip" },
     { AID_RADIO, "isms" },
@@ -2252,7 +2252,7 @@ Once we have the knowledge of the calling UID, we can easily resolve it the call
 * 一旦我们知道如何访问UID，我们就可以很容易的解决调用app的问题，通过PackageManager.getPackagesForUid(int uid)
 
 Once we have the knowledge of the calling app, we can easily check whether it holds a permission we want to enforce via PackageManager.getPackageInfo(String packageName, int flags) (with the PackageManager.GET_PERMISSIONS flag) 
-* 一旦我们知道如何调用app，我们就可以很容易的检查Binder中是否有执行的权限，通过* * PackageManager.getPackageInfo(String packageName, int flags) (with the PackageManager.GET_PERMISSIONS flag)* * 
+* 一旦我们知道如何调用app，我们就可以很容易的检查Binder中是否有执行的权限，通过PackageManager.getPackageInfo(String packageName, int flags) (with the PackageManager.GET_PERMISSIONS flag)
 
 But, much easier to do permission enforcement via:  
 * 但是，更简单的方式是：
@@ -2428,7 +2428,7 @@ Android Binder on elinux.org
 Share memory using ashmem and binder in the android framework
 Introduction to OpenBinder and Interview with Dianne Hackborn
 Open Binder Documentation
-Binder IPC - A walk-though native * * IAudioFlinger::setMode* *  call
+Binder IPC - A walk-though native IAudioFlinger::setMode call
 
 
 Summary
