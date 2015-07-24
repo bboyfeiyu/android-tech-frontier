@@ -433,18 +433,19 @@ public class DownloadClientActivity extends Activity {
         public ClientHandler(DownloadClientActivity client) {
         this.clientRef = new WeakReference<DownloadClientActivity>(client);
     
-    }
+        }
 
-    @Override
-    public void handleMessage(Message msg) { //7
+        @Override
+        public void handleMessage(Message msg) { //7
 
-        Bundle data = msg.getData();
-        DownloadClientActivity client = clientRef.get();
-        if (client != null && msg.what == CALLBACK_MSG && data != null) {
+            Bundle data = msg.getData();
+            DownloadClientActivity client = clientRef.get();
+            if (client != null && msg.what == CALLBACK_MSG && data != null) {
 
-            Uri completedUri = data.getString("completed-uri"); //8 
-            // client now knows that completedUri is done
-                ...
+                Uri completedUri = data.getString("completed-uri"); //8 
+                // client now knows that completedUri is done
+                    ...
+            }
         }
     }
 } 
