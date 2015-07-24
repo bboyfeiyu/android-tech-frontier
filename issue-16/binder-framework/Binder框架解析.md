@@ -48,6 +48,8 @@ You don’t have anything better to do?
 
 亚历山大 加尔根塔
 
+![](https://github.com/yinshijian-kkb/android-tech-frontier/blob/master/issue-16/binder-framework/binder-pic/author.png)
+
 Developer and instructor of Android Internals and Security training at
 Marakana
 
