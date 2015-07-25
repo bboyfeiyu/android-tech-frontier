@@ -11,13 +11,23 @@
 
 No matter how innovative and useful your Android app is, if it’s laggy, prone to freezing, or hogs memory, no one is going to want to use it.
 
+不管你的Android应用程序是多么的创新实用，如果它存在着像延迟，容易出现ANR，或者太占内存，没有人会想使用它。
+
 Performance is very important, but it’s also something that’s easy to forget about when you’re busy putting the finishing touches to your beautiful user interface or coming up with new and exciting features for your app.
+
+性能是非常重要的，但它也是一件很容易忘记的事情，特别是你忙于完成你漂亮的用户界面，把精力放在那些新的令人兴奋的功能或者为您的应用程序作最后的润色的时候。
 
 That is, until the negative Google Play reviews start rolling in.
 
+直到Google Play 反馈这个问题
+
 In this article, you’ll get a crash course in the common performance problems every Android developer needs to be aware of. You’ll learn how to test whether these problems are occurring in your own projects, using the tools provided by the Android SDK—plus one tool that’s already installed on your Android device.
 
+在这篇文章中，你会对Android开发者需要注意的常见的性能问题有一定的认识。您将学习如何通过测试判断在自己的项目中判断这些问题是否发生，通过使用Android SDK中加一个是你的Android设备上已安装的工具提供的工具。
+
 If you do discover a performance problem in your app, obviously you’ll want to fix it. So along the way we’ll also look at how to use the Android SDK tools to gather more information about whatever performance problems you uncover. Once you have this information, you’ll have a better understanding of how to perfect your app’s performance and ultimately create an app that people will love using.
+
+如果你确实发现了在你的应用中存在着性能问题，很明显，你会希望修复它。所以接下来，我们也来看看如何使用Android SDK工具尽可能多的收集性能相关的信息。通过这些信息，将有助于你更好的完善您的应用，提升应用的性能，并最终创建一个让人们喜欢的应用程序。
 
 ##1. Overdraw
 
