@@ -161,54 +161,91 @@ Just be aware that although views with yellow and red dots may be the logical pl
 Before you start scouring your code for ways to optimize a particular view, ask yourself whether this view has a good reason to render more slowly than the other profiled nodes or whether this really is an opportunity to cut down on your app’s rendering time.
 
 ##3. Memory Leaks
+##3. 内存泄漏
 
 ###Step 1: The Problem
+###Step 1: 问题
+
 Although Android is a memory managed environment, don’t let this lull you into a false sense of security—memory leaks can still happen. This is because garbage collection (GC) can only remove objects that it recognizes as unreachable. If it doesn’t spot an unreachable object, then that object isn’t going to get garbage collected.
+
+虽然Android是一个内存管理的环境，不要认为你可以高枕无忧了，因为内存泄漏仍然有可能发生。这是因为垃圾收集（GC）只能删除它认为是不可达的对象。如果一个对象不是不可达，那么这个对象将不会被垃圾收集。
 
 These unreachable objects hang around, polluting your heap, and taking up valuable space. As your app continues to leak objects, the amount of usable space gets smaller and smaller, which in turn triggers more frequent and longer GC events.
 
+这些遥不可及的目标处于挂起状态，污染你的堆，占用宝贵的空间。当你的应用程序不断发生内存泄漏，可用空间的量变得越来越小，这将触发更频繁的垃圾回收。
+
 This is bad news for two reasons. Firstly, while GC events normally don’t have a noticeable impact on your app’s performance, lots of GC events occurring in a small space of time can result in a laggy, unresponsive user interface. The second problem is that mobile devices tend to be short on memory to begin with, so a memory leak can quickly escalate into an OutOfMemoryError, crashing your app.
 
+这是一个坏消息，因为有两点原因。首先，而GC事件通常没有对您的应用程序的性能有明显的影响，在一个小空间内发生过多的GC事件，可以产生一个反应迟钝的用户界面。第二个问题是，移动设备刚开始的时候内存空间较小，内存泄漏容易升级为OutOfMemoryError，发生crash。
+
 Memory leaks can be difficult to detect. You may only realize that memory is an issue for your app when your users start complaining. Thankfully, the Android SDK has some useful tools that you can use to scour your app for those sometimes subtle signs of memory leaks.
+
+内存泄漏很难检测。当你的用户开始抱怨时，你可能意识到内存是你的应用程序的问题。值得庆幸的是，Android SDK有一些有用的工具，可以帮助你发现一些由内存泄漏引起的细微现象。
 
 ##Step 2: Memory Monitor
 **Memory Monitor** is an easy way to get an overview of your app’s memory usage over time. Note that this tool can only connect to a running app, so make sure the app you want to test is installed on your Android device and that your device is attached to your computer.
 
+**Memory Monitor** 是一个帮你查看在不同时间下应用程序的内存占用率的工具。请注意，这个工具只能连接到一个正在运行的应用程序，所以确保你想测试的应用程序安装在您的安卓设备，您的设备连接到您的计算机。
+
 This tool is built into Android Studio, so you access it by clicking the **Memory** tab towards the bottom of your IDE. As soon as Memory Monitor detects your running application, it starts recording your app’s memory usage.
+
+这个工具在Android Studio中可以找到，所以你访问它通过点击IDE底部的**Memory**。内存监视器将检测正在运行的应用程序，并记录应用程序的内存使用情况。
 
 ![](https://cms-assets.tutsplus.com/uploads/users/369/posts/24058/image/optimise-Android-memory-monitor.jpg)
 
 
 If Memory Monitor doesn’t start recording, double-check that your device is selected in the devices drop-down menu.
 
+如果内存监视器没有开始记录，请在设备的下拉菜单中选择您的设备。
+
 If Memory Monitor is returning a **No debuggable applications** message, open Android Studio’s **Tools** menu, select **Android**, and make sure **Enable adb integration** is selected. This feature can be temperamental, so you may need to toggle **Enable adb integration** on and off a couple of times. It may also help to remove your Android device and then reconnect it.
+
+如果内存监视器是返回**No debuggable applications**消息，打开Android Studio 的** tool**菜单，选择**Android**，确保**Enable adb integration**选中。这一功能有点不靠谱，所以你可能需要将状态切换几次。它也有助于重新连接安卓设备。
 
 Once Memory Monitor has detected your running application, it’ll display the amount of memory your app is using in dark blue and the unallocated memory in light blue.
 
+一旦内存监视器检测到正在运行的应用程序，它会显示你的应用程序的内存使用情况，深蓝色是使用的，浅蓝色是未分配的内存。
+
 Spend some time interacting with your device while keeping an eye on how your app’s memory usage changes in Memory Monitor. Eventually, the allocated memory will grow until there’s no free memory left. At this point, the system will free up memory by triggering a GC event. Whenever you see a significant drop in allocated memory, this is a sign that a GC event has occurred.
+
+花一些时间使用你的设备，同时关注应用在内存中的使用情况的变化。最终，分配的内存将增长，直到没有空闲的内存。在这时，该系统将释放内存，触发一个GC事件。每当你看到分配的内存的显着下降，这是一个GC发生的标志。
 
 GC events are perfectly normal, but be concerned if you see your app allocating lots of memory in a short period of time or GC events becoming more frequent. These are both telltale signs that a memory leak is occurring in your app.
 
+GC事件是非常正常的，但如果你看到你的应用程序分配大量的内存在很短的时间内或GC事件变得更加频繁。这些迹象表明应用发生了内存泄漏。
+
 If you use Memory Monitor to track a suspected memory leak over a significant period of time, you may see the Android system compensate for your app’s growing memory demands by granting your app a higher memory ceiling, at which point the cycle begins again.
+
+如果你使用Memory Monitor跟踪一个可疑的内存泄漏在相当长的时期内，你可以发现Android通过提高内存的使用上限来补偿应用内存使用的增长，在这时，循环重新开始。
 
 Eventually, you may even see your app consuming so much memory that the system can no longer make any more memory available to your app. If you see this happening, then there’s something seriously wrong with the way your app is using memory.
 
-
+最终，你甚至可以看到你的应用程序消耗太多内存，以至于系统不能再给你的应用分配更多的内存。如果你看到这种情况，那么这就意味着应用使用内存的方式是错误的。
 
 ##Step 3: Android Device Monitor
 Another tool that can help you gather more information about memory leaks and other memory-related problems is the Android Device Monitor’s **Heap** tab.
 
-The **Heap** tab can help you diagnose memory leaks by displaying how much memory the system has allocated your app. As already mentioned, if the allocated memory keeps increasing, then this is a strong indication that your app has a memory leak.  
+可以帮助您收集更多关于内存泄漏和其他内存相关问题信息的另一种工具，是 Android Device Monitor的 **Heap**。
+
+The **Heap** tab can help you diagnose memory leaks by displaying how much memory the system has allocated your app. As already mentioned, if the allocated memory keeps increasing, then this is a strong indication that your app has a memory leak.
+
+**Heap**可以帮助您诊断内存泄漏，通过显示系统已分配您的应用程序多少内存。正如已经提到的，如果分配的内存不断增加，很明显，应用存在内存泄漏。
 
 But this tool also provides lots of data about your app’s heap usage, including the kind of objects your app is allocating, the number of allocated objects, and how much space these objects are taking up. This extra information can be invaluable when you’re tracking down the source of memory leaks and other memory-related problems in your app.
 
+但这个工具还提供了大量关于堆的使用情况的数据，包括程序分配的类对象，分配的对象的数量，这些对象占用多少空间。当您跟踪在应用程序中的内存泄漏和其他内存相关问题时，这些信息是非常宝贵的。
+
 To access this tool, launch Android Device Monitor and select the **DDMS** tab. In the **Devices** panel, select your device and the process you want to examine. Then, select the **Heap** tab, as shown in the screenshot below, and spend some time interacting with your app.
+
+要使用该工具，启动Android Device Monitor ，选择**DDMS** 标签信息。在**Devices** 面板，选择您的设备和相应的进程。然后，选择**Heap**标签，如下面的截图所示，并花一些时间与你的应用程序交互。
 
 ![](https://cms-assets.tutsplus.com/uploads/users/369/posts/24058/image/optimise-Android-performance-heap-tab.jpg)
 The heap output is only displayed after a GC event, so to populate this tab with data you’ll either have to wait for a GC event to occur naturally or you can force a GC by clicking the **Cause GC** button.
 
-Once a GC event has occurred, the **Heap** tab will update with lots of information about your app’s heap usage. This data will refresh after each GC event.
+在GC事件后才显示堆的信息，所以你要么等待发生自然或者你可以通过点击**Cause GC**按钮强行触发GC事件,这样此选项卡才会有数据。
 
+Once a GC event has occurred, the **Heap** tab will update with lots of information about your app’s heap usage. This data will refresh after each GC event.
+一旦发生了GC事件，**Heap** 标签会更新应用堆使用的信息。此数据会在每一个GC事件后自动刷新。
 
 ##Conclusion
 ##结论
@@ -223,3 +260,5 @@ You’ve also got to grips with some of the tools you can use to check whether t
 你已经可以使用一些工具来检查判断这些问题发生在你自己的Android项目中是否存在，以及收集更多与之相关的信息。有了这些信息，你将轻松的了解问题的症结并解决它们。
 
 The Android SDK has lots more tools that can help you diagnose and address performance problems. If you want to learn more, then the official Android documentation pages on [Traceview and dmtracedump](http://developer.android.com/tools/debugging/debugging-tracing.html) and [Allocation Tracker](http://developer.android.com/tools/debugging/ddms.html#alloc) contain more information.
+
+Android SDK提供了很多工具，可以帮助您诊断和解决性能问题。如果你想了解更多，可以查看Android官方文档[Traceview and dmtracedump](http://developer.android.com/tools/debugging/debugging-tracing.html) 和 [Allocation Tracker](http://developer.android.com/tools/debugging/ddms.html#alloc)，那里包含更多的信息。
