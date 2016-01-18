@@ -80,6 +80,7 @@ Did you know IntelliJ has [its own REST client](https://www.jetbrains.com/idea/h
 
 ###Have any other favorite tips or tricks? Let me know!
 有任何其他提示或技巧？让我知道吧！
+
 --
 
 [^intention action]:[Intention Actions](https://www.jetbrains.com/idea/help/intention-actions.html) are those suggestions in the little popup menus that allow you to quick-fix things like classes that haven’t been imported, etc.
