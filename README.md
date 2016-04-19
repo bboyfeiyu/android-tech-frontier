@@ -47,8 +47,8 @@
 
 <b id="recommend" ></b>
 ## 推荐文章
-如果您有好的文章推荐我们翻译，请在 在[bboyfeiyu/android-tech-frontier](https://github.com/bboyfeiyu/android-tech-frontier/issues) 下提一个issue，Issue 模板: 
-https://github.com/bboyfeiyu/android-tech-frontier/issues/1
+如果您有好的文章推荐我们翻译，请在 在[bboyfeiyu/android-tech-frontier](https://github.com/hehonghui/android-tech-frontier/issues) 下提一个issue，Issue 模板: 
+https://github.com/hehonghui/android-tech-frontier/issues/1
 
 * 推荐理由: `这是一篇关于XXXXXXX的优秀文章`
 * 原文链接: 写明原始链接
@@ -85,4 +85,4 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 
 <b id="articles" ></b>
 ## 已完成列表
-请移步[项目Wiki](https://github.com/bboyfeiyu/android-tech-frontier/wiki) 。
+请移步[项目Wiki](https://github.com/hehonghui/android-tech-frontier/wiki) 。
