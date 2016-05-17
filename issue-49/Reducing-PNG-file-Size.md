@@ -123,6 +123,8 @@ Basically, make sure you’re not unintentionally bloating your PNG file by usin
 
 Moving on, color reduction should always start with taking a stab at trying to optimize your colors so that it could be defined using the INDEXED format. INDEXED color mode, basically chooses the best 256 colors to use, and replaces all your pixels with an index into that color palette. The result, is a reduction from 16 million colors (24bpp) to 256, which is a significant savings.
 
+继续，减少颜色值的第一步应该是优化颜色让图片能定位为索引图像的格式。索引颜色模式，主要是使用256种最常用的颜色值，并且将图片中的所有像素替换为这256种颜色的索引代码。其结果就是将一千六百万种颜色（24bpp）转换成256中，这将是一个明显的改进。
+
 Here’s an example image, and it’s indexed variant:
 
 ![image](https://cdn-images-1.medium.com/max/800/1*AaAgW3WKzGcWUD0a8wbmQQ.png)
