@@ -83,12 +83,61 @@ Even though there’s a lot of things you could manually do, I suggest that you 
 
 The reason for your focus here, is that reducing unique colors directly influences the compression potential at every other stage of the pipeline; and tools can do the rest.
 
-让你专注在减小图片颜色的原因是，这能直接在各个阶段影响压缩的潜力，让工具完成剩下的工作。
+让你专注在减小图片颜色的原因是，这能直接影响在各个阶段的压缩潜力，让工具完成剩下的工作。
 
 See, the filtering stage of the PNG compression step is powered by how variant adjacent pixel colors are to each other. As such reducing the number of unique colors in the will reduce variation in adjacent pixels, decreasing the dynamic range of values that are spit out from filtering.
 
-
+由此可见，相邻像素的颜色值是影响压缩步骤中滤镜过程的主要因素。这样减少在相邻的象素的颜色值，将减少特有的颜色的数量，减小颜色筛选的动态范围。
 
 As a result, the DEFLATE stage will find more duplicate values, and be able to compress better.
 
+这样做的结果就是，其余默认的压缩步骤将发现更多相同的颜色值，使得压缩效果更好。
+
 It’s worth noting though, that reducing the number of unique colors, we’re effectively applying a lossy encoding stage to our image. THIS is why you should handle this process manually. Tools have a difficult time understanding human perceptual quality, and in some cases, small errors to a tool can look like huge errors to a human eye. But, if done the right way, it shouldn’t be noticeable to the user, and can save a huge amount of space.
+
+值得注意的是，虽然我们减少了图片中不同颜色的颜色值，但是这是一个对图片有损的步骤。这就是为什么需要你手动处理这部分工作的原因。压缩工具很难理解人们在各种情况下的实际需求，在某些情况下，一些工具中的小错误在人们眼里看起来将是十分巨大的问题。但是，如果处理得当，这将不被用户所察觉，而且能够减小巨大的空间。
+
+# PSA: Choose the right pixel format
+
+# PSA:请选择正确的像素格式
+
+This should go without saying.. But I’ve seen examples in a few APKs that prove otherwise:
+
+You should make sure to use the right pixel format for your PNG file.
+
+这应该不用我提醒，但我在并非少数的APK中看到了错误的例子：
+
+你应该确定你的PNG图片使用的像素格式是正确的。
+
+For example, if you don’t have alpha in the image, then using the RGBA 32bpp option is a waste of an entire ¼ of your image; instead, use the 24bpp truecolor format (or just use JPG).Likewise, if your image just contains grayscale data, you should only be storing it as 8bpp.
+
+例如，在图像中你不需要有透明度的值，那么使用 RGBA 32bpp 的格式选项将会浪费整整四分之一的大小，而如果使用 24bpp 的真彩（或者直接使用jpg），你将节省这些空间。同样的，如果你的照片是黑白的，你只需要使用 8bpp 的格式。
+
+Basically, make sure you’re not unintentionally bloating your PNG file by using the wrong type of pixel format.
+
+基本上，请确保你不会在无意中使用了错误的像素格式使你的PNG图片大小变得巨大。
+
+# Indexed images, FTW!
+
+# 使用索引图像！
+
+Moving on, color reduction should always start with taking a stab at trying to optimize your colors so that it could be defined using the INDEXED format. INDEXED color mode, basically chooses the best 256 colors to use, and replaces all your pixels with an index into that color palette. The result, is a reduction from 16 million colors (24bpp) to 256, which is a significant savings.
+
+Here’s an example image, and it’s indexed variant:
+
+![image](https://cdn-images-1.medium.com/max/800/1*AaAgW3WKzGcWUD0a8wbmQQ.png)
+
+
+The example Google Doodle above was exported in Photoshop’s “save for web” feature, and the image format was set to PNG8, which created this color palette for the image:
+
+![image](https://cdn-images-1.medium.com/max/800/1*ifzr3HwaURqE-3okFHRe9g.png)
+
+
+Basically, by moving to indexed images, you’ve replaced the unique color at each pixel, with a pointer into the palette instead. The result is moving from a 32bit per pixel to 8 bits per pixel, which is a nice first-step file size reduction.
+
+This mode creates further savings when you consider how the filtering and deflate stages are applied:
+
+1. The number of unique pixels has been reduced, meaning that there’s a higher probability that adjacent colors will point to the same color
+2. Since the number of similar adjacent colors increases, the filtering stage will produce more duplicate values, such that the LZ77 phase of DEFLATE can compress it better.
+
+If you can represent your image as a paletted image, then you’ve gone a great way to significantly improving the file size, so it’s worth investigating if the majority of your images can be converted over.
