@@ -127,19 +127,121 @@ Moving on, color reduction should always start with taking a stab at trying to o
 
 Here’s an example image, and it’s indexed variant:
 
-![image](https://cdn-images-1.medium.com/max/800/1*AaAgW3WKzGcWUD0a8wbmQQ.png)
+下面是一个示例的图片，还有索引的数量：
 
+![image](https://cdn-images-1.medium.com/max/800/1*AaAgW3WKzGcWUD0a8wbmQQ.png)
 
 The example Google Doodle above was exported in Photoshop’s “save for web” feature, and the image format was set to PNG8, which created this color palette for the image:
 
+这个 Google 的涂鸦图片是通过 Photoshop 的以网络格式保存图片功能保存的，它的图片格式是 PNG8 ，足以显示这个调色板。
+
 ![image](https://cdn-images-1.medium.com/max/800/1*ifzr3HwaURqE-3okFHRe9g.png)
 
-
 Basically, by moving to indexed images, you’ve replaced the unique color at each pixel, with a pointer into the palette instead. The result is moving from a 32bit per pixel to 8 bits per pixel, which is a nice first-step file size reduction.
+
+基本上，通过转变为索引图像，图片中的每一个像素的颜色值都将被替换成一个索引值。其结果就是将每一个像素的大小从 32bit 减小到 8bit ，作为减小图片大小的第一步成效还是不错的。
 
 This mode creates further savings when you consider how the filtering and deflate stages are applied:
 
 1. The number of unique pixels has been reduced, meaning that there’s a higher probability that adjacent colors will point to the same color
 2. Since the number of similar adjacent colors increases, the filtering stage will produce more duplicate values, such that the LZ77 phase of DEFLATE can compress it better.
 
+当你考虑如何实现过滤和压缩阶段时，这种模式将提供进一步的压缩效果：
+
+1. 不同的像素颜色数量已经被减小，意味着更多的相邻的像素将有同样的颜色值。
+2. 因为相似的相邻颜色数量的增加，过滤阶段将会产生更多相同的值，这样 LZ77 压缩阶段就可以得到更好的压缩效果。
+
 If you can represent your image as a paletted image, then you’ve gone a great way to significantly improving the file size, so it’s worth investigating if the majority of your images can be converted over.
+
+如果你的图片能被处理成上图调色板一样的格式，那么你已经显著减小了图片的文件大小，所以花时间查看你项目中的图片是否能被优化是十分值得的。
+
+# Optimizing fully transparent pixels
+
+# 优化完全透明的像素
+
+One of the nice features of INDEXED mode, is that you can denote specific colors in your palette to act as “transparent”. When the PNG file is decoded into RGBA in main memory, transparent pixels will be set accordingly. What’s interesting here is that this transparency mode is entirely binary; a given pixel is either visible, or not.
+
+索引模式的一个很棒的功能就是你可以将调色板中特定颜色转换为“透明”。当 PNG 图片在内存中被解码成 RGBA 图片时，相应的透明像素将被被设置。有趣的是,这种透明模式完全是二进制的;给定像素是可见的,或者不是。
+
+![image](https://cdn-images-1.medium.com/max/800/1*Yq3LFOb4NmzMHed0AJ-4Aw.png)
+
+An Indexed PNG file, with multiple identified transparency values
+
+一张索引图片，有多个识别透明度值
+
+This type of “punch through” transparency is pretty efficient in terms of compression; Normally, it’s used for large areas of the background that are transparent, and as such, there’s lots of self-similar pixels that the PNG Compressor can take advantage of.
+
+这种 “punch through” 类型的透明度在压缩中是十分有效的，这一般使用在大片的透明背景中，例如上图中，就有许多在压缩过程中能被优化的相同的像素
+
+But it’s only available in indexed mode. There are situations where you want to use the same “punch through” transparency, but need to use full RGB mode as well.
+
+但是这只有在索引模式下才能被设置，在许多情况下你想要使用 “punch through” 透明度，但是同时也需要使用完整的 RGB 格式。
+
+In these cases, it’s easy to make the mistake of not properly masking out your invisible pixels. Consider the example below; both images support transparency & Truecolor, but one of them is significantly smaller.
+
+在这种情况中，很容易犯的一个错误是不适当的屏蔽不可见的像素。在以下的例子中，两张图片都支持 透明/真彩 ，但是其中一张明显更小。
+
+![image](https://cdn-images-1.medium.com/max/800/1*CdJdTqpCKr7gC3zOkuILDA.png)
+
+Two files that look the same, but have significantly different file sizes.
+
+这两张图片看起来一样，但是大小确完全不同。
+
+The reason for this size difference becomes apparent, when you disable the alpha channel:
+
+当你禁用透明度通道时，两张图片的大小区别将变得非常明显。
+
+![image](https://cdn-images-1.medium.com/max/800/1*ZpTATiM39cPjSgyVEaLTeA.png)
+
+While these two images look the same when being displayed on screen, the left image has a full set of color data in the RGB channel for pixels which will eventually be Alpha’d out. Even though the user doesn’t see this information, the compressor still has to deal with it.
+
+当这两张图片显示在屏幕上时，左边图片的像素在 RGB 通道都拥有完整的色彩数据以绘制出透明度。尽管用户不会看到这些数据，压缩中任然需要对这些数据进行处理。
+
+Even though the Alpha channel will only allow some portion of the image to be rendered, there’s a FULL SET of pixel data in the RGB layer, meaning that the filtering & DEFLATE stages will still have to go through and compress all that data.
+
+尽管透明通道将仅仅允许部分图片被呈现，完整的像素信息也会被存在 RGB 层中，这意味着过滤/默认阶段仍然将要对完整的数据进行优化处理。
+
+Instead, if you know those pixels won’t be seen, make sure they are homogeneous. When we fill the non-visible pixels with a single value; So we’ve flattened the parts of the image that won’t be seen.
+
+相对的，如果你知道这些像素将不被察觉，请确保他们的均匀的。这样我们可以用一个值来代替这些不可见的像素，通过这样来处理那些图像中不被看到的部分。
+
+The result is that more of each row is a single color, and thus the interpolation predictor, and Deflate stages will produce better compression. Basically, this is a fun little hack to let you get punch-through transparency, in true-color mode, with a smaller file-size footprint.
+
+这样做的结果就是每一行都是一个颜色，因此在默认的差值预测阶段中，将会产生更好的压缩效果。基本上这是一个在真彩模式中让你得到 “punch-through” 透明度的一个黑科技，并且将得到一个更小的图片文件。
+
+# Lossy Pre-process
+
+The indexed mode in PNG is fantastic, but sadly, not every image will be able to be accurately represented with only 256 colors. Some might need 257, 310, 512 colors, or 912 colors to look correct. Sadly, since Indexed mode only supports 256 colors, these images have to default all the way to 24bpp, even though only a subset of colors are actually needed.
+
+Thankfully though, you can get pretty close to index savings by reducing colors manually.
+
+The process of creating an indexed image, may be better descripted as vector quantization. It’s sort of a rounding process for multidimensional numbers. More directly, all the colors in your image get grouped based upon their similarity. For a given group, all colors in that group are replaced by a single “center point” value, which minimizes error for colors in that cell. (or, “site” if you’re using the Voronoi terminology)
+
+The image below shows this process for a 2D set of values.
+
+![image](https://cdn-images-1.medium.com/max/800/1*w5GkS92LEORhfT1_t3jygg.gif)
+
+Green dots represent all input values in this 2D space. Blue lines represent “cells” or “clumps” of similar colors, and the red dots denote the representative color for that cell. The process of VQ for images means for every pixel, replacing it with the representative color for it’s VQ cell.
+
+The result of applying VQ to an image has the effect of reducing the number of unique colors, replacing it with a single color thats “pretty close” in visual quality.
+
+It also has the ability to allow you to define the “maximum” number of unique colors in your image.
+
+For example, the image below shows the 24-bit-per-pixel version of a parrot head, vs a version that only allowed 16 total unique colors to be used.
+
+![image](https://cdn-images-1.medium.com/max/800/1*mZxHiZEee9u99jJZ9CMHHQ.png)
+
+Immediately, you can see that there’s a loss of quality; most of the gradient colors have been replaced, giving the “banding” effect to the visual quality; obviously this image needs more than the 16 unique colors we gave it.
+
+Setting up a VQ step in your pipeline can help you get a better sense of the true number of unique colors that your image uses, and can help you reduce them significantly. Sadly though, I don’t know of any image optimization tool out there that allows you to specify these values manually, other than pngquant. So, unless you’re using that tool, you might have to create your own VQ code to do this.
+
+# It’s all about collaboration
+
+The truth is, you should be using a tool to help you reduce the size of PNGs to as small as possible; The authors of these tools have spent a lot of time working on the issues, and it’s much faster for you to leverage their work. That being said, there’s still a lot of work that can be done by your artists (and yourself) to an image before sending it off to the extra programs to do their magic.
+So, go out there and make some smaller PNGs!
+
+HEY!
+
+Want to know how JPG files work, and how to make them smaller?
+
+Want more data compression goodness? Buy my book!
