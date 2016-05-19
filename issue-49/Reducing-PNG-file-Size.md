@@ -211,37 +211,72 @@ The result is that more of each row is a single color, and thus the interpolatio
 
 # Lossy Pre-process
 
+# 有损预处理
+
 The indexed mode in PNG is fantastic, but sadly, not every image will be able to be accurately represented with only 256 colors. Some might need 257, 310, 512 colors, or 912 colors to look correct. Sadly, since Indexed mode only supports 256 colors, these images have to default all the way to 24bpp, even though only a subset of colors are actually needed.
+
+索引模式的 PNG 图片的确是神奇的，但是可惜的是，并非所有的图片都能用 256 种颜色完全显示。有些也许需要 257 ，310, 512 种甚至 912 种颜色才能正确的显示出来。由于索引模式只支持256种颜色值，所以尽管也许只有一小部分颜色值是需要的，我们也只能用完整的 24bpp 格式。
 
 Thankfully though, you can get pretty close to index savings by reducing colors manually.
 
+但是尽管如此，手动的减少颜色值也能让你接近索引图像的保存方法。
+
 The process of creating an indexed image, may be better descripted as vector quantization. It’s sort of a rounding process for multidimensional numbers. More directly, all the colors in your image get grouped based upon their similarity. For a given group, all colors in that group are replaced by a single “center point” value, which minimizes error for colors in that cell. (or, “site” if you’re using the Voronoi terminology)
 
+创建一个索引图像的过程形容起来比较像是一个矢量量化的过程。这是一种多维数字的舍入过程，更直接的说,所有的颜色将在你的图片中基于他们的相同之处得到分组。对于其中的任意一个分组，组中所有的颜色值将会被一个 “中心点” 的值所代替，最大限度的减少错误的颜色误差。
+
 The image below shows this process for a 2D set of values.
+
+以下的图片展示在一个 2D 的数组值中这个过程是如何进行的。
 
 ![image](https://cdn-images-1.medium.com/max/800/1*w5GkS92LEORhfT1_t3jygg.gif)
 
 Green dots represent all input values in this 2D space. Blue lines represent “cells” or “clumps” of similar colors, and the red dots denote the representative color for that cell. The process of VQ for images means for every pixel, replacing it with the representative color for it’s VQ cell.
 
+绿色的点代表 2D 空间中所有的输入值。蓝色的线代表相同颜色的“细胞”或是“团体”，红色的点表示这个“细胞”中主要的颜色。矢量量化的过程意味着对图像的每个像素,取而代之的是矢量量化的代表颜色。
+
 The result of applying VQ to an image has the effect of reducing the number of unique colors, replacing it with a single color thats “pretty close” in visual quality.
+
+对一个图片使用矢量量化的过程能够减少不同颜色值的数量，用一个单一的颜色来代替看起来十分相近的颜色。
 
 It also has the ability to allow you to define the “maximum” number of unique colors in your image.
 
+同样的也提供了设置不同颜色数量最大值的能力。
+
 For example, the image below shows the 24-bit-per-pixel version of a parrot head, vs a version that only allowed 16 total unique colors to be used.
+
+例如，下面这张图片显示了 24-bit-per-pixel 版本的鹦鹉头像，对比于一张只允许 16 种不同颜色的图像。
 
 ![image](https://cdn-images-1.medium.com/max/800/1*mZxHiZEee9u99jJZ9CMHHQ.png)
 
 Immediately, you can see that there’s a loss of quality; most of the gradient colors have been replaced, giving the “banding” effect to the visual quality; obviously this image needs more than the 16 unique colors we gave it.
 
+你能迅速的发现这过程中图片质量的损失，大部分的渐变颜色都被取代，使得实际看起来有 “条带” 的效果，很明显这张图片需要不止 16 种不同的颜色值来显示。
+
 Setting up a VQ step in your pipeline can help you get a better sense of the true number of unique colors that your image uses, and can help you reduce them significantly. Sadly though, I don’t know of any image optimization tool out there that allows you to specify these values manually, other than pngquant. So, unless you’re using that tool, you might have to create your own VQ code to do this.
+
+在使用图片之前加入一个图片矢量量化的过程能帮助你得到图片中使用的真正独特需要的颜色值，能显著的帮助你减小图片大小。不过,遗憾的是我不知道的任何图像优化工具,允许您手动指定这些值,除了pngquant。所以,除非你使用 pngquant ,否则你可能需要创建自己的矢量量化代码。
 
 # It’s all about collaboration
 
+# 协作是关键
+
 The truth is, you should be using a tool to help you reduce the size of PNGs to as small as possible; The authors of these tools have spent a lot of time working on the issues, and it’s much faster for you to leverage their work. That being said, there’s still a lot of work that can be done by your artists (and yourself) to an image before sending it off to the extra programs to do their magic.
+
+事实上，你应该使用一个工具来帮助你尽可能的减小 PNG 图片的大小，这些工具的作者已经花费了大量的时间来研究如何解决这些问题，直接利用他们的工作成果是十分便捷的。话虽这么说,还是有很多工作可以通过你自己来优化一个图像,然后再使用其他工具来实现他们的魔法。
+
 So, go out there and make some smaller PNGs!
+
+所以，让咱们的 PNG 图片越来越小吧！
 
 HEY!
 
+嘿！
+
 Want to know how JPG files work, and how to make them smaller?
 
+想知道 JPG 图片是如何工作的吗？想知道如何减小 JPG 图片的大小吗？
+
 Want more data compression goodness? Buy my book!
+
+想要更多的干货？请买我的书！
