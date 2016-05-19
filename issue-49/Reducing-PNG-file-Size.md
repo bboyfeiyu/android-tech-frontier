@@ -35,6 +35,8 @@ So, now that I’ve trolled through about 100 APKs, I’ve decided to pass along
 
 # You should be using an optimizer tool
 
+# 你应该使用一个优化工具
+
 Once you understand the PNG file format, it becomes clear that there’s some obvious areas of improvement that could result in smaller file sizes:
 
 * Removing unneeded chunks
