@@ -1,7 +1,7 @@
 当钢铁侠反应更灵敏-RxJava
 ---
 
-> * 原文链接 : [When Iron Man becomes reactive, RxJava](http://saulmm.github.io/when-Iron-Man-becomes-Reactive-Avengers2/)
+> * 原文链接 : [When Iron Man becomes reactive, RxJava](http://saulmm.github.io/when-Iron-Man-becomes-Reactive-Avengers2)
 * 原文作者 : [Saúl Molinero](https://twitter.com/_saulmm)
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [BownX](https://github.com/BownX)   
